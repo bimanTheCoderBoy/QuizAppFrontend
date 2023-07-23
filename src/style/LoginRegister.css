@@ -1,0 +1,117 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: linear-gradient(135deg,
+            hsl(184deg 84% 78%) 0%,
+            hsl(193deg 100% 77%) 10%,
+            hsl(198deg 100% 76%) 20%,
+            hsl(207deg 100% 79%) 30%,
+            hsl(224deg 100% 83%) 40%,
+            hsl(256deg 84% 83%) 50%,
+            hsl(263deg 92% 83%) 60%,
+            hsl(271deg 98% 83%) 70%,
+            hsl(280deg 100% 82%) 80%,
+            hsl(288deg 100% 82%) 90%,
+            hsl(297deg 98% 80%) 100%);
+}
+
+.login-area {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffffd7;
+    padding: 0 3rem;
+    border-radius: 1rem;
+}
+
+.login-area h2 {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.login-area form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-data label {
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+}
+
+.login-data div {
+    border-bottom: 1px solid black;
+}
+
+.login-data input {
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    background-color: transparent;
+    width: 18rem;
+}
+
+.login-password a {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.463);
+    text-decoration: none;
+}
+
+.submit input {
+    width: 100%;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem;
+    color: #ffffff;
+    background-image: linear-gradient(135deg,
+            hsl(185deg 88% 47%) 0%,
+            hsl(192deg 100% 47%) 10%,
+            hsl(198deg 100% 50%) 20%,
+            hsl(203deg 100% 50%) 30%,
+            hsl(216deg 100% 60%) 40%,
+            hsl(255deg 82% 67%) 50%,
+            hsl(264deg 89% 67%) 60%,
+            hsl(273deg 95% 66%) 70%,
+            hsl(281deg 98% 64%) 80%,
+            hsl(289deg 98% 60%) 90%,
+            hsl(297deg 98% 52%) 100%);
+}
+
+
+.other-options {
+    margin-top: 2%;
+    text-align: center;
+}
+
+.other-options p {
+    margin-bottom: 0.2rem;
+    font-size: 0.7rem;
+}
+
+.other-options svg {
+    font-size: 3rem;
+    color: rgb(206, 6, 6);
+}
+
+.go-register {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.go-register a {
+    text-decoration: none;
+    font-size: 0.7rem;
+}

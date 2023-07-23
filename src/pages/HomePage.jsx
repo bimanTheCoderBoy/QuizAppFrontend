@@ -1,11 +1,13 @@
 import React from 'react';
 import NavbarComponent from '../components/NavbarComponent';
+import HeroSection from '../components/HeroSection';
+import "../style/landingPage.css";
 
 function HomePage() {
     return (
         <>
             <NavbarComponent />
-            <h1>Aluu</h1>
+            <HeroSection />
         </>
     )
 }
