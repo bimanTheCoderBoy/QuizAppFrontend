@@ -5,7 +5,7 @@ import "../style/LoginRegister.css";
 
 function LoginPage() {
     return (
-        <>
+        <div className='login-page'>
             <div className='login-area'>
                 <h2>Login</h2>
                 <form action="">
@@ -37,7 +37,7 @@ function LoginPage() {
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     )
 }
 

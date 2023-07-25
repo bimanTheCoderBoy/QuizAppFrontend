@@ -3,7 +3,9 @@
     --light-blue: #aed9ff;
     --medium-blue: #0088ff;
     --shade-blue: #0e5796;
-    --check: rgb(14, 207, 0);
+    --check: #0ecfe0;
+    --check2 : #8864f0;
+    --check3: #f00bfc;        
 }
 
 /* Navbar */
