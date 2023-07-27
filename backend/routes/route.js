@@ -1,6 +1,6 @@
 const express =require('express')
 const router=express.Router()
-const {register}=require("../controller/loginController")
+const {register,login,isAuth}=require("../controller/loginController")
 
 
 router.get("",(req, res)=>{
@@ -8,5 +8,6 @@ router.get("",(req, res)=>{
     res.send("fghjkl");
 });
 router.post("/register",register);
- 
+router.post("/login",login);
+router.get("/isauth",isAuth);
 module.exports =router
