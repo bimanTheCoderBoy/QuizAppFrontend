@@ -14,12 +14,14 @@ const router=require("./routes/route.js")
 const dbconect=require("./database/database.js")
 dbconect();
 
-
-
+//error middle ware
+const {errorMiddleware}=require("./utils/error.js")
 //middle wares
-app.use(cookie_parser());
+app.use(errorMiddleware);
 app.use(express.json());
-app.use('/',router);
+app.use(cookie_parser());
+
+app.use('',router);
 
 
 
@@ -27,5 +29,5 @@ app.use('/',router);
 const port=process.env.PORT || 3000;
 //listening server
 app.listen(port,()=>{
-console.log("server is listening")
+console.log("server is listening at port "+port)
 });
