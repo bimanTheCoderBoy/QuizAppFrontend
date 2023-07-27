@@ -24,7 +24,7 @@ const User = new mongoose.Schema(
         skey:{
             type: String,
             unique: true,
-            // default:   
+            default:121
         },
         createAt: {
             type: Date,
