@@ -1,6 +1,6 @@
 const express =require('express')
 const router=express.Router()
-const {register,login,isAuth}=require("../controller/loginController")
+const {register,login,isAuth}=require("../controller/AuthController")
 
 
 router.get("",(req, res)=>{
