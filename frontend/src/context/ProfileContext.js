@@ -47,10 +47,12 @@ const ProfileProvider = ({ children }) => {
     }
 
     // REGISTRATION API 
-    const userRegistration = async (url, body) => {
+    const userRegistration = async (url, { name, email, password, type }) => {
         try {
             const resp = await axios.post(url,
-                JSON.stringify({}),
+                JSON.stringify({
+                    name, email, password, type
+                }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -64,7 +66,7 @@ const ProfileProvider = ({ children }) => {
     }
 
 
-    return <ProfileContext.Provider value={{ ...state, getProfile, userLogin }}>
+    return <ProfileContext.Provider value={{ ...state, getProfile, userLogin, userRegistration }}>
         {children}
     </ProfileContext.Provider>
 

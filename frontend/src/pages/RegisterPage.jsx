@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useProfileContext } from "../context/ProfileContext";
 import "../style/LoginRegister.css";
 
-const RegisterAPI = "";
+const RegisterAPI = "api/v1/register";
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -19,15 +19,15 @@ function RegisterPage() {
     const Register = (e) => {
         e.preventDefault();
         if (password === Cpassword) {
-            // userRegistration(RegisterAPI, {
-            //     email,
-            //     password,
-            //     type,
-            //     name
-            // });
-            // if (isError) {
-            //     console.log(errorMsg);
-            // }
+            userRegistration(RegisterAPI, {
+                email,
+                password,
+                type,
+                name
+            });
+            if (isError) {
+                console.log(errorMsg);
+            }
             console.log({ name, email, password, type });
             navigate("/");
         }

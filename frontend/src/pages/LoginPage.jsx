@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useProfileContext } from "../context/ProfileContext";
 import "../style/LoginRegister.css";
 
-const LoginAPI = "";
+const LoginAPI = "api/v1/login";
 
 function LoginPage() {
     const navigate = useNavigate();
