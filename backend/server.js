@@ -1,33 +1,33 @@
-const express=require("express");
-const app=express();
+const express = require("express");
+const app = express();
 
-const cookie_parser=require("cookie-parser");
-const path =require('path')
-const dotenv=require('dotenv')
-dotenv.config({path:path.resolve(__dirname,"./config.env")})
+const cookie_parser = require("cookie-parser");
+const path = require('path')
+const dotenv = require('dotenv')
+dotenv.config({ path: path.resolve(__dirname, "./config.env") })
 
 
-const router=require("./routes/route.js")
+const router = require("./routes/route.js")
 
 
 //db connect
-const dbconect=require("./database/database.js")
+const dbconect = require("./database/database.js")
 dbconect();
 
 //error middle ware
-const {errorMiddleware}=require("./utils/error.js")
+const { errorMiddleware } = require("./utils/error.js")
 //middle wares
 app.use(errorMiddleware);
 app.use(express.json());
 app.use(cookie_parser());
 
-app.use('',router);
+app.use('/api/v1', router);
 
 
 
 
-const port=process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 //listening server
-app.listen(port,()=>{
-console.log("server is listening at port "+port)
+app.listen(port, () => {
+    console.log("server is listening at port " + port)
 });
