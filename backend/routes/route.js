@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { register } = require("../controller/loginController")
+const { register } = require("../controller/AuthController")
 
 
 router.get("/", (req, res) => {

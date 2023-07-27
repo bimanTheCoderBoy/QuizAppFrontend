@@ -40,7 +40,9 @@ const register = async (req, res, next) => {
 }
 
 
+
 const login = async (req, res, next) => {
+
   try {
 
 
@@ -60,6 +62,45 @@ const login = async (req, res, next) => {
     next(new ErrorHandler("database error", 404))
   }
 
+
 }
 
-module.exports = { register };
+
+
+
+
+const isAuth = async (req, res, next) => {
+  const { token } = req.cookies
+  if (token) {
+    const decodedId = jwt.verify(token, process.env.JWT_SECRET)
+
+    if (decodedId) {
+      try {
+        req.user = await User.findById(decodedId);
+        next()
+        //   res.json({
+        //     success:true,
+        //     message:"ok"
+        // })
+      } catch (error) {
+
+        console.log(error)
+        res.json({
+          success: false,
+          message: "internal server isuee"
+        })
+      }
+
+
+    }
+  }
+  else {
+    res.json({
+      success: false,
+      message: "user is not Authenticated"
+    })
+  }
+}
+
+module.exports = { register, login, isAuth };
+
