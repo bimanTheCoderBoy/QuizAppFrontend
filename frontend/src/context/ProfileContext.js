@@ -1,6 +1,6 @@
 import { createContext, isValidElement, useContext, useReducer } from "react";
 import ProfileReducer from "../reducer/ProfileReducer";
-import axios, { isAxiosError } from 'axios';
+import axios from 'axios';
 
 const ProfileContext = createContext();
 
@@ -9,8 +9,7 @@ const initialState = {
     isError: false,
     errorMsg: "",
     isLogin: false,
-    profile: {},
-    userId: ""
+    profile: {}
 }
 
 const ProfileProvider = ({ children }) => {

@@ -115,3 +115,12 @@
     text-decoration: none;
     font-size: 0.7rem;
 }
+
+.register-submit {
+    margin-bottom: 2rem;
+}
+
+.login-type {
+    display: flex;
+    gap: 1rem;
+}
