@@ -1,35 +1,33 @@
 const mongoose = require('mongoose')
+console.log("check fd1");
 const User = new mongoose.Schema(
     {
         name: {
             type: String,
-            required: true,
+            // required: true,
         },
         email: {
             type: String,
-            unique: true,
+            // unique: true, 
             required: true
 
         },
         password: {
-            required: true,
+            // required: true,
             type: String,
-            select: false
+            // select: false
         }
         ,
         type:{
             type: String,
-            required: true
+            // required: true
         },
-        skey:{
-            type: String,
-            unique: true,
-            default:121
-        },
+        
         createAt: {
             type: Date,
             default: Date.now
         }
     }
 )
+console.log("schema check 2");
 module.exports = mongoose.model('User',User);

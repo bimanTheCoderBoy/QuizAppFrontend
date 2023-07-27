@@ -13,27 +13,29 @@ const register = async (req, res, next) => {
 
 
     const { name, email, password, type } = req.body;
-    let user = null
+    let user = null;
 
-    user = await User.findOne({ email: email })
-
-
-    if (user) {
-      next(new ErrorHandler("user aldready exits", 404))
-    }
+    // user = await User.findOne({ email: email });
 
 
-    const hashedPassword = await bcrypt.hash(password, 10)
+    // if (user) {
+    //   next(new ErrorHandler("user aldready exits", 404));
+    // }
+    // console.log(req.body);
 
 
+    // const hashedPassword = await bcrypt.hash(password, 10);
 
-    user = await User.create({ name, email, password: hashedPassword, type })
 
-    sendToken(res, user, "seccessfully registered");
+console.log("check 1");
+    const newUser = await User.create({ name, email, password, type });
+console.log("check 2");
+    sendToken(res, newUser, "seccessfully registered");
 
   }
   catch (error) {
-    next(new ErrorHandler("database error", 404))
+    // next(new ErrorHandler("database error", 404))
+    res.send(error)
   }
 
 
@@ -59,6 +61,8 @@ const login = async (req, res, next) => {
 
     sendToken(res, user, "login successfull")
   } catch (error) {
+
+    console.log('Error in Login', error)
     next(new ErrorHandler("database error", 404))
   }
 
