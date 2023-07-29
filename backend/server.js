@@ -17,11 +17,11 @@ dbconect();
 //error middle ware
 const { errorMiddleware } = require("./utils/error.js")
 //middle wares
-app.use(errorMiddleware);
 app.use(express.json());
 app.use(cookie_parser());
 
-app.use('/api/v1', router);
+app.use('',router);
+app.use(errorMiddleware);
 
 
 

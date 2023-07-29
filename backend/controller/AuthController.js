@@ -28,7 +28,7 @@ const register=async (req,res,next)=>{
     
     //skey setting
     const skey=Math.floor(Math.random()*9000000000) + 1000000000;
-    // hashedSkey= await bcrypt.hash(skey+"",10)
+  
 
 
   user=await  User.create({name,email,password:hashedPassword,role,skey})
@@ -57,7 +57,7 @@ const login= async(req,res,next)=>{
        next(new ErrorHandler("user does not exits",404))
   }
  var isMatched=await bcrypt.compare(password,user.password)
- console.log(bcrypt.getRounds(user.password))
+ 
  
  if(!isMatched){
          next(new ErrorHandler("wrong password",404))

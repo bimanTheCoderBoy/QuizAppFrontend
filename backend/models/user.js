@@ -18,16 +18,22 @@ const User = new mongoose.Schema(
             // select: false
         }
         ,
-        type:{
-            type: String,
-            // required: true
+        role:{
+           type: String,
+           enum: ['teacher', 'student'] ,
+        required: true
         },
-        
+        skey:{
+            required: true,
+            type: String,
+            
+            
+        },
         createAt: {
             type: Date,
             default: Date.now
         }
     }
 )
-console.log("schema check 2");
+
 module.exports = mongoose.model('User',User);
