@@ -17,14 +17,16 @@ const User = new mongoose.Schema(
             select: false
         }
         ,
-        type:{
-            type: String,
-            required: true
+        role:{
+           type: String,
+           enum: ['teacher', 'student'] ,
+        required: true
         },
         skey:{
+            required: true,
             type: String,
-            unique: true,
-            default:121
+            
+            
         },
         createAt: {
             type: Date,

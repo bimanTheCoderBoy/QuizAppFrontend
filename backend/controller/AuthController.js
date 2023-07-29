@@ -12,7 +12,7 @@ const register=async (req,res,next)=>{
     try {
         
     
-    const {name, email, password,type}=req.body;
+    const {name, email, password,role}=req.body;
     let user =null
     
         user = await User.findOne({email:email})
@@ -26,15 +26,19 @@ const register=async (req,res,next)=>{
 
     const hashedPassword=await bcrypt.hash(password,10)
     
+    //skey setting
+    const skey=Math.floor(Math.random()*9000000000) + 1000000000;
+  
 
 
-  user=await  User.create({name,email,password:hashedPassword,type})
+  user=await  User.create({name,email,password:hashedPassword,role,skey})
 
-  sendToken(res,user,"seccessfully registered");
+   sendToken(res,user,"seccessfully registered");
+  // res.send("asd")
   
 }
   catch (error) {
-    next(new ErrorHandler("database error",404))
+    next(new ErrorHandler(error.message||"database error",404))
   }
   
 
@@ -52,14 +56,16 @@ const login= async(req,res,next)=>{
   if(!user){
        next(new ErrorHandler("user does not exits",404))
   }
- const isMatched=await bcrypt.compare(password,user.password)
-
+ var isMatched=await bcrypt.compare(password,user.password)
+ 
+ 
  if(!isMatched){
-  next(new ErrorHandler("wrong password",404))
+         next(new ErrorHandler("wrong password",404))
  }
 
-
+if(user && isMatched){
 sendToken(res,user,"login successfull")
+}
 
 } catch (error) {
   next(new ErrorHandler("database error",404))
