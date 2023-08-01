@@ -1,29 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AiFillGoogleCircle, AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import { useProfileContext } from "../context/ProfileContext";
+import toast, { Toaster } from 'react-hot-toast';
 import "../style/LoginRegister.css";
 
 const LoginAPI = "api/v1/login";
+const checkLoginApi = "api/v1/isauth"
 
 function LoginPage() {
     const navigate = useNavigate();
-    const { isError, errorMsg, userLogin } = useProfileContext();
+    const { isError, errorMsg, userLogin, checkLogin } = useProfileContext();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const Login = (e) => {
         e.preventDefault();
-        // userLogin(LoginAPI, {
-        //     email,
-        //     password
-        // });
-        userLogin(LoginAPI, { email, password });
-        navigate("/");
-        if (isError) {
-            console.log(errorMsg);
-        }
+        userLogin(LoginAPI, {
+            email,
+            password
+        });
+        console.log(isError);
     }
+    useEffect(() => {
+        if (isError === 1) {
+            toast.error(errorMsg);
+            setEmail("");
+            setPassword("");
+        }
+        else if (isError === 2) {
+            toast.error("Login success");
+            navigate("/");
+            checkLogin(checkLoginApi);
+        }
+    }, [isError])
     return (
         <div className='login-page'>
             <div className='login-area'>
@@ -46,6 +56,7 @@ function LoginPage() {
                     </div>
                     <div className='submit'>
                         <input type="submit" value="LOGIN" onClick={(e) => Login(e)} />
+                        <Toaster />
                     </div>
                     <div className='other-options'>
                         <p>Or Sign Up Using</p>

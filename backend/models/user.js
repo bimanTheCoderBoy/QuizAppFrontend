@@ -8,7 +8,7 @@ const User = new mongoose.Schema(
         },
         email: {
             type: String,
-            // unique: true, 
+            unique: true,
             required: true
 
         },
@@ -18,16 +18,18 @@ const User = new mongoose.Schema(
             // select: false
         }
         ,
-        role:{
-           type: String,
-           enum: ['teacher', 'student'] ,
-        required: true
-        },
-        skey:{
-            required: true,
+        role: {
             type: String,
-            
-            
+            enum: ['teacher', 'student'],
+            required: true
+        },
+        skey: {
+
+            type: String,
+            required: function () {
+                return this.role == "student" ? false : true;
+            }
+
         },
         createAt: {
             type: Date,
@@ -36,4 +38,4 @@ const User = new mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model('User',User);
+module.exports = mongoose.model('User', User);

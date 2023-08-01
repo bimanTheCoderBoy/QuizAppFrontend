@@ -4,19 +4,22 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import LandingPage from "./pages/LandingPage";
+import ProfilePage from "./pages/ProfilePage";
 import { useProfileContext } from "./context/ProfileContext";
 
+const checkLoginApi = "api/v1/isauth"
 
 const App = () => {
   const { isLogin, checkLogin } = useProfileContext();
   useEffect(() => {
-    checkLogin("aluu");
-  }, [isLogin]);
+    checkLogin(checkLoginApi);
+  }, []);
   return (
     <BrowserRouter>
       <Routes>{
         isLogin ? <>
           <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </> :
           <>
             <Route path="/" element={<LandingPage />} />

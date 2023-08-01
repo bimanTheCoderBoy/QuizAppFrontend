@@ -19,7 +19,8 @@ const ProfileReducer = (state, action) => {
         return {
             ...state,
             isLoading: false,
-            isError: true,
+            // isError: 1,
+            isLogin: false,
             errorMsg: action.payload,
         }
     }
@@ -27,17 +28,17 @@ const ProfileReducer = (state, action) => {
 
     //LOGIN
     else if (action.type === "LOGIN_SUCCESS") {
-        console.log("check");
         return {
             ...state,
-            isLogin: true
+            isError: 2,
+            // isLogin: true,
         }
     }
     else if (action.type === "LOGIN_ERROR") {
-        console.log("error check");
+        console.log(action.payload);
         return {
             ...state,
-            isError: true,
+            isError: 1,
             errorMsg: action.payload,
         }
     }
@@ -47,6 +48,16 @@ const ProfileReducer = (state, action) => {
         return {
             ...state,
             isLogin: false,
+            isError: 0
+        }
+    }
+
+    else if (action.type === "LOGOUT_ERROR") {
+        console.log("check error logout");
+        return {
+            ...state,
+            isError: 1,
+            errorMsg: action.payload
         }
     }
 
