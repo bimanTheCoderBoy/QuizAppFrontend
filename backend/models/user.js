@@ -8,26 +8,29 @@ const User = new mongoose.Schema(
         },
         email: {
             type: String,
-            // unique: true, 
-            required: true
-
+            unique: true, 
+            required: true,
+            index:true
         },
         password: {
             // required: true,
             type: String,
             // select: false
+            
         }
         ,
+        skey:{
+            // required: true,
+            type: String,
+           
+
+          required:function(){
+            return this.role=="student"?false : true;
+        }},
         role:{
            type: String,
            enum: ['teacher', 'student'] ,
         required: true
-        },
-        skey:{
-            required: true,
-            type: String,
-            
-            
         },
         createAt: {
             type: Date,

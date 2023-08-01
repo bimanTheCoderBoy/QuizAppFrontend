@@ -21,21 +21,31 @@ const register=async (req,res,next)=>{
     if(user) 
     {
             next(new ErrorHandler("user aldready exits",404))
-    }
+    }else{
+
+    
 
 
     const hashedPassword=await bcrypt.hash(password,10)
     
     //skey setting
-    const skey=Math.floor(Math.random()*9000000000) + 1000000000;
+    const s_key=Math.floor(Math.random()*9000000000) + 1000000000;
+
+
+  console.log(s_key);
+if(role=='teacher'){
+  console.log(role);
+ 
+  user=await  User.create({name,email,password:hashedPassword,role,skey:s_key})
+}else{
+  user=await  User.create({name,email,password:hashedPassword,role})
+}
+// console.log(typeof(role)); 
   
-
-
-  user=await  User.create({name,email,password:hashedPassword,role,skey})
 
    sendToken(res,user,"seccessfully registered");
   // res.send("asd")
-  
+}
 }
   catch (error) {
     next(new ErrorHandler(error.message||"database error",404))

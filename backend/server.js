@@ -20,7 +20,7 @@ const { errorMiddleware } = require("./utils/error.js")
 app.use(express.json());
 app.use(cookie_parser());
 
-app.use('',router);
+app.use('/api/v1',router);
 app.use(errorMiddleware);
 
 
