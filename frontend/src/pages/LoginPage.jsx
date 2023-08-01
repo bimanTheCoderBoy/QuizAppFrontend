@@ -18,7 +18,7 @@ function LoginPage() {
         //     email,
         //     password
         // });
-        console.log({ email, password });
+        userLogin(LoginAPI, { email, password });
         navigate("/");
         if (isError) {
             console.log(errorMsg);
