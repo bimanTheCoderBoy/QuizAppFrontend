@@ -20,7 +20,11 @@ const { errorMiddleware } = require("./utils/error.js")
 app.use(express.json());
 app.use(cookie_parser());
 
+<<<<<<< HEAD
 app.use('/api/v1', router);
+=======
+app.use('/api/v1',router);
+>>>>>>> 1cabc6c1f82726efc9c01c73f4de3c8499067217
 app.use(errorMiddleware);
 
 
