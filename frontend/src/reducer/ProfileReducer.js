@@ -11,6 +11,7 @@ const ProfileReducer = (state, action) => {
         return {
             ...state,
             isLoading: false,
+            isLogin: true,
             profile: action.payload
         }
     }
@@ -26,17 +27,26 @@ const ProfileReducer = (state, action) => {
 
     //LOGIN
     else if (action.type === "LOGIN_SUCCESS") {
+        console.log("check");
         return {
             ...state,
-            isLogin: true,
-            userId: action.payload,
+            isLogin: true
         }
     }
     else if (action.type === "LOGIN_ERROR") {
+        console.log("error check");
         return {
             ...state,
             isError: true,
             errorMsg: action.payload,
+        }
+    }
+
+    //LOGOUT
+    else if (action.type === "LOGOUT_SUCCESS") {
+        return {
+            ...state,
+            isLogin: false,
         }
     }
 
@@ -45,6 +55,8 @@ const ProfileReducer = (state, action) => {
             ...state,
         }
     }
+
+
 }
 
 export default ProfileReducer;

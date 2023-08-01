@@ -15,6 +15,19 @@ const initialState = {
 const ProfileProvider = ({ children }) => {
     const [state, dispatch] = useReducer(ProfileReducer, initialState);
 
+    //IS LOGIN
+    const checkLogin = async (url) => {
+        dispatch({ type: "SET_LOADING" });
+        try {
+            // const resp = await axios.get(url);
+            // const profileLogin = resp.data;
+            console.log({ name: "jyoti" });
+            dispatch({ type: "MY_PROFILE", payload: { name: "jyoti" } });
+        } catch (error) {
+            dispatch({ type: "API_ERROR", payload: error });
+        }
+    }
+
     // GET PROFILE 
     const getProfile = async (url) => {
         dispatch({ type: "SET_LOADING" });
@@ -32,15 +45,16 @@ const ProfileProvider = ({ children }) => {
     // LOGIN API 
     const userLogin = async (url, body) => {
         try {
-            const resp = await axios.post(url,
-                JSON.stringify({}),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            console.log(resp);
-            dispatch({ type: "LOGIN_SUCCESS", payload: resp });
+            // const resp = await axios.post(url,
+            //     JSON.stringify({}),
+            //     {
+            //         headers: { 'Content-Type': 'application/json' },
+            //         withCredentials: true
+            //     }
+            // );
+            console.log(body);
+            dispatch({ type: "LOGIN_SUCCESS", payload: body });
+            console.log("check 2");
         } catch (error) {
             dispatch({ type: "LOGIN_ERROR", payload: error })
         }
@@ -66,7 +80,7 @@ const ProfileProvider = ({ children }) => {
     }
 
 
-    return <ProfileContext.Provider value={{ ...state, getProfile, userLogin, userRegistration }}>
+    return <ProfileContext.Provider value={{ ...state, getProfile, userLogin, userRegistration, checkLogin }}>
         {children}
     </ProfileContext.Provider>
 

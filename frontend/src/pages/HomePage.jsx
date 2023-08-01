@@ -1,13 +1,10 @@
-import React from 'react';
-import NavbarComponent from '../components/NavbarComponent';
-import HeroSection from '../components/HeroSection';
-import "../style/landingPage.css";
+import React from 'react'
+import NavbarComponent from '../components/NavbarComponent'
 
 function HomePage() {
     return (
         <>
             <NavbarComponent />
-            <HeroSection />
         </>
     )
 }
