@@ -4,26 +4,6 @@ import axios from 'axios';
 
 const ClassContext = createContext();
 
-const check = {
-    ownClasses:
-        [{ name: "cse1", subject: "science" },
-        { name: "cse2", subject: "humanities" },
-        { name: "cse3", subject: "science" },
-        { name: "csbs", subject: "maths" },
-        { name: "batch-x", subject: "eco" },
-        { name: "csbs", subject: "maths" },
-        { name: "batch-x", subject: "eco" },
-        { name: "csbs", subject: "maths" },
-        { name: "batch-x", subject: "eco" },
-        { name: "batch-y", subject: "maths" },
-        ],
-    otherClasses: [{ name: "csbs", subject: "maths" },
-    { name: "batch-x", subject: "eco" },
-    { name: "csbs", subject: "maths" },
-    { name: "batch-x", subject: "eco" },
-    { name: "batch-y", subject: "maths" },]
-
-}
 
 const initialState = {
     isClassLoading: false,
@@ -41,16 +21,32 @@ const ClassProvider = ({ children }) => {
         console.log("check 1");
         dispatch({ type: "SET_LOADING" });
         try {
-            // const resp = await axios.get(url);
-            // const classes = resp.data;
-            // console.log()
-            dispatch({ type: "MY_CLASSES", payload: check });
+            const resp = await axios.get(url);
+            const classes = resp.data;
+            console.log(classes);
+            dispatch({ type: "MY_CLASSES", payload: classes });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error });
         }
     }
 
-    return <ClassContext.Provider value={{ ...state, getClasses }}>
+    //ADD CLASS
+    const addClass = async (url, body) => {
+        try {
+            const resp = await axios.post(url,
+                JSON.stringify(body),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            dispatch({ type: "CLASS_ADDED" });
+        } catch (error) {
+            dispatch({ type: "LOGIN_ERROR", payload: error.response.data.message })
+        }
+    }
+
+    return <ClassContext.Provider value={{ ...state, getClasses, addClass }}>
         {children}
     </ClassContext.Provider>
 

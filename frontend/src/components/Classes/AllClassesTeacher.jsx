@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { GrAdd } from "react-icons/gr";
 import { RxCross1 } from "react-icons/rx";
 import { useClassContext } from '../../context/ClassContext';
+import { NavLink } from 'react-router-dom';
 
-
+const getClassApi = "api/v1/getallclasses";
+const addClassApi = "api/v1/createclass"
 // const allOwnClasses = [{ name: "cse1", subject: "science" },
 // { name: "cse2", subject: "humanities" },
 // { name: "cse3", subject: "science" },
@@ -30,7 +32,8 @@ import { useClassContext } from '../../context/ClassContext';
 
 function AllClassesTeacher() {
     const [cls, setCls] = useState(0);
-    const { isClassLoading, classErrorMsg, isError, ownClasses, otherClasses, getClasses } = useClassContext();
+    const [className, setClassName] = useState("");
+    const { isClassLoading, classErrorMsg, isError, ownClasses, otherClasses, getClasses, addClass } = useClassContext();
     const selectClassType = (e) => {
         const buttons = document.querySelectorAll(".butn");
         buttons.forEach((ele) => {
@@ -49,10 +52,16 @@ function AllClassesTeacher() {
         pop.classList.add("hidden");
     }
 
+    const addNewClass = (e) => {
+        e.preventDefault();
+        addClass(addClassApi, { name: className });
+        setCls("");
+        hidePop();
+    }
+
     useEffect(() => {
-        getClasses("ksjdf");
-        console.log("alu");
-    }, [])
+        getClasses(getClassApi);
+    }, [isClassLoading])
     return (
 
 
@@ -70,25 +79,25 @@ function AllClassesTeacher() {
                                 cls ?
                                     otherClasses?.map((ele, i) => {
                                         return (
-                                            <div className='class' key={i}>
-                                                <div className='class-name'>{ele.name}</div>
+                                            <NavLink className='class' key={i}>
+                                                <div to={`/${ele._id}`} className='class-name'> {ele.name}</div>
                                                 {/* <div className='class-subject'>{ele.subject}</div> */}
-                                            </div>
+                                            </NavLink>
                                         )
                                     }) :
                                     ownClasses?.map((ele, i) => {
                                         return (
-                                            <div className='class' key={i}>
+                                            <NavLink to={`/${ele._id}`} className='class' key={i}>
                                                 <div className='class-name'>{ele.name}</div>
                                                 {/* <div className='class-subject'>{ele.subject}</div> */}
-                                            </div>
+                                            </NavLink>
                                         )
                                     })
                             }
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
             <div className='add-class hidden'>
                 <div className='add-box'>
                     <div className='cross' onClick={() => hidePop()}><RxCross1 /></div>
@@ -104,14 +113,14 @@ function AllClassesTeacher() {
                             <>
                                 <h2>Add Class</h2>
                                 <form action="" className='add-form'>
-                                    <input type="text" placeholder='Classname' className='add-name' />
-                                    <input type="submit" value="Create Class" className='add-button' />
+                                    <input type="text" placeholder='Classname' className='add-name' onChange={(e) => setClassName(e.target.value)} />
+                                    <input type="submit" value="Create Class" className='add-button' onClick={(e) => addNewClass(e)} />
                                 </form>
                             </>
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -19,8 +19,16 @@ const ClassReducer = (state, action) => {
     else if (action.type === "API_ERROR") {
         return {
             ...state,
-            isLoading: false,
+            isClassLoading: false,
             classErrorMsg: action.payload,
+        }
+    }
+
+    //CLASS ADDED
+    else if (action.type === "CLASS_ADDED") {
+        return {
+            ...state,
+            isClassLoading: false
         }
     }
 

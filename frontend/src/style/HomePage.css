@@ -114,6 +114,12 @@
     align-items: center;
     border-radius: 1rem;
     text-transform: uppercase;
+    text-decoration: none;
+}
+
+.class-name {
+    text-decoration: none;
+    color: #000;
 }
 
 
