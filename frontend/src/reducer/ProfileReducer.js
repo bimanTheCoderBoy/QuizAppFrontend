@@ -53,7 +53,6 @@ const ProfileReducer = (state, action) => {
     }
 
     else if (action.type === "LOGOUT_ERROR") {
-        console.log("check error logout");
         return {
             ...state,
             isError: 1,

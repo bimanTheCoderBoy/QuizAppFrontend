@@ -12,4 +12,6 @@ router.post("/login", login);
 router.get("/isauth", isAuth);
 router.delete("/logout", logout);
 
+// router.patch("/uploadImage",);
+
 module.exports = router

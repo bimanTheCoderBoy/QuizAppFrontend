@@ -44,7 +44,7 @@ const ProfileProvider = ({ children }) => {
             // const resp = await axios.get(url);
             // const profile = resp.data;
             // console.log(profile);
-            dispatch({ type: "MY_PROFILE", payload: { name: "aluu" } });
+            dispatch({ type: "MY_PROFILE", payload: { name: "aluu", role: "teacher" } });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error });
         }
@@ -118,4 +118,4 @@ const useProfileContext = () => {
 }
 
 
-export { ProfileProvider, ProfileContext, useProfileContext };
+export { ProfileProvider, useProfileContext };
