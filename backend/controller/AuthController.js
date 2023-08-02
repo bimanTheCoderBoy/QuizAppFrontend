@@ -116,4 +116,34 @@ const isAuth = async (req, res, next) => {
   }
 }
 
-module.exports = { register, login, isAuth, logout };
+const isloggedIn = async (req, res, next) => {
+  const { token } = req.cookies
+  if (token) {
+    const decodedId = jwt.verify(token, process.env.JWT_SECRET)
+
+    if (decodedId) {
+      try {
+        req.user = await User.findById(decodedId);
+        next()
+       
+      } catch (error) {
+
+        console.log(error)
+        res.json({
+          success: false,
+          message: "internal server isuee"
+        })
+      }
+
+
+    }
+  }
+  else {
+    res.json({
+      success: false,
+      message: "user is not Authenticated"
+    })
+  }
+}
+
+module.exports = { register, login, isAuth, logout,isloggedIn };

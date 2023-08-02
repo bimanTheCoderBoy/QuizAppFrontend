@@ -36,6 +36,21 @@ const User = new mongoose.Schema(
 
 
         },
+        ownclasses:{
+            type:[{type: mongoose.Schema.Types.ObjectId,}],
+            required: function () {
+                return this.role == "student" ? false : true;
+            },
+            ref:"Class"
+            
+        },
+        otherclasses:{
+            type:[{type: mongoose.Schema.Types.ObjectId,}],
+            required: function () {
+                return this.role == "student" ? false : true;
+            },
+            ref:"Class"
+        },
         createAt: {
             type: Date,
             default: Date.now
