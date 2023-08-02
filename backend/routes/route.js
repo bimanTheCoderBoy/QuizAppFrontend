@@ -20,4 +20,6 @@ router.delete("/logout", logout);
 router.post("/createclass",isloggedIn,createClass)
 router.get("/getallclasses",isloggedIn,getAllClass)
 
+// router.patch("/uploadImage",);
+
 module.exports = router
