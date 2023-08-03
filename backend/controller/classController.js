@@ -1,9 +1,5 @@
-
-const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
 const Class = require("../models/class");
 const User = require("../models/user");
-const sendToken = require("../utils/sendToken");
 const { ErrorHandler } = require('../utils/error')
 
 const createClass=async(req,res,next)=>{
@@ -13,7 +9,7 @@ const createClass=async(req,res,next)=>{
     var classObj=null;
     try {
         //creating new class
-        classObj =await Class.create({name});
+        classObj =await Class.create({name,classcode: Math.floor(Math.random() * 9000000000) + 1000000000});
         
         //sending new class to user
         await User.updateOne(
@@ -58,6 +54,27 @@ const getAllClass=async(req,res,next)=>{
    
 
 }
-module.exports={createClass,getAllClass}
+
+const getClass=async(req,res,next)=>{
+    const id=req.params.id;
+    try {
+        const classData=await Class.findOne({_id:id});
+        if(classData){
+            res.json({
+                success:true,
+                message:"getting class successfully",
+                classData
+            });
+        }else{
+            next(new ErrorHandler("Class not found", 404))
+        }
+    } catch (error) {
+        res.json({
+            success:false,
+            message:error.message || "class not found",
+        });
+    }
+}
+module.exports={createClass,getAllClass,getClass}
 
 

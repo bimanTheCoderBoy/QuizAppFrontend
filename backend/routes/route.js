@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const { register, login, isAuth, logout,isloggedIn } = require("../controller/AuthController")
-const {createClass,getAllClass}=require("../controller/classController")
+const {createClass,getAllClass,getClass}=require("../controller/classController")
+const {joinClass}=require("../controller/studentController")
 
 
 router.get("/", (req, res) => {
@@ -19,6 +20,13 @@ router.delete("/logout", logout);
 //class apis
 router.post("/createclass",isloggedIn,createClass)
 router.get("/getallclasses",isloggedIn,getAllClass)
+router.get("/getclass/:id",isloggedIn,getClass)
+
+
+
+//student route
+router.post("/joinclass",isloggedIn,joinClass)
+// console.log(joinClass)
 
 // router.patch("/uploadImage",);
 
