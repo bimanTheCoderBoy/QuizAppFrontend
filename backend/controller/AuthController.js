@@ -84,10 +84,13 @@ const logout = async (req, res) => {
 }
 
 const isAuth = async (req, res, next) => {
-  const { token } = req.cookies
+  const { token } = req.cookies;
+  console.log(req);
   if (token) {
+    console.log("c1");
     const decodedId = jwt.verify(token, process.env.JWT_SECRET)
-
+    console.log("c2");
+    // console.log(decodedId);
     if (decodedId) {
       try {
         req.user = await User.findById(decodedId);
@@ -125,7 +128,7 @@ const isloggedIn = async (req, res, next) => {
       try {
         req.user = await User.findById(decodedId);
         next()
-       
+
       } catch (error) {
 
         console.log(error)
@@ -146,4 +149,4 @@ const isloggedIn = async (req, res, next) => {
   }
 }
 
-module.exports = { register, login, isAuth, logout,isloggedIn };
+module.exports = { register, login, isAuth, logout, isloggedIn };

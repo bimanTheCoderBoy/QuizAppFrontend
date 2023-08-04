@@ -61,7 +61,7 @@ function AllClassesTeacher() {
 
     useEffect(() => {
         getClasses(getClassApi);
-    }, [isClassLoading])
+    }, [])
     return (
 
 
@@ -79,15 +79,15 @@ function AllClassesTeacher() {
                                 cls ?
                                     otherClasses?.map((ele, i) => {
                                         return (
-                                            <NavLink className='class' key={i}>
-                                                <div to={`/${ele._id}`} className='class-name'> {ele.name}</div>
+                                            <NavLink to={`/class/${ele._id}`} className='class' key={i}>
+                                                <div className='class-name'> {ele.name}</div>
                                                 {/* <div className='class-subject'>{ele.subject}</div> */}
                                             </NavLink>
                                         )
                                     }) :
                                     ownClasses?.map((ele, i) => {
                                         return (
-                                            <NavLink to={`/${ele._id}`} className='class' key={i}>
+                                            <NavLink to={`/class/${ele._id}`} className='class' key={i}>
                                                 <div className='class-name'>{ele.name}</div>
                                                 {/* <div className='class-subject'>{ele.subject}</div> */}
                                             </NavLink>

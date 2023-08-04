@@ -12,7 +12,7 @@ const initialState = {
     isLoading: false,
     isError: 0,
     errorMsg: "",
-    isLogin: 0,
+    isLogin: false,
     profile: {}
 }
 
@@ -23,9 +23,11 @@ const ProfileProvider = ({ children }) => {
     const checkLogin = async (url) => {
         dispatch({ type: "SET_LOADING" });
         try {
+            console.log(url);
             const resp = await axios.get(url);
-            const profileLogin = resp.data;
-            // console.log(profileLogin);
+            console.log("chek2");
+            const profileLogin = await resp.data;
+            console.log(resp);
             if (profileLogin.success) {
                 dispatch({ type: "MY_PROFILE", payload: { name: "jyoti" } });
             }
@@ -33,6 +35,7 @@ const ProfileProvider = ({ children }) => {
                 dispatch({ type: "API_ERROR", payload: profileLogin.message });
             }
         } catch (error) {
+            console.log(error);
             dispatch({ type: "API_ERROR", payload: error });
         }
     }

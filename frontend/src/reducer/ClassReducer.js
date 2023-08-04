@@ -32,6 +32,17 @@ const ClassReducer = (state, action) => {
         }
     }
 
+    //GET SINGLE CLASS
+    else if (action.type === "SINGLE_CLASS") {
+        console.log("S");
+        console.log(action.payload);
+        return {
+            ...state,
+            isClassLoading: false,
+            singleClass: action.payload,
+        }
+    }
+
     else {
         return {
             ...state,

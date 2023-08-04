@@ -1,0 +1,138 @@
+:root {
+    --dark-blue: #002443;
+    --light-blue: #aed9ff;
+    --medium-blue: #0088ff;
+    --shade-blue: #0e5796;
+    --check: #0ecfe0;
+    --check2: #8864f0;
+    --check3: #f00bfc;
+}
+
+.classname-area {
+    /* background-image: linear-gradient(0deg,
+            hsl(208deg 73% 86%) 0%,
+            hsl(210deg 73% 96%) 25%,
+            hsl(300deg 100% 100%) 50%,
+            hsl(210deg 73% 96%) 75%,
+            hsl(208deg 73% 86%) 100%); */
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.classname {
+    text-transform: uppercase;
+}
+
+.class-member-btn {
+    display: none;
+}
+
+
+.toggle-btns {
+    display: flex;
+    justify-content: center;
+}
+
+.toggle-btns button {
+    width: 7rem;
+}
+
+.classdata-area {
+    background-color: var(--check2);
+    height: 40rem;
+}
+
+
+
+
+/* Members  */
+.members {
+    border: 2px solid var(--dark-blue);
+    padding: 1rem;
+    border-radius: 0.2rem;
+    box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.25);
+}
+
+.members h5 {
+    text-align: center;
+    font-weight: 500;
+    padding: 0.1rem;
+    letter-spacing: 0.2px;
+    border-bottom: 1px solid var(--check2);
+}
+
+.all-class-teachers .label {
+    text-align: center;
+    color: #002443;
+}
+
+.teachers-list {
+    background-color: var(--light-blue);
+    border-radius: 0.3rem;
+}
+
+.teacher {
+    border-bottom: 1px solid var(--dark-blue);
+    border-radius: 0.3rem;
+    padding: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    display: flex;
+    gap: 0.3rem;
+}
+
+.teacher img {
+    height: 1.7rem;
+    width: 1.7rem;
+    border-radius: 1rem;
+}
+
+
+
+.all-class-students .label {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.students-list {
+    background-color: #f00bfc7e;
+    border-radius: 0.3rem;
+    max-height: 30rem;
+    overflow: scroll;
+}
+
+.students-list::-webkit-scrollbar {
+    display: none;
+}
+
+.student {
+    border-bottom: 1px solid var(--dark-blue);
+    border-radius: 0.3rem;
+    padding: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    display: flex;
+    gap: 0.3rem;
+}
+
+.student img {
+    height: 1.7rem;
+    width: 1.7rem;
+    border-radius: 1rem;
+}
+
+.view-all-btn {
+    text-align: center;
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 600px) {
+    .class-member-btn {
+        display: block;
+    }
+}

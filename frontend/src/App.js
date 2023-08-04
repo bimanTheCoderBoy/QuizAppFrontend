@@ -6,8 +6,9 @@ import RegisterPage from "./pages/RegisterPage";
 import LandingPage from "./pages/LandingPage";
 import ProfilePage from "./pages/ProfilePage";
 import { useProfileContext } from "./context/ProfileContext";
+import SingleClassTeacherPage from "./pages/SingleClassTeacherPage";
 
-const checkLoginApi = "api/v1/isauth"
+const checkLoginApi = "/api/v1/isauth"
 
 const App = () => {
   const { isLogin, checkLogin } = useProfileContext();
@@ -16,19 +17,20 @@ const App = () => {
   }, []);
   return (
     <BrowserRouter>
-      <Routes>{
-        isLogin ? <>
+      {
+        isLogin ? <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
-        </> :
-          <>
+          <Route path="/class/:classid" element={<SingleClassTeacherPage />} />
+        </Routes>
+          :
+          <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="*" element={<div>Aluuuu</div>} />
-          </>
+            <Route path="*" element={<div>Error</div>} />
+          </Routes>
       }
-      </Routes>
     </BrowserRouter>
   )
 };
