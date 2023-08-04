@@ -52,16 +52,20 @@ function AllClassesTeacher() {
         pop.classList.add("hidden");
     }
 
+
+    //useEffect management
+    var flag = true;
     const addNewClass = (e) => {
         e.preventDefault();
         addClass(addClassApi, { name: className });
-        setCls("");
+        setClassName("");
         hidePop();
+        flag = false;
     }
 
     useEffect(() => {
         getClasses(getClassApi);
-    }, [])
+    }, [flag])
     return (
 
 
@@ -106,14 +110,14 @@ function AllClassesTeacher() {
                             <>
                                 <h2>Join Insititute</h2>
                                 <form action="" className='add-form'>
-                                    <input type="text" placeholder='Institute code' className='add-name' />
+                                    <input type="text" placeholder='Institute code' value={className} className='add-name' />
                                     <input type="submit" value="Join" className='add-button' />
                                 </form>
                             </> :
                             <>
                                 <h2>Add Class</h2>
                                 <form action="" className='add-form'>
-                                    <input type="text" placeholder='Classname' className='add-name' onChange={(e) => setClassName(e.target.value)} />
+                                    <input type="text" placeholder='Classname' value={className} className='add-name' onChange={(e) => setClassName(e.target.value)} />
                                     <input type="submit" value="Create Class" className='add-button' onClick={(e) => addNewClass(e)} />
                                 </form>
                             </>

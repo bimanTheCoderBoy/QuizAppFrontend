@@ -4,7 +4,7 @@ const User = new mongoose.Schema(
     {
         name: {
             type: String,
-            // required: true,
+            required: true,
         },
         email: {
             type: String,
@@ -15,7 +15,7 @@ const User = new mongoose.Schema(
 
         },
         password: {
-            // required: true,
+            required: true,
             type: String,
             // select: false
 
@@ -48,6 +48,13 @@ const User = new mongoose.Schema(
             type:[{type: mongoose.Schema.Types.ObjectId,}],
             required: function () {
                 return this.role == "student" ? false : true;
+            },
+            ref:"Class"
+        },
+        myclasses:{
+            type:[{type: mongoose.Schema.Types.ObjectId,}],
+            required: function () {
+                return this.role == "teacher" ? false : true;
             },
             ref:"Class"
         },

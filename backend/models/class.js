@@ -4,13 +4,18 @@ const ClassSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-    classCode:{
+    classcode:{
        type:String,
        unique:true,
-       default:function(){
-        return  Math.floor(Math.random() * 9000000000) + 1000000000;
-       } 
+    //    default:function(){
+    //     return  Math.floor(Math.random() * 9000000000) + 1000000000;
+    //    } 
     },
+    students:{
+        type:[{type: mongoose.Schema.Types.ObjectId,}],
+
+        ref:"User"
+    }
 
 });
 
