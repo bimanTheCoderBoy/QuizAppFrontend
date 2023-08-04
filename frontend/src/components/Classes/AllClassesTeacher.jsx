@@ -60,10 +60,11 @@ function AllClassesTeacher() {
         addClass(addClassApi, { name: className });
         setClassName("");
         hidePop();
-        flag = false;
+        flag = !flag;
     }
 
     useEffect(() => {
+        console.log("hello")
         getClasses(getClassApi);
     }, [flag])
     return (
