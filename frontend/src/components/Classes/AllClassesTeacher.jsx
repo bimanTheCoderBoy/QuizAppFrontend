@@ -7,25 +7,6 @@ import { NavLink } from 'react-router-dom';
 
 const getClassApi = "/api/v1/getallclasses";
 const addClassApi = "/api/v1/createclass"
-// const allOwnClasses = [{ name: "cse1", subject: "science" },
-// { name: "cse2", subject: "humanities" },
-// { name: "cse3", subject: "science" },
-// { name: "csbs", subject: "maths" },
-// { name: "batch-x", subject: "eco" },
-// { name: "csbs", subject: "maths" },
-// { name: "batch-x", subject: "eco" },
-// { name: "csbs", subject: "maths" },
-// { name: "batch-x", subject: "eco" },
-// { name: "batch-y", subject: "maths" },
-// ]
-
-// const allOtherClasses = [
-//     { name: "cse1", subject: "science" },
-//     { name: "cse1", subject: "science" },
-//     { name: "cse1", subject: "science" },
-//     { name: "cse1", subject: "science" },
-//     { name: "cse1", subject: "science" },
-// ]
 
 
 
@@ -60,10 +41,11 @@ function AllClassesTeacher() {
         addClass(addClassApi, { name: className });
         setClassName("");
         hidePop();
-        flag = false;
+        flag = !flag;
     }
 
     useEffect(() => {
+        console.log("hello")
         getClasses(getClassApi);
     }, [flag])
     return (

@@ -11,6 +11,8 @@ const createClass = async (req, res, next) => {
         //creating new class
         classObj = await Class.create({ name, classcode: Math.floor(Math.random() * 9000000000) + 1000000000 });
 
+        classObj = await Class.create({ name, classcode: Math.floor(Math.random() * 9000000000) + 1000000000 });
+
         //sending new class to user
         await User.updateOne(
             { _id: user._id },
@@ -77,6 +79,7 @@ const getClass = async (req, res, next) => {
         });
     }
 }
+module.exports = { createClass, getAllClass, getClass }
 module.exports = { createClass, getAllClass, getClass }
 
 
