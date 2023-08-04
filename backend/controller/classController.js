@@ -9,13 +9,8 @@ const createClass = async (req, res, next) => {
     var classObj = null;
     try {
         //creating new class
-<<<<<<< HEAD
-        classObj = await Class.create({ name });
+        classObj = await Class.create({ name, classcode: Math.floor(Math.random() * 9000000000) + 1000000000 });
 
-=======
-        classObj =await Class.create({name,classcode: Math.floor(Math.random() * 9000000000) + 1000000000});
-        
->>>>>>> 5ed5af4355a296a27a670143e1d5ee74a3526b76
         //sending new class to user
         await User.updateOne(
             { _id: user._id },
@@ -61,31 +56,27 @@ const getAllClass = async (req, res, next) => {
 
 
 }
-<<<<<<< HEAD
-module.exports = { createClass, getAllClass }
-=======
 
-const getClass=async(req,res,next)=>{
-    const id=req.params.id;
+const getClass = async (req, res, next) => {
+    const id = req.params.id;
     try {
-        const classData=await Class.findOne({_id:id});
-        if(classData){
+        const classData = await Class.findOne({ _id: id });
+        if (classData) {
             res.json({
-                success:true,
-                message:"getting class successfully",
+                success: true,
+                message: "getting class successfully",
                 classData
             });
-        }else{
+        } else {
             next(new ErrorHandler("Class not found", 404))
         }
     } catch (error) {
         res.json({
-            success:false,
-            message:error.message || "class not found",
+            success: false,
+            message: error.message || "class not found",
         });
     }
 }
-module.exports={createClass,getAllClass,getClass}
->>>>>>> 5ed5af4355a296a27a670143e1d5ee74a3526b76
+module.exports = { createClass, getAllClass, getClass }
 
 

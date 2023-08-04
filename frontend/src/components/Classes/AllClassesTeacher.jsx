@@ -54,7 +54,7 @@ function AllClassesTeacher() {
 
 
     //useEffect management
-    var flag = true;
+    var flag;
     const addNewClass = (e) => {
         e.preventDefault();
         addClass(addClassApi, { name: className });

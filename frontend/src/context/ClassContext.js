@@ -46,6 +46,7 @@ const ClassProvider = ({ children }) => {
                 }
             );
             dispatch({ type: "CLASS_ADDED" });
+            return 1;
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error.response.data.message })
         }
