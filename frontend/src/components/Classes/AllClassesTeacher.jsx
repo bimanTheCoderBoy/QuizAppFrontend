@@ -55,9 +55,10 @@ function AllClassesTeacher() {
 
     //useEffect management
     var flag = true;
-    const addNewClass = (e) => {
+    const addNewClass = async(e) => {
         e.preventDefault();
-        addClass(addClassApi, { name: className });
+       await addClass(addClassApi, { name: className });
+       await getClasses(getClassApi);
         setClassName("");
         hidePop();
         flag = !flag;
@@ -66,7 +67,7 @@ function AllClassesTeacher() {
     useEffect(() => {
         console.log("hello")
         getClasses(getClassApi);
-    }, [flag])
+    }, [])
     return (
 
 
