@@ -5,8 +5,8 @@ import { RxCross1 } from "react-icons/rx";
 import { useClassContext } from '../../context/ClassContext';
 import { NavLink } from 'react-router-dom';
 
-const getClassApi = "api/v1/getallclasses";
-const addClassApi = "api/v1/createclass"
+const getClassApi = "/api/v1/getallclasses";
+const addClassApi = "/api/v1/createclass"
 // const allOwnClasses = [{ name: "cse1", subject: "science" },
 // { name: "cse2", subject: "humanities" },
 // { name: "cse3", subject: "science" },
