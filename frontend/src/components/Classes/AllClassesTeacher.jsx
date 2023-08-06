@@ -15,6 +15,8 @@ function AllClassesTeacher() {
     const [cls, setCls] = useState(0);
     const [className, setClassName] = useState("");
     const { isClassLoading, classErrorMsg, isError, ownClasses, otherClasses, getClasses, addClass } = useClassContext();
+
+    //What class to display own/other
     const selectClassType = (e) => {
         const buttons = document.querySelectorAll(".butn");
         buttons.forEach((ele) => {
@@ -40,6 +42,8 @@ function AllClassesTeacher() {
 
     //useEffect management
     var flag = true;
+
+    //Add New Class
     const addNewClass = async (e) => {
         e.preventDefault();
         await addClass(addClassApi, { name: className });
@@ -88,7 +92,8 @@ function AllClassesTeacher() {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
+
             <div className='add-class hidden'>
                 <div className='add-box'>
                     <div className='cross' onClick={() => hidePop()}><RxCross1 /></div>

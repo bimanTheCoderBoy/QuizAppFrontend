@@ -9,6 +9,7 @@ import Quizes from '../components/SingleClass/Quizes';
 import Notes from '../components/SingleClass/Notes';
 import Members from '../components/SingleClass/Members';
 
+const getSingleClassAPI = "/api/v1/getclass"
 
 
 function SingleClassTeacherPage() {
@@ -34,7 +35,7 @@ function SingleClassTeacherPage() {
 
     //Loading data of single Classe
     useEffect(() => {
-        getSingleClass();
+        getSingleClass(`${getSingleClassAPI}/${classid}`);
     }, []);
 
     return (

@@ -55,12 +55,13 @@ const ClassProvider = ({ children }) => {
     }
 
     // GET SINGLE CLASS 
-    const getSingleClass = async (url, body) => {
+    const getSingleClass = async (url) => {
         dispatch({ type: "SET_LOADING" });
-        console.log("acl");
+        console.log(url);
         try {
-            // const resp = await axios.get(url);
-            dispatch({ type: "SINGLE_CLASS", payload: classroom });
+            const resp = await axios.get(url);
+            console.log(resp.classData);
+            dispatch({ type: "SINGLE_CLASS", payload: resp.classData });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error })
         }

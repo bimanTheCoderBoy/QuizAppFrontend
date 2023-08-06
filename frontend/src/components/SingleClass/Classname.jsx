@@ -10,6 +10,9 @@ import { NavLink } from 'react-router-dom';
 function Classname() {
     const { singleClass } = useClassContext();
     const [shwMem, setShwMem] = useState(0);
+
+
+    //Member show in mobile
     const showMembers = (e) => {
         e.preventDefault();
         const members = document.querySelector(".members");

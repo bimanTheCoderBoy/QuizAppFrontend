@@ -6,7 +6,7 @@ import "../style/HomePage.css";
 import AllClassesTeacher from '../components/Classes/AllClassesTeacher';
 import AllClassesStudent from '../components/Classes/AllClassesStudent';
 
-const getProfileApi = "api/v1/profile";
+const getProfileApi = "/api/v1/profile";
 
 function HomePage() {
     const { getProfile, profile } = useProfileContext();

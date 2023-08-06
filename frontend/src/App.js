@@ -8,13 +8,14 @@ import ProfilePage from "./pages/ProfilePage";
 import { useProfileContext } from "./context/ProfileContext";
 import SingleClassTeacherPage from "./pages/SingleClassTeacherPage";
 
-const checkLoginApi = "/api/v1/isauth"
+const checkLoginApi = "/api/v1/isauth";
 
 const App = () => {
   const { isLogin, checkLogin } = useProfileContext();
   useEffect(() => {
     checkLogin(checkLoginApi);
   }, []);
+
   return (
     <BrowserRouter>
       {
