@@ -46,6 +46,50 @@ const joinInstitute=async(req,res,next)=>{
    
 };
 
-module.exports={joinInstitute}
+
+const teacherJoinClass=async(req,res,next)=>{
+    const {classid}=req.params;
+    const institute_id=req.user._id;
+    const user_id=req.body.userid;
+    const subject_name=req.body.sunjectname;
+   
+    try {
+    //getting class
+    const classObj=await Class.findOne({_id:classid});
+    if(classObj){
+
+    
+    //adding user to the class
+     const addstu= await Class.updateOne(
+        {_id:classid},
+            {$push:{
+                subteacherpair:[{sunjectname:subject_name,teacherid:user_id}]
+             }});
+
+    //adding class to user
+       const addcls= await User.updateOne(
+            {_id:user_id},
+            {$push:{
+                otherclasses:[classObj._id]
+             }});
+            
+        if(addstu&&addcls){
+            res.json({
+                success:true,
+                message:" class successfully joined"
+            });
+        }else{
+            next(new ErrorHandler("database error", 404))
+        }
+    }else{
+        next(new ErrorHandler("class does not exist", 404))
+    }
+    } catch (error) {
+        next(new ErrorHandler(error.message || "database error", 404))
+    }
+   
+};
+
+module.exports={joinInstitute,teacherJoinClass}
 
 
