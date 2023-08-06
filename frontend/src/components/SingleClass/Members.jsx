@@ -97,7 +97,7 @@ function Members() {
             </div>
             {
                 display ?
-                    <AddTeacherPop props={makeZero, display} /> : <></>
+                    <AddTeacherPop props={makeZero} /> : <></>
             }
         </>
     )
