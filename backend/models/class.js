@@ -1,22 +1,22 @@
-const mongoose=require("mongoose");
-const ClassSchema=new mongoose.Schema({
-    name:{
-        type:String,
-        required:true
+const mongoose = require("mongoose");
+const ClassSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
     },
-    classcode:{
-       type:String,
-       unique:true,
-    //    default:function(){
-    //     return  Math.floor(Math.random() * 9000000000) + 1000000000;
-    //    } 
+    classcode: {
+        type: String,
+        unique: true,
+        //    default:function(){
+        //     return  Math.floor(Math.random() * 9000000000) + 1000000000;
+        //    } 
     },
-    students:{
-        type:[{type: mongoose.Schema.Types.ObjectId,}],
+    students: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, }],
 
-        ref:"User"
+        ref: "User"
     },
-    admin:{
+    admin: {
         type: mongoose.Schema.Types.ObjectId,
     }
 
@@ -24,4 +24,4 @@ const ClassSchema=new mongoose.Schema({
 
 
 
-module.exports=mongoose.model("Class",ClassSchema);
+module.exports = mongoose.model("Class", ClassSchema);
