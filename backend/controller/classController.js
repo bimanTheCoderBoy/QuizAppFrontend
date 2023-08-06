@@ -12,14 +12,21 @@ const createClass = async (req, res, next) => {
         classObj =await Class.create({name,classcode: Math.floor(Math.random() * 9000000000) + 1000000000});
         
         //sending new class to user
-        await User.updateOne(
+      const ownclassesupdate=  await User.updateOne(
             { _id: user._id },
             {
                 $push: {
                     ownclasses: [classObj._id]
                 }
             });
-
+        //class admin 
+      const classadmin=  await Class.updateOne(
+            { _id: classObj._id },
+            {admin:user_id}
+        )
+        if(!(ownclassesupdate&&classadmin)){
+            next(new ErrorHandler("database error", 404))
+        }
 
 
     } catch (error) {
@@ -61,12 +68,20 @@ const getClass=async(req,res,next)=>{
     const id=req.params.id;
     try {
         const classData=await Class.findOne({_id:id});
+
+
         if(classData){
+            
+           
+
+            
             res.json({
                 success:true,
                 message:"getting class successfully",
-                classData
+                classData,
+                isAdmin: req.user._id===classData.admin
             });
+        
         }else{
             next(new ErrorHandler("Class not found", 404))
         }
@@ -77,6 +92,9 @@ const getClass=async(req,res,next)=>{
         });
     }
 }
+
+
+
 module.exports={createClass,getAllClass,getClass}
 
 

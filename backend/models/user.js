@@ -58,6 +58,14 @@ const User = new mongoose.Schema(
             },
             ref:"Class"
         },
+        institutes:{
+            type:[{type: mongoose.Schema.Types.ObjectId,}],
+            ref:"User"
+        },
+        otherteachers:{
+            type:[{type: mongoose.Schema.Types.ObjectId,}],
+            ref:"User"
+        },
         createAt: {
             type: Date,
             default: Date.now
