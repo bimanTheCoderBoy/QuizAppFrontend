@@ -51,6 +51,7 @@ const User = new mongoose.Schema(
             },
             ref:"Class"
         },
+        //student field
         myclasses:{
             type:[{type: mongoose.Schema.Types.ObjectId,}],
             required: function () {
@@ -66,10 +67,7 @@ const User = new mongoose.Schema(
             type:[{type: mongoose.Schema.Types.ObjectId,}],
             ref:"User"
         },
-        subteacherpair:{
-            type:[{type:{ teacherid:mongoose.Schema.Types.ObjectId,subjectname:String}}],
-            ref:"User"
-        },
+      
         createAt: {
             type: Date,
             default: Date.now

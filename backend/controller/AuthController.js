@@ -93,7 +93,7 @@ const isAuth = async (req, res, next) => {
     // console.log(decodedId);
     if (decodedId) {
       try {
-        req.user = await User.findById(decodedId);
+        // req.user = await User.findById(decodedId);
         // next()
         res.json({
           success: true,
@@ -127,7 +127,17 @@ const isloggedIn = async (req, res, next) => {
     if (decodedId) {
       try {
         req.user = await User.findById(decodedId);
-        next()
+        if(req.user){
+          next()
+
+        }else{
+          res.json({
+            success: false,
+            message: "user is not Authenticated"
+          })
+        }
+        
+       
 
       } catch (error) {
 

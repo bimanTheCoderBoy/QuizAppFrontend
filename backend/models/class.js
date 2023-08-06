@@ -16,9 +16,18 @@ const ClassSchema=new mongoose.Schema({
 
         ref:"User"
     },
+    teachers:{
+        type:[{type: mongoose.Schema.Types.ObjectId,}],
+
+        ref:"User"
+    },
     admin:{
         type: mongoose.Schema.Types.ObjectId,
-    }
+    },
+    subteacherpair:{
+        type:[{type:{ teacherid:mongoose.Schema.Types.ObjectId,subjectname:String}}],
+        ref:"User"
+    },
 
 });
 
