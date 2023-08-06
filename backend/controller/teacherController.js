@@ -4,6 +4,7 @@ const { ErrorHandler } = require('../utils/error')
 
 const getTeacherProfile=(req,res,next)=>{
     const user=req.user;
+    
     res.json({
       success:true,
       message:"getting user data successfully",
@@ -65,19 +66,19 @@ const teacherJoinClass=async(req,res,next)=>{
     const {classid}=req.params;
    
     const user_id=req.body.userid;
-    const subject_name=req.body.sunjectname;
+    const subject_name=req.body.subjectname;
    
     try {
     //getting class
     const classObj=await Class.findOne({_id:classid});
-    if(classObj){
+    if(classObj&&user_id&&subject_name){
 
     
     //adding user to the class
      const addstu= await Class.updateOne(
         {_id:classid},
             {$push:{
-                subteacherpair:[{sunjectname:subject_name,teacherid:user_id}]
+                subteacherpair:[{subjectname:subject_name,teacherid:user_id}]
              }});
 
     //adding class to user
@@ -86,8 +87,9 @@ const teacherJoinClass=async(req,res,next)=>{
             {$push:{
                 otherclasses:[classObj._id]
              }});
-            
-        if(addstu&&addcls){
+            console.log(addstu)
+            console.log(addcls)
+        if(addstu && addcls){
             res.json({
                 success:true,
                 message:" class successfully joined"

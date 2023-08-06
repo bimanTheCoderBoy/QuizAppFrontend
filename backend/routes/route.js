@@ -34,7 +34,7 @@ router.post("/joinclass",isloggedIn,joinClass)
 
 //teacher route
 router.post("/joininstitute",isloggedIn,joinInstitute)
-router.get("/joingetteacherprofile",isloggedIn,getTeacherProfile)
+router.get("/getteacherprofile",isloggedIn,getTeacherProfile)
 // console.log(joinClass)
 
 //institute route
