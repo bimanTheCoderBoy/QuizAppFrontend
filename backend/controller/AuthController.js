@@ -85,12 +85,8 @@ const logout = async (req, res) => {
 
 const isAuth = async (req, res, next) => {
   const { token } = req.cookies;
-  console.log(req);
   if (token) {
-    console.log("c1");
-    const decodedId = jwt.verify(token, process.env.JWT_SECRET)
-    console.log("c2");
-    // console.log(decodedId);
+    const decodedId = jwt.verify(token, process.env.JWT_SECRET);
     if (decodedId) {
       try {
         // req.user = await User.findById(decodedId);
@@ -127,21 +123,21 @@ const isloggedIn = async (req, res, next) => {
     if (decodedId) {
       try {
         req.user = await User.findById(decodedId);
-        if(req.user){
+        if (req.user) {
           next()
 
-        }else{
+        } else {
           res.json({
             success: false,
             message: "user is not Authenticated"
           })
         }
-        
-       
+
+
 
       } catch (error) {
 
-        console.log(error)
+        console.log(error);
         res.json({
           success: false,
           message: "internal server isuee"

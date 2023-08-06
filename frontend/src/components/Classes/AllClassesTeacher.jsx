@@ -5,35 +5,19 @@ import { RxCross1 } from "react-icons/rx";
 import { useClassContext } from '../../context/ClassContext';
 import { NavLink } from 'react-router-dom';
 
-const getClassApi = "api/v1/getallclasses";
-const addClassApi = "api/v1/createclass"
-// const allOwnClasses = [{ name: "cse1", subject: "science" },
-// { name: "cse2", subject: "humanities" },
-// { name: "cse3", subject: "science" },
-// { name: "csbs", subject: "maths" },
-// { name: "batch-x", subject: "eco" },
-// { name: "csbs", subject: "maths" },
-// { name: "batch-x", subject: "eco" },
-// { name: "csbs", subject: "maths" },
-// { name: "batch-x", subject: "eco" },
-// { name: "batch-y", subject: "maths" },
-// ]
-
-// const allOtherClasses = [
-//     { name: "cse1", subject: "science" },
-//     { name: "cse1", subject: "science" },
-//     { name: "cse1", subject: "science" },
-//     { name: "cse1", subject: "science" },
-//     { name: "cse1", subject: "science" },
-// ]
-
+const getClassApi = "/api/v1/getallclasses";
+const addClassApi = "/api/v1/createclass"
+const joinInstituteApi = "/api/v1/joininstitute";
 
 
 
 function AllClassesTeacher() {
     const [cls, setCls] = useState(0);
     const [className, setClassName] = useState("");
-    const { isClassLoading, classErrorMsg, isError, ownClasses, otherClasses, getClasses, addClass } = useClassContext();
+    const [InstituteCode, setInstituteCode] = useState("");
+    const { isClassLoading, classErrorMsg, isError, ownClasses, otherClasses, getClasses, addClass, joinInsitute } = useClassContext();
+
+    //What class to display own/other
     const selectClassType = (e) => {
         const buttons = document.querySelectorAll(".butn");
         buttons.forEach((ele) => {
@@ -42,26 +26,43 @@ function AllClassesTeacher() {
         e.target.classList.add("btn-active");
     }
 
+    //JOIN ClASS/INSTITUTE DISPLAY
     const displayPop = () => {
         const pop = document.querySelector(".add-class");
         pop.classList.remove("hidden");
     }
 
+
+    //JOIN ClASS/INSTITUTE HIDE
     const hidePop = () => {
         const pop = document.querySelector(".add-class");
+        setClassName("");
+        setInstituteCode("");
         pop.classList.add("hidden");
     }
 
 
     //useEffect management
     var flag = true;
-    const addNewClass = async(e) => {
+
+    //Add New Class
+    const addNewClass = async (e) => {
         e.preventDefault();
-       await addClass(addClassApi, { name: className });
-       await getClasses(getClassApi);
+        await addClass(addClassApi, { name: className });
+        await getClasses(getClassApi);
         setClassName("");
         hidePop();
         flag = !flag;
+    }
+
+
+    //Join institute
+    const joinNewInstitute = async (e) => {
+        e.preventDefault();
+        console.log(InstituteCode)
+        await joinInsitute(joinInstituteApi, { InstituteCode });
+        setInstituteCode("");
+        hidePop();
     }
 
     useEffect(() => {
@@ -103,7 +104,8 @@ function AllClassesTeacher() {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
+
             <div className='add-class hidden'>
                 <div className='add-box'>
                     <div className='cross' onClick={() => hidePop()}><RxCross1 /></div>
@@ -112,8 +114,8 @@ function AllClassesTeacher() {
                             <>
                                 <h2>Join Insititute</h2>
                                 <form action="" className='add-form'>
-                                    <input type="text" placeholder='Institute code' value={className} className='add-name' />
-                                    <input type="submit" value="Join" className='add-button' />
+                                    <input type="text" placeholder='Institute code' value={InstituteCode} className='add-name' onChange={(e) => setInstituteCode(e.target.value)} />
+                                    <input type="submit" value="Join" className='add-button' onClick={(e) => joinNewInstitute(e)} />
                                 </form>
                             </> :
                             <>

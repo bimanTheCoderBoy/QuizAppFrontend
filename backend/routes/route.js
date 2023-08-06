@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { register, login, isAuth, logout,isloggedIn } = require("../controller/AuthController")
-const {createClass,getAllClass,getClass}=require("../controller/classController")
-const {joinClass}=require("../controller/studentController")
-const {joinInstitute,teacherJoinClass,getTeacherProfile}=require("../controller/teacherController")
+const { register, login, isAuth, logout, isloggedIn } = require("../controller/AuthController")
+const { createClass, getAllClass, getClass } = require("../controller/classController")
+const { joinClass } = require("../controller/studentController")
+const { joinInstitute, teacherJoinClass, getTeacherProfile } = require("../controller/teacherController")
 
 
 router.get("/", (req, res) => {
@@ -23,22 +23,26 @@ router.delete("/logout", logout);
 router.post("/createclass", isloggedIn, createClass)
 router.get("/getallclasses", isloggedIn, getAllClass)
 
-router.post("/createclass",isloggedIn,createClass)
-router.get("/getallclasses",isloggedIn,getAllClass)
-router.get("/getclass/:id",isloggedIn,getClass)
+router.post("/createclass", isloggedIn, createClass)
+router.get("/getallclasses", isloggedIn, getAllClass)
+router.get("/getclass/:id", isloggedIn, getClass)
+
+router.post("/createclass", isloggedIn, createClass)
+router.get("/getallclasses", isloggedIn, getAllClass)
+router.get("/getclass/:id", isloggedIn, getClass)
 
 
 
 //student route
-router.post("/joinclass",isloggedIn,joinClass)
+router.post("/joinclass", isloggedIn, joinClass)
 
 //teacher route
-router.post("/joininstitute",isloggedIn,joinInstitute)
-router.get("/getteacherprofile",isloggedIn,getTeacherProfile)
+router.post("/joininstitute", isloggedIn, joinInstitute)
+router.get("/getteacherprofile", isloggedIn, getTeacherProfile)
 // console.log(joinClass)
 
 //institute route
-router.post("/teacherjoinclass/:classid",isloggedIn,teacherJoinClass)
+router.post("/teacherjoinclass/:classid", isloggedIn, teacherJoinClass)
 
 // router.patch("/uploadImage",);
 

@@ -28,7 +28,7 @@ app.use(errorMiddleware);
 
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4500;
 //listening server
 app.listen(port, () => {
     console.log("server is listening at port " + port)

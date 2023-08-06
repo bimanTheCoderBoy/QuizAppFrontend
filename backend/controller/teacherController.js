@@ -2,110 +2,118 @@ const Class = require("../models/class");
 const User = require("../models/user");
 const { ErrorHandler } = require('../utils/error')
 
-const getTeacherProfile=(req,res,next)=>{
-    const user=req.user;
+const getTeacherProfile = (req, res, next) => {
+    console.log("get teacher");
+    const user = req.user;
     
     res.json({
-      success:true,
-      message:"getting user data successfully",
-      name:user.name,
-      email:user.email,
-      role:user.role,
-      skey:user.skey,
-      otherteachers:user.otherteachers,
-      institutes:user.institutes
-      }); 
-  
-    }
-const joinInstitute=async(req,res,next)=>{
-    const {InstituteCode}=req.body;
-    const user=req.user;
-   
+        success: true,
+        message: "getting user data successfully",
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        skey: user.skey,
+        otherteachers: user.otherteachers,
+        institutes: user.institutes
+    });
+
+}
+const joinInstitute = async (req, res, next) => {
+    const { InstituteCode } = req.body;
+    const user = req.user;
+
     try {
-    //getting Institute
-    const InstituteObj=await User.findOne({skey:InstituteCode});
+        //getting Institute
+        const InstituteObj = await User.findOne({ skey: InstituteCode });
 
-    if(InstituteObj){
+        if (InstituteObj) {
 
-    if(user._id===InstituteObj._id){
-        next(new ErrorHandler("you can not join your own institute", 404))
-    }
-    //adding teacher To institute
-     const addteacherToinstitute= await User.updateOne(
-        {skey:InstituteCode},
-            {$push:{
-                otherteachers:[user._id]
-             }});
+            if (user._id === InstituteObj._id) {
+                next(new ErrorHandler("you can not join your own institute", 404))
+            }
+            //adding teacher To institute
+            const addteacherToinstitute = await User.updateOne(
+                { skey: InstituteCode },
+                {
+                    $push: {
+                        otherteachers: [user._id]
+                    }
+                });
 
-    //adding  institute to teacher 
-       const addinstituteToteacher= await User.updateOne(
-            {_id:user._id},
-            {$push:{
-                institutes:[InstituteObj._id]
-             }});
-            
-        if(addteacherToinstitute&&addinstituteToteacher){
-            res.json({
-                success:true,
-                message:"Institute joined successfully"
-            });
-        }else{
-            next(new ErrorHandler("database error", 404))
+            //adding  institute to teacher 
+            const addinstituteToteacher = await User.updateOne(
+                { _id: user._id },
+                {
+                    $push: {
+                        institutes: [InstituteObj._id]
+                    }
+                });
+
+            if (addteacherToinstitute && addinstituteToteacher) {
+                res.json({
+                    success: true,
+                    message: "Institute joined successfully"
+                });
+            } else {
+                next(new ErrorHandler("database error", 404))
+            }
+        } else {
+            next(new ErrorHandler("Institute does not exist", 404))
         }
-    }else{
-        next(new ErrorHandler("Institute does not exist", 404))
-    }
     } catch (error) {
         next(new ErrorHandler(error.message || "database error", 404))
     }
-   
+
 };
 
 
-const teacherJoinClass=async(req,res,next)=>{
-    const {classid}=req.params;
-   
-    const user_id=req.body.userid;
-    const subject_name=req.body.subjectname;
-   
+const teacherJoinClass = async (req, res, next) => {
+    const { classid } = req.params;
+
+    const user_id = req.body.userid;
+    const subject_name = req.body.sunjectname;
+
     try {
-    //getting class
-    const classObj=await Class.findOne({_id:classid});
-    if(classObj&&user_id&&subject_name){
+        //getting class
+        const classObj = await Class.findOne({ _id: classid });
+        if (classObj) {
 
-    
-    //adding user to the class
-     const addstu= await Class.updateOne(
-        {_id:classid},
-            {$push:{
-                subteacherpair:[{subjectname:subject_name,teacherid:user_id}]
-             }});
 
-    //adding class to user
-       const addcls= await User.updateOne(
-            {_id:user_id},
-            {$push:{
-                otherclasses:[classObj._id]
-             }});
-            console.log(addstu)
-            console.log(addcls)
-        if(addstu && addcls){
-            res.json({
-                success:true,
-                message:" class successfully joined"
-            });
-        }else{
-            next(new ErrorHandler("database error", 404))
+            //adding user to the class
+            const addstu = await Class.updateOne(
+                { _id: classid },
+                {
+                    $push: {
+                        subteacherpair: [{ sunjectname: subject_name, teacherid: user_id }]
+                    }
+                });
+
+            //adding class to user
+            const addcls = await User.updateOne(
+                { _id: user_id },
+                {
+                    $push: {
+                        otherclasses: [classObj._id]
+                    }
+                });
+
+            if (addstu && addcls) {
+                res.json({
+                    success: true,
+                    message: " class successfully joined"
+                });
+            } else {
+                next(new ErrorHandler("database error", 404))
+            }
+        } else {
+            next(new ErrorHandler("class does not exist", 404))
         }
-    }else{
-        next(new ErrorHandler("class does not exist", 404))
-    }
     } catch (error) {
         next(new ErrorHandler(error.message || "database error", 404))
     }
-   
+
 };
 
-module.exports={joinInstitute,teacherJoinClass,getTeacherProfile}
+module.exports = { joinInstitute, teacherJoinClass, getTeacherProfile }
 
 

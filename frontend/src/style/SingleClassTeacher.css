@@ -9,12 +9,6 @@
 }
 
 .classname-area {
-    /* background-image: linear-gradient(0deg,
-            hsl(208deg 73% 86%) 0%,
-            hsl(210deg 73% 96%) 25%,
-            hsl(300deg 100% 100%) 50%,
-            hsl(210deg 73% 96%) 75%,
-            hsl(208deg 73% 86%) 100%); */
     height: 3rem;
     display: flex;
     justify-content: space-between;
@@ -30,15 +24,49 @@
     display: none;
 }
 
+.class-settings-open-btn {
+    color: black;
+}
+
 
 .toggle-btns {
     display: flex;
     justify-content: center;
 }
 
-.toggle-btns button {
-    width: 7rem;
+.toggle-butn {
+    padding: 0.5rem 1rem;
+    width: 8rem;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    color: #002443;
+    background-color: #aed9ff;
+    border: none;
+    box-shadow: 0px 7px #999;
+    margin-bottom: 1rem;
 }
+
+.btn-left {
+    border-radius: 1rem 0rem 0rem 1rem;
+}
+
+.btn-right {
+    border-radius: 0rem 1rem 1rem 0rem;
+}
+
+.btn-active {
+    background-color: var(--check2);
+    box-shadow: 0 5px #666;
+    transform: translate(0px, 2px);
+    color: white;
+}
+
+
+
+
 
 .classdata-area {
     background-color: var(--check2);
@@ -67,6 +95,13 @@
 .all-class-teachers .label {
     text-align: center;
     color: #002443;
+    position: relative;
+}
+
+.add-teacher-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .teachers-list {
@@ -89,8 +124,6 @@
     width: 1.7rem;
     border-radius: 1rem;
 }
-
-
 
 .all-class-students .label {
     text-align: center;
@@ -129,10 +162,83 @@
     cursor: pointer;
 }
 
+.display {
+    display: block;
+}
 
+
+/* adding teacher to the class  */
+.add-teacher {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.add-box {
+    height: 12rem;
+    width: 20rem;
+    background-color: var(--dark-blue);
+    padding: 0.5rem;
+    color: #fff;
+    border-radius: 0rem 1.5rem 0rem 1.5rem;
+    box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.25);
+    /* text-align: center; */
+}
+
+.add-box h2 {
+    text-align: center;
+    letter-spacing: 1.5px;
+}
+
+.add-form {
+    margin-top: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.add-subject {
+    height: 3rem;
+    width: 100%;
+    border-radius: 1rem;
+    /* background-color: var(--light-blue); */
+    padding: 1rem;
+    outline: none;
+    border: none;
+    /* box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.25); */
+    /* box-shadow: inset 2px 2px 7px 0px rgba(0, 0, 0, 0.25); */
+    box-shadow: inset 2px 2px 7px 0px #0ecfe0;
+}
+
+.add-button {
+    width: 9rem;
+    height: 2rem;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    box-shadow: 2px 2px 7px 0px rgba(255, 255, 255, 0.25);
+}
+
+.add-button:hover {
+    background-color: var(--medium-blue);
+    color: #fff;
+    font-weight: 600;
+}
+
+.cross {
+    position: absolute;
+    right: 5%;
+}
 
 @media (max-width: 600px) {
     .class-member-btn {
         display: block;
+    }
+
+    .mobile-hidden {
+        display: none;
     }
 }
