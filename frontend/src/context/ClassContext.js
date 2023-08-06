@@ -20,17 +20,21 @@ const initialState = {
     singleClass: {},
     admin: false,
     name: "",
+    role: ""
 }
 
 const ClassProvider = ({ children }) => {
     const [state, dispatch] = useReducer(ClassReducer, initialState);
+
     //GET ALL CLASSES
     const getClasses = async (url) => {
         console.log("check 1");
         dispatch({ type: "SET_LOADING" });
         try {
+            console.log("C");
             const resp = await axios.get(url);
             const classes = resp.data;
+            console.log("c2");
             console.log(classes);
             dispatch({ type: "MY_CLASSES", payload: classes });
         } catch (error) {

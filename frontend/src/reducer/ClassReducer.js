@@ -14,6 +14,8 @@ const ClassReducer = (state, action) => {
             ownClasses: action.payload.ownClasses,
             otherClasses: action.payload.otherClasses,
             // ownClasses: action.payload
+            name: action.payload.userName,
+            role: action.payload.role
         }
     }
     else if (action.type === "API_ERROR") {

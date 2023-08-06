@@ -58,7 +58,8 @@ const getAllClass = async (req, res, next) => {
             message: "getting all classes successfully",
             ownClasses: ownClasses[0].ownclasses,
             otherClasses: otherClasses[0].otherclasses,
-            userName:user.name
+            userName: user.name,
+            role: user.role,
         });
     } catch (error) {
         next(new ErrorHandler(error.message || "database error", 404))
