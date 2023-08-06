@@ -7,14 +7,15 @@ import { NavLink } from 'react-router-dom';
 
 const getClassApi = "/api/v1/getallclasses";
 const addClassApi = "/api/v1/createclass"
-
+const joinInstituteApi = "/api/v1/joininstitute";
 
 
 
 function AllClassesTeacher() {
     const [cls, setCls] = useState(0);
     const [className, setClassName] = useState("");
-    const { isClassLoading, classErrorMsg, isError, ownClasses, otherClasses, getClasses, addClass } = useClassContext();
+    const [InstituteCode, setInstituteCode] = useState("");
+    const { isClassLoading, classErrorMsg, isError, ownClasses, otherClasses, getClasses, addClass, joinInsitute } = useClassContext();
 
     //What class to display own/other
     const selectClassType = (e) => {
@@ -36,6 +37,7 @@ function AllClassesTeacher() {
     const hidePop = () => {
         const pop = document.querySelector(".add-class");
         setClassName("");
+        setInstituteCode("");
         pop.classList.add("hidden");
     }
 
@@ -51,6 +53,16 @@ function AllClassesTeacher() {
         setClassName("");
         hidePop();
         flag = !flag;
+    }
+
+
+    //Join institute
+    const joinNewInstitute = async (e) => {
+        e.preventDefault();
+        console.log(InstituteCode)
+        await joinInsitute(joinInstituteApi, { InstituteCode });
+        setInstituteCode("");
+        hidePop();
     }
 
     useEffect(() => {
@@ -102,8 +114,8 @@ function AllClassesTeacher() {
                             <>
                                 <h2>Join Insititute</h2>
                                 <form action="" className='add-form'>
-                                    <input type="text" placeholder='Institute code' value={className} className='add-name' onChange={(e) => setClassName(e.target.value)} />
-                                    <input type="submit" value="Join" className='add-button' />
+                                    <input type="text" placeholder='Institute code' value={InstituteCode} className='add-name' onChange={(e) => setInstituteCode(e.target.value)} />
+                                    <input type="submit" value="Join" className='add-button' onClick={(e) => joinNewInstitute(e)} />
                                 </form>
                             </> :
                             <>

@@ -15,6 +15,9 @@ const ClassSchema=new mongoose.Schema({
         type:[{type: mongoose.Schema.Types.ObjectId,}],
 
         ref:"User"
+    },
+    admin:{
+        type: mongoose.Schema.Types.ObjectId,
     }
 
 });

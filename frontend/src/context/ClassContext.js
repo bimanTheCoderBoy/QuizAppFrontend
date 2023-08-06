@@ -19,6 +19,7 @@ const initialState = {
     otherClasses: [],
     singleClass: {},
     admin: false,
+    name: "",
 }
 
 const ClassProvider = ({ children }) => {
@@ -54,20 +55,39 @@ const ClassProvider = ({ children }) => {
         }
     }
 
+    //Join Institute
+    const joinInsitute = async (url, body) => {
+        console.log("check 1");
+        console.log(body);
+        try {
+            const resp = await axios.post(url,
+                JSON.stringify(body),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                }
+            );
+            console.log(resp);
+            dispatch({ type: "JOIN INSTITUTE" });
+        } catch (error) {
+            dispatch({ type: "API_ERROR", payload: error.response.data.message });
+        }
+    }
+
     // GET SINGLE CLASS 
     const getSingleClass = async (url) => {
         dispatch({ type: "SET_LOADING" });
         console.log(url);
         try {
             const resp = await axios.get(url);
-            console.log(resp.classData);
-            dispatch({ type: "SINGLE_CLASS", payload: resp.classData });
+            console.log(resp.data.classData);
+            dispatch({ type: "SINGLE_CLASS", payload: resp.data.classData });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error })
         }
     }
 
-    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass }}>
+    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute }}>
         {children}
     </ClassContext.Provider>
 

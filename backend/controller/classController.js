@@ -24,7 +24,7 @@ const createClass = async (req, res, next) => {
         //class admin 
         const classadmin = await Class.updateOne(
             { _id: classObj._id },
-            { admin: user_id }
+            { admin: user._id }
         )
         if (!(ownclassesupdate && classadmin)) {
             next(new ErrorHandler("database error", 404))

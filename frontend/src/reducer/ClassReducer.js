@@ -32,6 +32,13 @@ const ClassReducer = (state, action) => {
         }
     }
 
+    //JOIN INSTITUTE
+    else if (action.type === "JOIN INSTITUTE") {
+        return {
+            ...state,
+        }
+    }
+
     //GET SINGLE CLASS
     else if (action.type === "SINGLE_CLASS") {
         console.log("S");

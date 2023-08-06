@@ -16,6 +16,13 @@ const initialState = {
     profile: {}
 }
 
+const DemoProfile = {
+    name: "JB",
+    email: "jb@gmail.com",
+    otherTeachers: [{ name: "nk" }, { name: "bkd" }, { name: "sm" }],
+    institutes: [{ name: "spd" }, { name: "dkm" }]
+}
+
 const ProfileProvider = ({ children }) => {
     const [state, dispatch] = useReducer(ProfileReducer, initialState);
 
