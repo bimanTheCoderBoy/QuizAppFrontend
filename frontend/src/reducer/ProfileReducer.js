@@ -2,12 +2,14 @@ const ProfileReducer = (state, action) => {
 
     // GET PROFILE 
     if (action.type === "SET_LOADING") {
+
         return {
             ...state,
-            isLoading: true
+            isLoading: true,
         }
     }
     else if (action.type === "MY_PROFILE") {
+
         return {
             ...state,
             isLoading: false,

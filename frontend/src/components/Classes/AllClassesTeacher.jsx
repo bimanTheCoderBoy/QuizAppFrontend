@@ -26,7 +26,7 @@ function AllClassesTeacher() {
         e.target.classList.add("btn-active");
     }
 
-
+    //JOIN ClASS/INSTITUTE DISPLAY
     const displayPop = () => {
         const pop = document.querySelector(".add-class");
         pop.classList.remove("hidden");

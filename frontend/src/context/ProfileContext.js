@@ -34,9 +34,9 @@ const ProfileProvider = ({ children }) => {
             const resp = await axios.get(url);
             console.log("chek2");
             const profileLogin = await resp.data;
-            console.log(resp);
+            console.log(resp.data);
             if (profileLogin.success) {
-                dispatch({ type: "MY_PROFILE", payload: { name: "jyoti" } });
+                dispatch({ type: "MY_PROFILE", payload: { name: "JTOIT" } });
             }
             else {
                 dispatch({ type: "API_ERROR", payload: profileLogin.message });
@@ -49,12 +49,13 @@ const ProfileProvider = ({ children }) => {
 
     // GET PROFILE 
     const getProfile = async (url) => {
+        // console.log("sd");
         dispatch({ type: "SET_LOADING" });
         try {
-            // const resp = await axios.get(url);
-            // const profile = resp.data;
-            // console.log(profile);
-            dispatch({ type: "MY_PROFILE", payload: { name: "aluu", role: "teacher" } });
+            const resp = await axios.get(url);
+            const profile = resp.data;
+            console.log(profile);
+            dispatch({ type: "MY_PROFILE", payload: profile });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error });
         }

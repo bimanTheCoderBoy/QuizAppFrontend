@@ -125,8 +125,6 @@
     border-radius: 1rem;
 }
 
-
-
 .all-class-students .label {
     text-align: center;
     margin-top: 1rem;
@@ -166,6 +164,73 @@
 
 .display {
     display: block;
+}
+
+
+/* adding teacher to the class  */
+.add-teacher {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.add-box {
+    height: 12rem;
+    width: 20rem;
+    background-color: var(--dark-blue);
+    padding: 0.5rem;
+    color: #fff;
+    border-radius: 0rem 1.5rem 0rem 1.5rem;
+    box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.25);
+    /* text-align: center; */
+}
+
+.add-box h2 {
+    text-align: center;
+    letter-spacing: 1.5px;
+}
+
+.add-form {
+    margin-top: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.add-subject {
+    height: 3rem;
+    width: 100%;
+    border-radius: 1rem;
+    /* background-color: var(--light-blue); */
+    padding: 1rem;
+    outline: none;
+    border: none;
+    /* box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.25); */
+    /* box-shadow: inset 2px 2px 7px 0px rgba(0, 0, 0, 0.25); */
+    box-shadow: inset 2px 2px 7px 0px #0ecfe0;
+}
+
+.add-button {
+    width: 9rem;
+    height: 2rem;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    box-shadow: 2px 2px 7px 0px rgba(255, 255, 255, 0.25);
+}
+
+.add-button:hover {
+    background-color: var(--medium-blue);
+    color: #fff;
+    font-weight: 600;
+}
+
+.cross {
+    position: absolute;
+    right: 5%;
 }
 
 @media (max-width: 600px) {
