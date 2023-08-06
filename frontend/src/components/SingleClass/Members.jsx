@@ -1,16 +1,25 @@
 import React, { useState } from 'react'
 import { useClassContext } from '../../context/ClassContext'
+import { AiOutlineUserAdd } from "react-icons/ai";
+
+const Admin = true;
 
 function Members() {
     const { singleClass } = useClassContext();
-    const [studentNo, setStudentNo] = useState(singleClass.students?.length > 3 ? 3 : singleClass.students?.length);
+
+    //Number of students to display
+    const [studentNo, setStudentNo] = useState(singleClass.students?.length >= 3 ? 3 : singleClass.students?.length);
+
+    //Display in button student
     const [view, setView] = useState("View All");
+
     return (
-        <div className='members'>
+        <div className='members mobile-hidden'>
             <h5>Members</h5>
             <div className='all-class-teachers'>
-                <div className='label'>Teachers</div>
+                <div className='label'>Teachers{Admin ? <div className='add-teacher-btn'><AiOutlineUserAdd /></div> : <></>}</div>
                 <div className='teachers-list'>
+                    {/* techers list  */}
                     {
                         singleClass.teachers?.map((ele, i) => {
                             return (

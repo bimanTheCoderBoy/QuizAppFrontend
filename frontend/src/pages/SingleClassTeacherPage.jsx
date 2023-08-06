@@ -14,23 +14,40 @@ import Members from '../components/SingleClass/Members';
 function SingleClassTeacherPage() {
     const { classid } = useParams();
     const { getSingleClass, singleClass, isClassLoading, classErrorMsg } = useClassContext();
-    const [type, setType] = useState(2);
+
+    //Selecting type for toggle button
+    const [type, setType] = useState(0);
+
+
+    //Quiz, Announce, Notes Toggler Button
+    const selectToggleType = (e) => {
+        const buttons = document.querySelectorAll(".toggle-butn");
+        buttons.forEach((ele) => {
+            ele.classList.remove("btn-active");
+        })
+        e.target.classList.add("btn-active");
+    }
+
+
+    //Showing members in mobile version
+
+
+    //Loading data of single Classe
     useEffect(() => {
         getSingleClass();
     }, []);
-    console.log(singleClass);
+
     return (
         <>
             <NavbarComponent />
             <Classname />
             <div className='container'>
                 <div className='row'>
-                    <div className='col-md-8 col-12 main-area'>
+                    <div className='col-md-8 col-12 main-area class-data'>
                         <div className='toggle-btns'>
-
-                            <button onClick={() => setType(0)}>Annoucements</button>
-                            <button onClick={() => setType(1)}>Quizes</button>
-                            <button onClick={() => setType(2)}>Notes</button>
+                            <button className='toggle-butn btn-left btn-active' onClick={(e) => { setType(0); selectToggleType(e) }}>Annoucements</button>
+                            <button className="toggle-butn btn-middle" onClick={(e) => { setType(1); selectToggleType(e) }}>Quizes</button>
+                            <button className='toggle-butn btn-right' onClick={(e) => { setType(2); selectToggleType(e) }}>Notes</button>
                         </div>
                         <div className='classdata-area'>
                             {

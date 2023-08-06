@@ -23,22 +23,27 @@ function AllClassesTeacher() {
         e.target.classList.add("btn-active");
     }
 
+
     const displayPop = () => {
         const pop = document.querySelector(".add-class");
         pop.classList.remove("hidden");
     }
 
+
+    //JOIN ClASS/INSTITUTE HIDE
     const hidePop = () => {
         const pop = document.querySelector(".add-class");
+        setClassName("");
         pop.classList.add("hidden");
     }
 
 
     //useEffect management
-    var flag;
-    const addNewClass = (e) => {
+    var flag = true;
+    const addNewClass = async (e) => {
         e.preventDefault();
-        addClass(addClassApi, { name: className });
+        await addClass(addClassApi, { name: className });
+        await getClasses(getClassApi);
         setClassName("");
         hidePop();
         flag = !flag;
@@ -47,7 +52,7 @@ function AllClassesTeacher() {
     useEffect(() => {
         console.log("hello")
         getClasses(getClassApi);
-    }, [flag])
+    }, [])
     return (
 
 
@@ -92,7 +97,7 @@ function AllClassesTeacher() {
                             <>
                                 <h2>Join Insititute</h2>
                                 <form action="" className='add-form'>
-                                    <input type="text" placeholder='Institute code' value={className} className='add-name' />
+                                    <input type="text" placeholder='Institute code' value={className} className='add-name' onChange={(e) => setClassName(e.target.value)} />
                                     <input type="submit" value="Join" className='add-button' />
                                 </form>
                             </> :

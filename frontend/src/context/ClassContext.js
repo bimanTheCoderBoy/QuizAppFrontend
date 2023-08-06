@@ -7,7 +7,8 @@ const ClassContext = createContext();
 const classroom = {
     name: "batchY",
     students: [{ name: "jyoti" }, { name: "aluu1" }, { name: "aluu2" }, { name: "aluu3" }, { name: "aluu4" }, { name: "aluu5" }, { name: "aluu6" }],
-    teachers: [{ name: "jyoti" }, { name: "aluu" }]
+    teachers: [{ name: "jyoti" }, { name: "aluu" }],
+    quizes: [{ name: "Science Quiz" }, { name: "Maths Quiz" }]
 }
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
     classErrorMsg: "",
     ownClasses: [],
     otherClasses: [],
-    singleClass: {}
+    singleClass: {},
+    admin: false,
 }
 
 const ClassProvider = ({ children }) => {
