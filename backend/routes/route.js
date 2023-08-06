@@ -41,7 +41,7 @@ router.post("/joininstitute", isloggedIn, joinInstitute)
 // console.log(joinClass)
 
 //institute route
-router.post("/teacherjoinclass", isloggedIn, teacherJoinClass)
+router.post("/teacherjoinclass/:classid", isloggedIn, teacherJoinClass)
 
 // router.patch("/uploadImage",);
 

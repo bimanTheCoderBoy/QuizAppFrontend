@@ -49,7 +49,7 @@ const joinInstitute=async(req,res,next)=>{
 
 const teacherJoinClass=async(req,res,next)=>{
     const {classid}=req.params;
-    const institute_id=req.user._id;
+   
     const user_id=req.body.userid;
     const subject_name=req.body.sunjectname;
    
