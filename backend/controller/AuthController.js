@@ -159,4 +159,8 @@ const isloggedIn = async (req, res, next) => {
   }
 }
 
+
+
+
+
 module.exports = { register, login, isAuth, logout, isloggedIn };

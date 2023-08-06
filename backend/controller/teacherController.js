@@ -2,6 +2,20 @@ const Class = require("../models/class");
 const User = require("../models/user");
 const { ErrorHandler } = require('../utils/error')
 
+const getTeacherProfile=(req,res,next)=>{
+    const user=req.user;
+    res.json({
+      success:true,
+      message:"getting user data successfully",
+      name:user.name,
+      email:user.email,
+      role:user.role,
+      skey:user.skey,
+      otherteachers:user.otherteachers,
+      institutes:user.institutes
+      }); 
+  
+    }
 const joinInstitute=async(req,res,next)=>{
     const {InstituteCode}=req.body;
     const user=req.user;
@@ -90,6 +104,6 @@ const teacherJoinClass=async(req,res,next)=>{
    
 };
 
-module.exports={joinInstitute,teacherJoinClass}
+module.exports={joinInstitute,teacherJoinClass,getTeacherProfile}
 
 

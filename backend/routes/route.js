@@ -3,7 +3,7 @@ const router = express.Router()
 const { register, login, isAuth, logout,isloggedIn } = require("../controller/AuthController")
 const {createClass,getAllClass,getClass}=require("../controller/classController")
 const {joinClass}=require("../controller/studentController")
-const {joinInstitute,teacherJoinClass}=require("../controller/teacherController")
+const {joinInstitute,teacherJoinClass,getTeacherProfile}=require("../controller/teacherController")
 
 
 router.get("/", (req, res) => {
@@ -34,6 +34,7 @@ router.post("/joinclass",isloggedIn,joinClass)
 
 //teacher route
 router.post("/joininstitute",isloggedIn,joinInstitute)
+router.get("/joingetteacherprofile",isloggedIn,getTeacherProfile)
 // console.log(joinClass)
 
 //institute route
