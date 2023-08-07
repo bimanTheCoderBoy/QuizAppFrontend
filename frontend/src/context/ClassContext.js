@@ -15,11 +15,12 @@ const initialState = {
     isClassLoading: false,
     isClassError: 0,
     classErrorMsg: "",
+    classSuccesMsg: "",
     ownClasses: [],
     otherClasses: [],
     singleClass: {},
-    allSubjects:[],
-    allTeaachers:[],
+    allSubjects: [],
+    allTeachers: [],
     admin: false,
     name: "",
     role: ""
@@ -95,39 +96,62 @@ const ClassProvider = ({ children }) => {
 
     //CREATE SUBJECT
     const createSubject = async (url, body) => {
+        console.log(body);
         try {
-            const resp = await axios.post(url,JSON.stringify(body),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
-            dispatch({ type: "SUBJECT_CREATED",payload:resp.data.success });
+            const resp = await axios.post(url, JSON.stringify(body),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                });
+            dispatch({ type: "SUBJECT_CREATED", payload: resp.data.success });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error })
         }
     }
+
     //GET ALL SUBJECTS
     const getSubjects = async (url) => {
         dispatch({ type: "SET_LOADING" });
         try {
             const resp = await axios.get(url);
-            dispatch({ type: "SUBJECTS",payload:resp.data.subjects });
+            dispatch({ type: "SUBJECTS", payload: resp.data.subjects });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error })
         }
     }
     //GET ALL TEACHERS
-     const getTeachers = async (url) => {
+    const getTeachers = async (url) => {
         dispatch({ type: "SET_LOADING" });
         try {
             const resp = await axios.get(url);
-            dispatch({ type: "TEACHERS",payload:resp.data.teachers });
+            dispatch({ type: "TEACHERS", payload: resp.data.teachers });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error })
         }
-     }
+    }
 
-    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute,createSubject,getSubjects,getTeachers }}>
+    //ADD OTHER TEACHERS TO CLASS
+    const addTeacherToClass = async (url, body) => {
+        console.log(body);
+        try {
+            console.log(body);
+            const resp = await axios.post(url,
+                JSON.stringify(body),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                }
+            );
+            console.log("dad");
+            console.log(resp)
+            dispatch({ type: "TEACHER_ADDED", payload: resp });
+        } catch (error) {
+            console.log(error)
+            dispatch({ type: "API_ERROR", payload: error })
+        }
+    }
+
+    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute, createSubject, getSubjects, getTeachers, addTeacherToClass }}>
         {children}
     </ClassContext.Provider>
 

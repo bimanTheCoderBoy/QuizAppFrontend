@@ -2,6 +2,7 @@ const ClassReducer = (state, action) => {
 
     //GET ALL CLASSES
     if (action.type === "SET_LOADING") {
+        console.log("ss");
         return {
             ...state,
             isClassLoading: true
@@ -51,18 +52,31 @@ const ClassReducer = (state, action) => {
             singleClass: action.payload,
         }
     }
-    else if(action.type === "SUBJECTS"){
+
+    //GET SUBJECTS
+    else if (action.type === "SUBJECTS") {
+        console.log("sssss");
         return {
             ...state,
             isClassLoading: false,
-            allSubjects:action.payload
+            allSubjects: action.payload
         }
     }
-    else if(action.type === "TEACHERS"){
+
+    //GET TEACHERS
+    else if (action.type === "TEACHERS") {
+        console.log("Ssssssss");
         return {
             ...state,
             isClassLoading: false,
-            allTeachers:action.payload
+            allTeachers: action.payload
+        }
+    }
+
+    //ADDING TEACHERS TO CLASS
+    else if (action.type === "TEACHER_ADDED") {
+        return {
+            ...state,
         }
     }
     else {

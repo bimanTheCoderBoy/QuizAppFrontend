@@ -1,35 +1,60 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { RxCross1 } from "react-icons/rx";
 
 import { GrAdd } from "react-icons/gr";
 
 import toast, { Toaster } from 'react-hot-toast';
+import { useClassContext } from '../../context/ClassContext';
+import Loading from "../Loading";
 
 
 // const subjectOptions = ["english", "maths", "bio"];
 const subjectOptions = ["english"];
+const addSubjectAPI = "/api/v1/createsubject";
+const getSubjectsAPI = "/api/v1/getallsubjects";
+const getTeachersAPI = "/api/v1/getallteachers";
+const addTeacherAPI = "/api/v1/teacherjoinclass"
 
 function AddTeacherPop({ props }) {
+
+    const { isClassLoading, singleClass, createSubject, getSubjects, getTeachers, allSubjects = [], allTeachers = [], addTeacherToClass } = useClassContext();
     // const { }
-    const [subject, setSubject] = useState(subjectOptions[0]);
+    const [subject, setSubject] = useState(allSubjects[0]);
     const [newSub, setNewSub] = useState("");
+    const [teacherID, setTeacherID] = useState();
+    const [load, setLoad] = useState(isClassLoading);
     //Which pop up to display
     const [pop, setPop] = useState(0);
+    useEffect(() => {
+        loadEvery();
+    }, [])
+    // useEffect(() => {
+    //     setLoad(isClassLoading);
+    // }, [isClassLoading]);
 
+    const loadEvery = async () => {
+        await getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
+        await getTeachers(getTeachersAPI);
+
+    }
+    // loadEvery();
 
     const addNewSubject = (e) => {
         e.preventDefault();
         let subName = newSub.toLowerCase();
-        if (subjectOptions.includes(subName)) {
+        if (allSubjects.includes(subName)) {
             toast.error("Subject Already Exists");
             setNewSub("");
             return;
         }
         else {
-            subjectOptions.push(subName);
+            createSubject(`${addSubjectAPI}/${singleClass._id}`, { userid: teacherID, subjectname: newSub })
             toast.success("Subject Added Successful");
+            getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
             setNewSub("");
+
+            console.log(allTeachers);
             setSubject(newSub);
             setPop(0);
         }
@@ -38,7 +63,9 @@ function AddTeacherPop({ props }) {
     //Add teacher
     const AddTeacher = (e) => {
         e.preventDefault();
-        console.log(subject);
+        console.log(teacherID, subject);
+        addTeacherToClass(`${addTeacherAPI}/${singleClass._id}`, { userid: teacherID, subjectname: subject });
+        // console.log(teacherID);
     }
 
 
@@ -66,11 +93,12 @@ function AddTeacherPop({ props }) {
                             <div className='add-box teacher-pop'>
                                 <div className='cross' onClick={(e) => props()}><RxCross1 /></div>
                                 <h2>Add Teacher</h2>
+
                                 <form action="" className='add-form'>
                                     <div className='select-subject'>
                                         <select type="text" placeholder='Subject' className='subject-select' value={subject} onChange={(e) => setSubject(e.target.value)}>
                                             {
-                                                subjectOptions.map((ele, i) => {
+                                                allSubjects.map((ele, i) => {
                                                     return (
                                                         <option className='subject-options' value={`${ele}`} key={i}>{ele}</option>
                                                     )
@@ -82,10 +110,19 @@ function AddTeacherPop({ props }) {
                                         </div>
                                     </div>
                                     <div className='select-teacher'>
-
+                                        <select type="text" placeholder='Teachers' className='teacher-select' onChange={(e) => setTeacherID(e.target.value)}>
+                                            {
+                                                allTeachers?.map((ele, i) => {
+                                                    return (
+                                                        <option className='teacher-options' value={`${ele._id}`} key={i}>{ele.name}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>
                                     </div>
                                     <input type="submit" value="Join" className='add-button' onClick={(e) => { AddTeacher(e) }} />
                                 </form>
+
                             </div>
                         </>
                 }

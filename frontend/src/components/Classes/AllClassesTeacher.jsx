@@ -62,6 +62,7 @@ function AllClassesTeacher() {
         console.log(InstituteCode)
         await joinInsitute(joinInstituteApi, { InstituteCode });
         setInstituteCode("");
+        
         hidePop();
     }
 
