@@ -24,6 +24,10 @@ const ClassSchema = new mongoose.Schema({
     admin: {
         type: mongoose.Schema.Types.ObjectId,
     },
+    subjects: {
+        type:[{type:String}]
+
+    },
     subteacherpair:{
 
         type:[{type:{
