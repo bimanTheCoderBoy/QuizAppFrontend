@@ -5,14 +5,18 @@ import { RxCross1 } from "react-icons/rx";
 import { GrAdd } from "react-icons/gr";
 
 import toast, { Toaster } from 'react-hot-toast';
+import { useClassContext } from '../../context/ClassContext';
 
 
 // const subjectOptions = ["english", "maths", "bio"];
 const subjectOptions = ["english"];
+const addSubjectAPI = "/api/v1/createsubject";
 
 function AddTeacherPop({ props }) {
+
+    const { singleClass, createSubject, getSubjects, allSubjects = [] } = useClassContext();
     // const { }
-    const [subject, setSubject] = useState(subjectOptions[0]);
+    const [subject, setSubject] = useState(allSubjects[0]);
     const [newSub, setNewSub] = useState("");
     //Which pop up to display
     const [pop, setPop] = useState(0);
@@ -21,13 +25,13 @@ function AddTeacherPop({ props }) {
     const addNewSubject = (e) => {
         e.preventDefault();
         let subName = newSub.toLowerCase();
-        if (subjectOptions.includes(subName)) {
+        if (allSubjects.includes(subName)) {
             toast.error("Subject Already Exists");
             setNewSub("");
             return;
         }
         else {
-            subjectOptions.push(subName);
+            createSubject(`${addSubjectAPI}/${singleClass._id}`, { subjectname: newSub })
             toast.success("Subject Added Successful");
             setNewSub("");
             setSubject(newSub);
@@ -70,7 +74,7 @@ function AddTeacherPop({ props }) {
                                     <div className='select-subject'>
                                         <select type="text" placeholder='Subject' className='subject-select' value={subject} onChange={(e) => setSubject(e.target.value)}>
                                             {
-                                                subjectOptions.map((ele, i) => {
+                                                allSubjects.map((ele, i) => {
                                                     return (
                                                         <option className='subject-options' value={`${ele}`} key={i}>{ele}</option>
                                                     )
