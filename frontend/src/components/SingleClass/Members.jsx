@@ -19,36 +19,17 @@ function Members() {
     const [view, setView] = useState("View All");
 
 
-    //Teacher add pop up
-    const displayPop = (e) => {
-        e.preventDefault();
-        console.log("check");
-        const popUp = document.querySelector(".add-teacher");
-        popUp.classList.remove("hidden");
-        // setDisplay(1);
-    }
-
-
     //make zero to hide pop
     const makeZero = () => {
         setDisplay(0);
     }
 
-    const hidePop = (e) => {
-        e.preventDefault();
-        const popUp = document.querySelector(".add-teacher");
-        popUp.classList.add("hidden");
-    }
-
-    const addTeacherToClass = () => {
-
-    }
     return (
         <>
             <div className='members mobile-hidden'>
                 <h5>Members</h5>
                 <div className='all-class-teachers'>
-                    <div className='label'>Teachers{Admin ? <div className='add-teacher-btn' onClick={(e) => { setDisplay(1); displayPop(e) }}><AiOutlineUserAdd /></div> : <></>}</div>
+                    <div className='label'>Teachers{Admin ? <div className='add-teacher-btn' onClick={(e) => { setDisplay(1) }}><AiOutlineUserAdd /></div> : <></>}</div>
                     <div className='teachers-list'>
                         {/* techers list  */}
                         {
