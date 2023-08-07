@@ -176,7 +176,7 @@
 }
 
 .add-box {
-    height: 12rem;
+    height: auto;
     width: 20rem;
     background-color: var(--dark-blue);
     padding: 0.5rem;
@@ -199,7 +199,8 @@
     gap: 1rem;
 }
 
-.select-subject {
+.select-subject,
+.select-teacher {
     height: 3rem;
     width: 100%;
     border-radius: 1rem;
@@ -207,7 +208,8 @@
     display: flex;
 }
 
-.subject-select {
+.subject-select,
+.teacher-select {
     height: 3rem;
     width: 90%;
     border-radius: 1rem;
@@ -217,7 +219,12 @@
     box-shadow: inset 2px 2px 7px 0px #0ecfe0;
 }
 
-.subject-options {
+.teacher-select {
+    width: 100%;
+}
+
+.subject-options,
+.teacher-options {
     border-radius: 1rem;
     background-color: var(--light-blue);
 }
@@ -230,6 +237,10 @@
 }
 
 /* add new subject */
+.add-subject {
+    width: 100%;
+}
+
 .add-new-subject-input {
     height: 3rem;
     width: 100%;
@@ -246,6 +257,7 @@
     height: 2rem;
     border-radius: 1rem;
     text-transform: uppercase;
+    margin-bottom: 0.5rem;
     letter-spacing: 0.5px;
     border: none;
     box-shadow: 2px 2px 7px 0px rgba(255, 255, 255, 0.25);

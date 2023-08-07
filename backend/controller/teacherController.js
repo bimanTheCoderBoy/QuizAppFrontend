@@ -5,7 +5,7 @@ const { ErrorHandler } = require('../utils/error')
 const getTeacherProfile = (req, res, next) => {
     console.log("get teacher");
     const user = req.user;
-    
+
     res.json({
         success: true,
         message: "getting user data successfully",
@@ -71,8 +71,8 @@ const teacherJoinClass = async (req, res, next) => {
     const { classid } = req.params;
 
     const user_id = req.body.userid;
-    const subject_name = req.body.sunjectname;
-
+    const subject_name = req.body.subjectname;
+    console.log("check");
     try {
         //getting class
         const classObj = await Class.findOne({ _id: classid });
