@@ -71,7 +71,7 @@ const teacherJoinClass = async (req, res, next) => {
     const { classid } = req.params;
 
     const user_id = req.body.userid;
-    const subject_name = req.body.sunjectname;
+    const subject_name = req.body.subjectname;
 
     try {
         //getting class
@@ -84,7 +84,7 @@ const teacherJoinClass = async (req, res, next) => {
                 { _id: classid },
                 {
                     $push: {
-                        subteacherpair: [{ sunjectname: subject_name, teacherid: user_id }]
+                        subteacherpair: [{ subjectname: subject_name, teacherid: user_id }]
                     }
                 });
 
