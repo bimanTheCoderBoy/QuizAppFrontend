@@ -11,7 +11,7 @@ const createClass = async (req, res, next) => {
         //creating new class
         classObj = await Class.create({ name, classcode: Math.floor(Math.random() * 9000000000) + 1000000000 });
 
-        classObj = await Class.create({ name, classcode: Math.floor(Math.random() * 9000000000) + 1000000000 });
+        // classObj = await Class.create({ name, classcode: Math.floor(Math.random() * 9000000000) + 1000000000 });
 
         //sending new class to user
         const ownclassesupdate = await User.updateOne(
