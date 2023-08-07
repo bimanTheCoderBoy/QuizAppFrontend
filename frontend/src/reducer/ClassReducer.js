@@ -51,7 +51,20 @@ const ClassReducer = (state, action) => {
             singleClass: action.payload,
         }
     }
-
+    else if(action.type === "SUBJECTS"){
+        return {
+            ...state,
+            isClassLoading: false,
+            allSubjects:action.payload
+        }
+    }
+    else if(action.type === "TEACHERS"){
+        return {
+            ...state,
+            isClassLoading: false,
+            allTeachers:action.payload
+        }
+    }
     else {
         return {
             ...state,

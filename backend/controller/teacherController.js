@@ -5,6 +5,7 @@ const { ErrorHandler } = require('../utils/error')
 const getTeacherProfile = (req, res, next) => {
     console.log("get teacher");
     const user = req.user;
+    
     res.json({
         success: true,
         message: "getting user data successfully",
