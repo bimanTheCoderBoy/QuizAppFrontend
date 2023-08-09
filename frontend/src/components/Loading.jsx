@@ -5,10 +5,10 @@ import LoadingSpin from "react-loading-spin";
 
 function Loading() {
     return (
-        <div className="container-fluid" style={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center" }}>
-            <div className="ExampleOfUsage" style={{ marginTop: "30vh" }}>
+        <div className="" style={{zIndex:"100", position:'fixed',left:"0",top:"0",width:"100vw", height: "100vh", display: "flex", justifyContent: "center",backgroundColor:"rgba(0,0,0,.1)" }}>
+            {/* <div className="ExampleOfUsage"> */}
                 <LoadingSpin />
-            </div>
+            {/* </div> */}
         </div>
     )
 }

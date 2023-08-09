@@ -72,6 +72,7 @@ const teacherJoinClass = async (req, res, next) => {
 
     const user_id = req.body.userid;
     const subject_name = req.body.subjectname;
+
     try {
         //getting class
         const classObj = await Class.findOne({ _id: classid });
@@ -83,7 +84,7 @@ const teacherJoinClass = async (req, res, next) => {
                 { _id: classid },
                 {
                     $push: {
-                        subteacherpair: [{ sunjectname: subject_name, teacherid: user_id }]
+                        subteacherpair: [{ subjectname: subject_name, teacherid: user_id }]
                     }
                 });
 
