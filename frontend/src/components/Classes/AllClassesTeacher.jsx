@@ -4,6 +4,7 @@ import { GrAdd } from "react-icons/gr";
 import { RxCross1 } from "react-icons/rx";
 import { useClassContext } from '../../context/ClassContext';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const getClassApi = "/api/v1/getallclasses";
 const addClassApi = "/api/v1/createclass"
@@ -43,16 +44,18 @@ function AllClassesTeacher() {
 
 
     //useEffect management
-    var flag = true;
 
     //Add New Class
     const addNewClass = async (e) => {
         e.preventDefault();
+        if (className === "") {
+            toast.error("Please Enter The Classname");
+            return;
+        }
         await addClass(addClassApi, { name: className });
         await getClasses(getClassApi);
         setClassName("");
         hidePop();
-        flag = !flag;
     }
 
 
@@ -62,12 +65,10 @@ function AllClassesTeacher() {
         console.log(InstituteCode)
         await joinInsitute(joinInstituteApi, { InstituteCode });
         setInstituteCode("");
-        
         hidePop();
     }
 
     useEffect(() => {
-        console.log("hello")
         getClasses(getClassApi);
     }, [])
     return (

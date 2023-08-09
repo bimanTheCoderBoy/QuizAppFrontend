@@ -53,22 +53,39 @@ const ClassReducer = (state, action) => {
         }
     }
 
+    //SUBJECT TEACHER LOADING
+    else if (action.type === 'SET_SUBJECT_LOADING') {
+        return {
+            ...state,
+            isSubjectLoading: true,
+        };
+    }
+
+    //ADD SUBJECTS
+    else if (action.type === "ADD_SUBJECTS") {
+        return {
+            ...state,
+            isSubjectLoading: false,
+        }
+    }
+
+
     //GET SUBJECTS
     else if (action.type === "SUBJECTS") {
         console.log("sssss");
         return {
             ...state,
-            isClassLoading: false,
+            isSubjectLoading: false,
             allSubjects: action.payload
         }
     }
 
     //GET TEACHERS
     else if (action.type === "TEACHERS") {
-        console.log("Ssssssss");
+        console.log("check");
         return {
             ...state,
-            isClassLoading: false,
+            isSubjectLoading: false,
             allTeachers: action.payload
         }
     }
@@ -77,6 +94,7 @@ const ClassReducer = (state, action) => {
     else if (action.type === "TEACHER_ADDED") {
         return {
             ...state,
+            isSubjectLoading: false,
         }
     }
     else {

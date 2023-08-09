@@ -8,6 +8,7 @@ import Announcements from '../components/SingleClass/Announcements';
 import Quizes from '../components/SingleClass/Quizes';
 import Notes from '../components/SingleClass/Notes';
 import Members from '../components/SingleClass/Members';
+import Loading from '../components/Loading';
 
 const getSingleClassAPI = "/api/v1/getclass"
 
@@ -41,27 +42,31 @@ function SingleClassTeacherPage() {
     return (
         <>
             <NavbarComponent />
-            <Classname />
-            <div className='container'>
-                <div className='row'>
-                    <div className='col-md-8 col-12 main-area class-data'>
-                        <div className='toggle-btns'>
-                            <button className='toggle-butn btn-left btn-active' onClick={(e) => { setType(0); selectToggleType(e) }}>Annoucements</button>
-                            <button className="toggle-butn btn-middle" onClick={(e) => { setType(1); selectToggleType(e) }}>Quizes</button>
-                            <button className='toggle-butn btn-right' onClick={(e) => { setType(2); selectToggleType(e) }}>Notes</button>
+            {
+                isClassLoading ? <Loading /> :
+                    <>
+                        <Classname />
+                        <div className='container'>
+                            <div className='row'>
+                                <div className='col-md-8 col-12 main-area class-data'>
+                                    <div className='toggle-btns'>
+                                        <button className='toggle-butn btn-left btn-active' onClick={(e) => { setType(0); selectToggleType(e) }}>Annoucements</button>
+                                        <button className="toggle-butn btn-middle" onClick={(e) => { setType(1); selectToggleType(e) }}>Quizes</button>
+                                        <button className='toggle-butn btn-right' onClick={(e) => { setType(2); selectToggleType(e) }}>Notes</button>
+                                    </div>
+                                    <div className='classdata-area'>
+                                        {
+                                            type === 0 ? <Announcements /> : type === 1 ? <Quizes /> : <Notes />
+                                        }
+                                    </div>
+                                </div>
+                                <div className='col-md-3 col-12 mx-auto'>
+                                    <Members />
+                                </div>
+                            </div>
                         </div>
-                        <div className='classdata-area'>
-                            {
-                                type === 0 ? <Announcements /> : type === 1 ? <Quizes /> : <Notes />
-                            }
-                        </div>
-                    </div>
-                    <div className='col-md-3 col-12 mx-auto'>
-                        <Members />
-                    </div>
-                </div>
-            </div>
-
+                    </>
+            }
         </>
     )
 }

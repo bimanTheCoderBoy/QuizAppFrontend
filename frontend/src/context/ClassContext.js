@@ -13,6 +13,7 @@ const classroom = {
 
 const initialState = {
     isClassLoading: false,
+    isSubjectLoading: false,
     isClassError: 0,
     classErrorMsg: "",
     classSuccesMsg: "",
@@ -31,7 +32,6 @@ const ClassProvider = ({ children }) => {
 
     //GET ALL CLASSES
     const getClasses = async (url) => {
-        console.log("check 1");
         dispatch({ type: "SET_LOADING" });
         try {
             console.log("C");
@@ -64,8 +64,6 @@ const ClassProvider = ({ children }) => {
 
     //Join Institute
     const joinInsitute = async (url, body) => {
-        console.log("check 1");
-        console.log(body);
         try {
             const resp = await axios.post(url,
                 JSON.stringify(body),
@@ -74,7 +72,6 @@ const ClassProvider = ({ children }) => {
                     withCredentials: true,
                 }
             );
-            console.log(resp);
             dispatch({ type: "JOIN INSTITUTE" });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error.response.data.message });
@@ -84,7 +81,6 @@ const ClassProvider = ({ children }) => {
     // GET SINGLE CLASS 
     const getSingleClass = async (url) => {
         dispatch({ type: "SET_LOADING" });
-        console.log(url);
         try {
             const resp = await axios.get(url);
             console.log(resp.data.classData);
@@ -96,7 +92,7 @@ const ClassProvider = ({ children }) => {
 
     //CREATE SUBJECT
     const createSubject = async (url, body) => {
-        console.log(body);
+        dispatch({ type: "SET_SUBJECT_LOADING" });
         try {
             const resp = await axios.post(url, JSON.stringify(body),
                 {
@@ -111,7 +107,7 @@ const ClassProvider = ({ children }) => {
 
     //GET ALL SUBJECTS
     const getSubjects = async (url) => {
-        dispatch({ type: "SET_LOADING" });
+        dispatch({ type: "SET_SUBJECT_LOADING" });
         try {
             const resp = await axios.get(url);
             dispatch({ type: "SUBJECTS", payload: resp.data.subjects });
@@ -123,7 +119,7 @@ const ClassProvider = ({ children }) => {
 
     //GET ALL TEACHERS
     const getTeachers = async (url) => {
-        dispatch({ type: "SET_LOADING" });
+        dispatch({ type: "SET_SUBJECT_LOADING" });
         try {
             const resp = await axios.get(url);
             dispatch({ type: "TEACHERS", payload: resp.data.teachers });
@@ -134,7 +130,7 @@ const ClassProvider = ({ children }) => {
 
     //ADD OTHER TEACHERS TO CLASS
     const addTeacherToClass = async (url, body) => {
-        console.log(body);
+        dispatch({ type: "SET_SUBJECT_LOADING" });
         try {
             console.log(body);
             const resp = await axios.post(url,
