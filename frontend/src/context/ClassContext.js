@@ -119,6 +119,8 @@ const ClassProvider = ({ children }) => {
             dispatch({ type: "API_ERROR", payload: error })
         }
     }
+
+
     //GET ALL TEACHERS
     const getTeachers = async (url) => {
         dispatch({ type: "SET_LOADING" });

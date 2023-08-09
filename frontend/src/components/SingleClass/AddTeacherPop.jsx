@@ -20,28 +20,27 @@ function AddTeacherPop({ props }) {
 
     const { isClassLoading, singleClass, createSubject, getSubjects, getTeachers, allSubjects = [], allTeachers = [], addTeacherToClass } = useClassContext();
     // const { }
-    const [subject, setSubject] = useState(allSubjects[0]);
+    const [subject, setSubject] = useState("");
     const [newSub, setNewSub] = useState("");
-    const [teacherID, setTeacherID] = useState();
+    const [teacherID, setTeacherID] = useState("");
     const [load, setLoad] = useState(isClassLoading);
     //Which pop up to display
     const [pop, setPop] = useState(0);
     useEffect(() => {
         loadEvery();
-    }, [])
-    // useEffect(() => {
-    //     setLoad(isClassLoading);
-    // }, [isClassLoading]);
+    }, []);
 
     const loadEvery = async () => {
         await getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
         await getTeachers(getTeachersAPI);
-
     }
-    // loadEvery();
 
     const addNewSubject = (e) => {
         e.preventDefault();
+        if (newSub === "") {
+            toast.error("Please Enter The Subject Name");
+            return;
+        }
         let subName = newSub.toLowerCase();
         if (allSubjects.includes(subName)) {
             toast.error("Subject Already Exists");
@@ -63,6 +62,10 @@ function AddTeacherPop({ props }) {
     //Add teacher
     const AddTeacher = (e) => {
         e.preventDefault();
+        if (teacherID === "" || subject === "") {
+            toast.error(`Please Fill All The Fields`);
+            return;
+        }
         console.log(teacherID, subject);
         addTeacherToClass(`${addTeacherAPI}/${singleClass._id}`, { userid: teacherID, subjectname: subject });
         // console.log(teacherID);
@@ -97,6 +100,7 @@ function AddTeacherPop({ props }) {
                                 <form action="" className='add-form'>
                                     <div className='select-subject'>
                                         <select type="text" placeholder='Subject' className='subject-select' value={subject} onChange={(e) => setSubject(e.target.value)}>
+                                            <option value="" disabled defaultValue="" hidden>Select Subject</option>
                                             {
                                                 allSubjects.map((ele, i) => {
                                                     return (
@@ -111,6 +115,7 @@ function AddTeacherPop({ props }) {
                                     </div>
                                     <div className='select-teacher'>
                                         <select type="text" placeholder='Teachers' className='teacher-select' onChange={(e) => setTeacherID(e.target.value)}>
+                                            <option value="" disabled selected hidden>Choose Teacher</option>
                                             {
                                                 allTeachers?.map((ele, i) => {
                                                     return (
