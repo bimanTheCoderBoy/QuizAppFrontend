@@ -15,28 +15,28 @@ const addSubjectAPI = "/api/v1/createsubject";
 const getSubjectsAPI = "/api/v1/getallsubjects";
 const getTeachersAPI = "/api/v1/getallteachers";
 const addTeacherAPI = "/api/v1/teacherjoinclass"
-
+const flag = false;
 function AddTeacherPop({ props }) {
 
     const { isClassLoading, singleClass, createSubject, getSubjects, getTeachers, allSubjects = [], allTeachers = [], addTeacherToClass } = useClassContext();
     // const { }
     const [subject, setSubject] = useState(allSubjects[0]);
     const [newSub, setNewSub] = useState("");
-    const [teacherID, setTeacherID] = useState();
+    const [teacherID, setTeacherID] = useState(singleClass.admin);
     const [load, setLoad] = useState(isClassLoading);
     //Which pop up to display
     const [pop, setPop] = useState(0);
     useEffect(() => {
         loadEvery();
+        // flag=false;
     }, [])
-    // useEffect(() => {
-    //     setLoad(isClassLoading);
-    // }, [isClassLoading]);
+    useEffect(() => {
+        setLoad(isClassLoading);
+    }, [isClassLoading]);
 
     const loadEvery = async () => {
         await getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
         await getTeachers(getTeachersAPI);
-
     }
     // loadEvery();
 
@@ -53,7 +53,6 @@ function AddTeacherPop({ props }) {
             toast.success("Subject Added Successful");
             getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
             setNewSub("");
-
             console.log(allTeachers);
             setSubject(newSub);
             setPop(0);
@@ -65,6 +64,8 @@ function AddTeacherPop({ props }) {
         e.preventDefault();
         console.log(teacherID, subject);
         addTeacherToClass(`${addTeacherAPI}/${singleClass._id}`, { userid: teacherID, subjectname: subject });
+        // setPop(0)
+        props()
         // console.log(teacherID);
     }
 
@@ -87,7 +88,7 @@ function AddTeacherPop({ props }) {
                                     <input type="submit" value="Add Subject" className='add-button' onClick={(e) => { addNewSubject(e) }} />
                                 </form>
                             </div>
-                        </> :
+                        </> :load?<Loading/>:
                         <>
                             {/* add teacher pop  */}
                             <div className='add-box teacher-pop'>
