@@ -83,7 +83,7 @@ const getClass = async (req, res, next) => {
                 success: true,
                 message: "getting class successfully",
                 classData,
-                isAdmin: req.user._id === classData.admin
+                isAdmin: req.user._id.equals(classData.admin)
             });
 
         } else {

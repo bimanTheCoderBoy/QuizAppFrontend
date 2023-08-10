@@ -28,7 +28,7 @@ const joinInstitute = async (req, res, next) => {
 
         if (InstituteObj) {
 
-            if (user._id === InstituteObj._id) {
+            if (user._id.equals(InstituteObj._id)) {
                 next(new ErrorHandler("you can not join your own institute", 404))
             }
             //adding teacher To institute
