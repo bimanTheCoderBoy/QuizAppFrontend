@@ -5,17 +5,13 @@ import NavbarComponent from '../components/NavbarComponent';
 import { useClassContext } from '../context/ClassContext';
 import Loading from '../components/Loading';
 
-const GetProfileAPI = "/api/v1/getteacherprofile";
 const LogoutApi = "api/v1/logout";
 
 function ProfilePage() {
-    const { profile = {}, isLoading, getProfile, userLogout } = useProfileContext();
+    const { profile = {}, isLoading, userLogout } = useProfileContext();
     const { ownClasses, otherClasses } = useClassContext();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        getProfile(GetProfileAPI);
-    }, [])
     return (
         <>
             <NavbarComponent />
