@@ -37,7 +37,6 @@ function SingleClassTeacherPage() {
     //Loading data of single Classe
     useEffect(() => {
         getSingleClass(`${getSingleClassAPI}/${classid}`);
-
     }, []);
 
     return (
