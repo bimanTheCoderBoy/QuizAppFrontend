@@ -24,9 +24,16 @@ function ProfilePage() {
                     <Loading />
                     :
                     <>
-                        <div>{profile ? <div>{profile.email}</div> : <></>}</div>
+                        <div>{
+                            profile ? <>
+                                <div>{profile.email}</div>
+                                <div>{profile.skey}</div>
+                            </>
+                                : <></>
+                        }</div>
                         {/* <div className='s-key'>{profile}</div> */}
                         {/* teachers under me  */}
+                        <h3>TEACHERS UNDER ME</h3>
                         <div>
                             {
                                 profile?.otherteachers?.map((ele, i) => {

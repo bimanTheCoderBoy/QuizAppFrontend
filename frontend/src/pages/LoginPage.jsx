@@ -16,6 +16,10 @@ function LoginPage() {
     const [password, setPassword] = useState("");
     const Login = (e) => {
         e.preventDefault();
+        if (email === "" || password === "") {
+            toast.error("Please Fill All The Credentials");
+            return;
+        }
         userLogin(LoginAPI, {
             email,
             password

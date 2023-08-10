@@ -5,7 +5,8 @@ const ClassReducer = (state, action) => {
         console.log("ss");
         return {
             ...state,
-            isClassLoading: true
+            isClassLoading: true,
+            isClassError: false
         }
     }
     else if (action.type === "MY_CLASSES") {
@@ -20,9 +21,11 @@ const ClassReducer = (state, action) => {
         }
     }
     else if (action.type === "API_ERROR") {
+        // console.log("sd");
         return {
             ...state,
             isClassLoading: false,
+            isClassError: true,
             classErrorMsg: action.payload,
         }
     }
@@ -39,6 +42,7 @@ const ClassReducer = (state, action) => {
     else if (action.type === "JOIN INSTITUTE") {
         return {
             ...state,
+            // classErrorMsg: action.payload,
         }
     }
 
@@ -94,7 +98,7 @@ const ClassReducer = (state, action) => {
     else if (action.type === "TEACHER_ADDED") {
         return {
             ...state,
-            isSubjectLoading: false,
+            isClassLoading: false,
         }
     }
     else {

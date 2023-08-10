@@ -4,19 +4,32 @@ import { GrAdd } from "react-icons/gr";
 import { RxCross1 } from "react-icons/rx";
 import { useClassContext } from '../../context/ClassContext';
 import { NavLink } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 
 const getClassApi = "/api/v1/getallclasses";
 const addClassApi = "/api/v1/createclass"
 const joinInstituteApi = "/api/v1/joininstitute";
 
 
-
 function AllClassesTeacher() {
     const [cls, setCls] = useState(0);
     const [className, setClassName] = useState("");
     const [InstituteCode, setInstituteCode] = useState("");
-    const { isClassLoading, classErrorMsg, isError, ownClasses, otherClasses, getClasses, addClass, joinInsitute } = useClassContext();
+    const { isClassLoading, classErrorMsg, isClassError, ownClasses, otherClasses, getClasses, addClass, joinInsitute, getError } = useClassContext();
+
+    //DISPLAY ERROR
+    function showErrorToast(msg) {
+        return toast.error(`${msg}`);
+    }
+
+
+    //DIPLAY WHENEVER ERROR
+    useEffect(() => {
+        if (isClassError) {
+            toast.error(classErrorMsg);
+        }
+    }, [isClassError]);
+    //We have to use effect bcz once the error is run the value gets updates but cannot pass throught the chilrens bcz the control is in the hands of the await ultill it returns we have to wait for the function to execute completely and then it updates the value and then it passes to the rest of the part of the function
 
     //What class to display own/other
     const selectClassType = (e) => {
@@ -55,6 +68,7 @@ function AllClassesTeacher() {
         await addClass(addClassApi, { name: className });
         await getClasses(getClassApi);
         setClassName("");
+        toast.success("Class Added");
         hidePop();
     }
 
@@ -71,9 +85,8 @@ function AllClassesTeacher() {
     useEffect(() => {
         getClasses(getClassApi);
     }, [])
+
     return (
-
-
         <div className='container-fluid'>
             <div className='row all-classes-area'>
                 <div className='col-md-12 col-12'>
@@ -130,7 +143,8 @@ function AllClassesTeacher() {
                     }
                 </div>
             </div>
-        </div >
+            <Toaster />
+        </div>
     )
 }
 

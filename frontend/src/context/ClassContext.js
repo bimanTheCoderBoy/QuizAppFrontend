@@ -14,7 +14,7 @@ const classroom = {
 const initialState = {
     isClassLoading: false,
     isSubjectLoading: false,
-    isClassError: 0,
+    isClassError: false,
     classErrorMsg: "",
     classSuccesMsg: "",
     ownClasses: [],
@@ -64,6 +64,7 @@ const ClassProvider = ({ children }) => {
 
     //Join Institute
     const joinInsitute = async (url, body) => {
+        dispatch({ type: "SET_LOADING" });
         try {
             const resp = await axios.post(url,
                 JSON.stringify(body),
@@ -72,8 +73,10 @@ const ClassProvider = ({ children }) => {
                     withCredentials: true,
                 }
             );
+            // console.log(resp);
             dispatch({ type: "JOIN INSTITUTE" });
         } catch (error) {
+            console.log("checkkkkkk");
             dispatch({ type: "API_ERROR", payload: error.response.data.message });
         }
     }
@@ -130,7 +133,7 @@ const ClassProvider = ({ children }) => {
 
     //ADD OTHER TEACHERS TO CLASS
     const addTeacherToClass = async (url, body) => {
-        dispatch({ type: "SET_SUBJECT_LOADING" });
+        dispatch({ type: "SET_LOADING" });
         try {
             console.log(body);
             const resp = await axios.post(url,
@@ -147,9 +150,21 @@ const ClassProvider = ({ children }) => {
             console.log(error)
             dispatch({ type: "API_ERROR", payload: error })
         }
+
+
     }
 
-    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute, createSubject, getSubjects, getTeachers, addTeacherToClass }}>
+    const getError = async (value) => {
+        // console.log(state);
+        if (value) {
+            console.log(state);
+            return state.classErrorMsg;
+        }
+        return false;
+    }
+
+
+    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute, createSubject, getSubjects, getTeachers, addTeacherToClass, getError }}>
         {children}
     </ClassContext.Provider>
 

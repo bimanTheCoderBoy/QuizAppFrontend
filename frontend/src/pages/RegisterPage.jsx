@@ -19,6 +19,10 @@ function RegisterPage() {
     const [Cpassword, setCPassword] = useState("");
     const Register = (e) => {
         e.preventDefault();
+        if (name === "" || role === "" || email === "" || password === "" || Cpassword === "") {
+            toast.error("Please Fill All The Credentials");
+            return;
+        }
         if (password === Cpassword) {
             userRegistration(RegisterAPI, {
                 email,
@@ -43,7 +47,6 @@ function RegisterPage() {
             setCPassword("");
         }
         else if (isError === 2) {
-            // console.log("check ");
             toast.success("Registration success");
             navigate("/");
             checkLogin(checkLoginApi);

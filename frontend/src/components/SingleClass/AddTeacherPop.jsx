@@ -18,7 +18,7 @@ const addTeacherAPI = "/api/v1/teacherjoinclass"
 const flag = false;
 function AddTeacherPop({ props }) {
 
-    const { isClassLoading, singleClass, createSubject, getSubjects, getTeachers, allSubjects = [], allTeachers = [], addTeacherToClass } = useClassContext();
+    const { isClassLoading, singleClass, getSingleClass, createSubject, getSubjects, getTeachers, allSubjects = [], allTeachers = [], addTeacherToClass } = useClassContext();
     // const { }
     const [subject, setSubject] = useState("");
     const [newSub, setNewSub] = useState("");
@@ -64,6 +64,7 @@ function AddTeacherPop({ props }) {
         }
         console.log(teacherID, subject);
         addTeacherToClass(`${addTeacherAPI}/${singleClass._id}`, { userid: teacherID, subjectname: subject });
+        getSingleClass();
         props();
     }
 

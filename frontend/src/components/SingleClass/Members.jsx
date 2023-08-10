@@ -10,6 +10,7 @@ function Members() {
     const { singleClass } = useClassContext();
     const { profile, getProfile } = useProfileContext();
     const [display, setDisplay] = useState(0);
+    console.log(singleClass);
 
 
     //Number of students to display
@@ -33,13 +34,14 @@ function Members() {
                     <div className='teachers-list'>
                         {/* techers list  */}
                         {
-                            singleClass.teachers?.map((ele, i) => {
+                            singleClass.subteacherpair?.map((ele, i) => {
                                 return (
                                     <div className='teacher' key={i}>
                                         {
                                             ele.profileImage ? <img src="" alt="" /> : <img src="https://cdn4.vectorstock.com/i/1000x1000/40/53/passport-photo-of-young-handsome-man-close-up-vector-21284053.jpg" alt="" />
                                         }
-                                        <div>{ele.name}</div>
+                                        {/* <div>aluu</div> */}
+                                        <div>{ele.teacherid}</div>
                                     </div>
                                 )
                             })
