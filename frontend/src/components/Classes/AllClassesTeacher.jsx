@@ -15,7 +15,7 @@ function AllClassesTeacher() {
     const [cls, setCls] = useState(0);
     const [className, setClassName] = useState("");
     const [InstituteCode, setInstituteCode] = useState("");
-    const { isClassLoading, classErrorMsg, isClassError, ownClasses, otherClasses, getClasses, addClass, joinInsitute, getError } = useClassContext();
+    const { isClassLoading, classErrorMsg, isClassError, ownClasses, otherClasses, getClasses, addClass, joinInsitute, getError, isSuccess, classSuccessMsg } = useClassContext();
 
     //DISPLAY ERROR
     function showErrorToast(msg) {
@@ -25,10 +25,17 @@ function AllClassesTeacher() {
 
     //DIPLAY WHENEVER ERROR
     useEffect(() => {
+        console.log("cehck use effect");
+        console.log(isSuccess);
         if (isClassError) {
             toast.error(classErrorMsg);
+            return;
         }
-    }, [isClassError]);
+        if (isSuccess) {
+            toast.success(classSuccessMsg);
+            return;
+        }
+    }, [isClassError, isSuccess]);
     //We have to use effect bcz once the error is run the value gets updates but cannot pass throught the chilrens bcz the control is in the hands of the await ultill it returns we have to wait for the function to execute completely and then it updates the value and then it passes to the rest of the part of the function
 
     //What class to display own/other
@@ -68,13 +75,16 @@ function AllClassesTeacher() {
         await addClass(addClassApi, { name: className });
         await getClasses(getClassApi);
         setClassName("");
-        toast.success("Class Added");
         hidePop();
     }
 
 
     //Join institute
     const joinNewInstitute = async (e) => {
+        if (InstituteCode === "") {
+            toast.error('Please enter the code');
+            return;
+        }
         e.preventDefault();
         console.log(InstituteCode)
         await joinInsitute(joinInstituteApi, { InstituteCode });
@@ -100,6 +110,7 @@ function AllClassesTeacher() {
                             {
                                 cls ?
                                     otherClasses?.map((ele, i) => {
+                                        console.log(ele);
                                         return (
                                             <NavLink to={`/class/${ele._id}`} className='class' key={i}>
                                                 <div className='class-name'> {ele.name}</div>

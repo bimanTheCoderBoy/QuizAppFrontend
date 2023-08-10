@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from 'react'
-
 import { RxCross1 } from "react-icons/rx";
-
 import { GrAdd } from "react-icons/gr";
-
 import toast, { Toaster } from 'react-hot-toast';
 import { useClassContext } from '../../context/ClassContext';
 import Loading from "../Loading";
 
 
-// const subjectOptions = ["english", "maths", "bio"];
-const subjectOptions = ["english"];
-const addSubjectAPI = "/api/v1/createsubject";
-const getSubjectsAPI = "/api/v1/getallsubjects";
-const getTeachersAPI = "/api/v1/getallteachers";
-const addTeacherAPI = "/api/v1/teacherjoinclass"
-const flag = false;
-function AddTeacherPop({ props }) {
+const addSubjectAPI = "/api/v1/createsubject";      //Add Subject To Class
+const getSubjectsAPI = "/api/v1/getallsubjects";    //Get Class Subjects
+const getTeachersAPI = "/api/v1/getallteachers";    //Get Teachers Under Me
+const addTeacherAPI = "/api/v1/teacherjoinclass";   //Add Teacher To Class
+const getSingleClassAPI = "/api/v1/getclass"        //Get Class Data
 
-    const { isClassLoading, singleClass, getSingleClass, createSubject, getSubjects, getTeachers, allSubjects = [], allTeachers = [], addTeacherToClass } = useClassContext();
+function AddTeacherPop({ props }) {
+    const { isClassLoading, singleClass, getSingleClass, createSubject, getSubjects, getTeachers, allSubjects = [], allTeachers = [], addTeacherToClass, isSuccess, classSuccessMsg, isClassError, classErrorMsg } = useClassContext();
     // const { }
     const [subject, setSubject] = useState("");
     const [newSub, setNewSub] = useState("");
@@ -29,46 +24,65 @@ function AddTeacherPop({ props }) {
         loadEvery();
     }, []);
 
+    //TO HANDLE SUCCESS AND ERRORS
+    useEffect(() => {
+        if (isClassError) {
+            toast.error(classErrorMsg);
+            return;
+        }
+        if (isSuccess) {
+            toast.success(classSuccessMsg);
+            return;
+        }
+    }, [isSuccess, isClassError]);
+
+    //SUBJECTS IN THE CLASS AND TEACHERS UNDER ME
     const loadEvery = async () => {
         await getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
         await getTeachers(getTeachersAPI);
     }
 
-    const addNewSubject = (e) => {
+    //ADD NEW SUBJECT
+    const addNewSubject = async (e) => {
         e.preventDefault();
+        //Check if the subject field is not empty
         if (newSub === "") {
             toast.error("Please Enter The Subject Name");
             return;
         }
+
+        //Check if the subject is already present
         let subName = newSub.toLowerCase();
         if (allSubjects.includes(subName)) {
             toast.error("Subject Already Exists");
             setNewSub("");
             return;
         }
-        else {
-            createSubject(`${addSubjectAPI}/${singleClass._id}`, { userid: teacherID, subjectname: newSub })
-            toast.success("Subject Added Successful");
-            getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
-            setNewSub("");
-            setPop(0);
-        }
+
+        //Add the subject and get the subjects
+        await createSubject(`${addSubjectAPI}/${singleClass._id}`, { userid: teacherID, subjectname: newSub })
+        await getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
+        setNewSub("");
+        setPop(0);
+
     }
 
-    //Add teacher
+    //ADD NEW TEACHER
     const AddTeacher = (e) => {
         e.preventDefault();
+        //Check if all the fields are not empty
         if (teacherID === "" || subject === "") {
             toast.error(`Please Fill All The Fields`);
             return;
         }
         console.log(teacherID, subject);
+        //Check if the subject teacher pair is already present
+
+
         addTeacherToClass(`${addTeacherAPI}/${singleClass._id}`, { userid: teacherID, subjectname: subject });
-        getSingleClass();
+        getSingleClass(`${getSingleClassAPI}/${singleClass._id}`);
         props();
     }
-
-
 
     return (
         <>

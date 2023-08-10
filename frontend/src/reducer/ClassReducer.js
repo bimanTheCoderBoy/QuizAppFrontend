@@ -1,5 +1,6 @@
 const ClassReducer = (state, action) => {
 
+
     //GET ALL CLASSES
     if (action.type === "SET_LOADING") {
         console.log("ss");
@@ -15,7 +16,6 @@ const ClassReducer = (state, action) => {
             isClassLoading: false,
             ownClasses: action.payload.ownClasses,
             otherClasses: action.payload.otherClasses,
-            // ownClasses: action.payload
             name: action.payload.userName,
             role: action.payload.role
         }
@@ -34,7 +34,6 @@ const ClassReducer = (state, action) => {
     else if (action.type === "CLASS_ADDED") {
         return {
             ...state,
-            isClassLoading: false
         }
     }
 
@@ -42,18 +41,16 @@ const ClassReducer = (state, action) => {
     else if (action.type === "JOIN INSTITUTE") {
         return {
             ...state,
-            // classErrorMsg: action.payload,
         }
     }
 
     //GET SINGLE CLASS
     else if (action.type === "SINGLE_CLASS") {
-        console.log("S");
-        console.log(action.payload);
         return {
             ...state,
             isClassLoading: false,
-            singleClass: action.payload,
+            singleClass: action.payload.classData,
+            admin: action.payload.isAdmin,
         }
     }
 
@@ -62,14 +59,14 @@ const ClassReducer = (state, action) => {
         return {
             ...state,
             isSubjectLoading: true,
+            isClassError: false,
         };
     }
 
     //ADD SUBJECTS
-    else if (action.type === "ADD_SUBJECTS") {
+    else if (action.type === "SUBJECT_CREATED") {
         return {
             ...state,
-            isSubjectLoading: false,
         }
     }
 
@@ -101,6 +98,26 @@ const ClassReducer = (state, action) => {
             isClassLoading: false,
         }
     }
+
+    //SET SUCCESS FALSE
+    else if (action.type === "FALSE_SUCCESS") {
+        return {
+            ...state,
+            isSuccess: false,
+            classSuccessMsg: ""
+        }
+    }
+
+    //SET SUCCESS TRUE
+    else if (action.type === "TRUE_SUCCESS") {
+        return {
+            ...state,
+            isSuccess: true,
+            classSuccessMsg: action.payload,
+        };
+    }
+
+
     else {
         return {
             ...state,

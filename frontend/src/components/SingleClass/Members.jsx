@@ -4,10 +4,10 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { useProfileContext } from "../../context/ProfileContext";
 import AddTeacherPop from './AddTeacherPop';
 
-const Admin = true;
+// const Admin = true;
 
 function Members() {
-    const { singleClass } = useClassContext();
+    const { singleClass, admin } = useClassContext();
     const { profile, getProfile } = useProfileContext();
     const [display, setDisplay] = useState(0);
     console.log(singleClass);
@@ -20,7 +20,7 @@ function Members() {
     const [view, setView] = useState("View All");
 
 
-    //make zero to hide pop
+    //make zero to hide add teacher pop
     const makeZero = () => {
         setDisplay(0);
     }
@@ -30,7 +30,7 @@ function Members() {
             <div className='members mobile-hidden'>
                 <h5>Members</h5>
                 <div className='all-class-teachers'>
-                    <div className='label'>Teachers{Admin ? <div className='add-teacher-btn' onClick={(e) => { setDisplay(1) }}><AiOutlineUserAdd /></div> : <></>}</div>
+                    <div className='label'>Teachers{admin ? <div className='add-teacher-btn' onClick={(e) => { setDisplay(1) }}><AiOutlineUserAdd /></div> : <></>}</div>
                     <div className='teachers-list'>
                         {/* techers list  */}
                         {
