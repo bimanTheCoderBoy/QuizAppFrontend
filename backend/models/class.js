@@ -30,11 +30,16 @@ const ClassSchema = new mongoose.Schema({
     },
     subteacherpair:{
 
-        type:[{type:{
-             teacherid:mongoose.Schema.Types.ObjectId
-             ,subjectname:String,
-            }}],
-        // ref:"User"
+        type:[{
+            
+            type:{
+             teacherid:{type:mongoose.Schema.Types.ObjectId,ref:"User"},
+
+             subjectname:String,
+             
+            }
+        }],
+       
     },
 
 });

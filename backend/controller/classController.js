@@ -48,7 +48,7 @@ const getAllClass = async (req, res, next) => {
     try {
 
 
-        const userData = await User.findOne({ _id: user._id }).populate({ path: "ownclasses", select: ["name"] }).populate({ path: "otherclasses", select: ["name"] });
+        const userData = await User.findOne({ _id: user._id }).populate({ path: "ownclasses", select: ["name","admin"] }).populate({ path: "otherclasses", select: ["name","admin"] });
 
         // otherClasses = await User.find({ _id: user._id }).populate({ path: "otherclasses", select: ["name"] });
 
@@ -71,18 +71,23 @@ const getAllClass = async (req, res, next) => {
 const getClass = async (req, res, next) => {
     const id = req.params.id;
     try {
-        const classData = await Class.findOne({ _id: id });
-
-
+    var classData = await Class.findOne({ _id: id });
+        
+      const data= await Promise.all(classData.subteacherpair.map(async(e)=>{
+          const teacher=  await User.findById(e.teacherid)
+            return {
+                teacherName:teacher.name,
+                subjectName:e.subjectname
+            }
+        }));
+        
         if (classData) {
-
-
-
 
             res.json({
                 success: true,
                 message: "getting class successfully",
                 classData,
+                subteacherarray:data,
                 isAdmin: req.user._id === classData.admin
             });
 

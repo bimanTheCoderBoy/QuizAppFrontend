@@ -25,10 +25,13 @@ const joinInstitute = async (req, res, next) => {
     try {
         //getting Institute
         const InstituteObj = await User.findOne({ skey: InstituteCode });
-
+        // const int_id = (InstituteObj._id)
+        // const user_id = (user._id)
+        // console.log(int_id.equals(user_id));    
         if (InstituteObj) {
 
-            if (user._id === InstituteObj._id) {
+            if (user._id.equals(InstituteObj._id)) {
+                console.log("dfghjk");
                 next(new ErrorHandler("you can not join your own institute", 404))
             }
             //adding teacher To institute
