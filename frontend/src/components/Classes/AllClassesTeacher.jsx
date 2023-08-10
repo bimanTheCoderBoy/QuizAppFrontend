@@ -113,23 +113,22 @@ function AllClassesTeacher() {
                             {
                                 cls ?
                                     otherClasses?.map((ele, i) => {
-                                        console.log(ele);
-                                        return (
-                                            <NavLink to={`/class/${ele._id}`} className='class' key={i}>
-                                                <div className='class-name'> {ele.name}</div>
-                                                {/* <div className='class-subject'>{ele.subject}</div> */}
-                                            </NavLink>
-                                        )
-                                    }) :
-                                    ownClasses?.map((ele, i) => {
-                                        if (profile._id === ele.admin) {
+                                        if (profile.id != ele.admin) {
                                             return (
                                                 <NavLink to={`/class/${ele._id}`} className='class' key={i}>
-                                                    <div className='class-name'>{ele.name}</div>
+                                                    <div className='class-name'> {ele.name}</div>
                                                     {/* <div className='class-subject'>{ele.subject}</div> */}
                                                 </NavLink>
                                             )
                                         }
+                                    }) :
+                                    ownClasses?.map((ele, i) => {
+                                        return (
+                                            <NavLink to={`/class/${ele._id}`} className='class' key={i}>
+                                                <div className='class-name'>{ele.name}</div>
+                                                {/* <div className='class-subject'>{ele.subject}</div> */}
+                                            </NavLink>
+                                        )
                                     })
                             }
                         </div>
