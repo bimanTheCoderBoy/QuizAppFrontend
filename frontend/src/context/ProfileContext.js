@@ -13,7 +13,8 @@ const initialState = {
     isError: 0,
     errorMsg: "",
     isLogin: false,
-    profile: {}
+    profile: {},
+    myTeachers: [],
 }
 
 const DemoProfile = {
@@ -60,6 +61,18 @@ const ProfileProvider = ({ children }) => {
             dispatch({ type: "API_ERROR", payload: error });
         }
     }
+
+
+    //GET MY TEACHERS
+    const getMyTeachers = async (url) => {
+        try {
+            const resp = await axios.get(url);
+            dispatch({ type: "MY_TEACHERS", payload: resp.data.teachers });
+        } catch (error) {
+            dispatch({ type: "API_ERROR", payload: error });
+        }
+    }
+
 
 
     // LOGIN API 
@@ -113,10 +126,9 @@ const ProfileProvider = ({ children }) => {
         } catch (error) {
             dispatch({ type: "LOGOUT_ERROR", payload: error.response.data.message })
         }
-
     }
 
-    return <ProfileContext.Provider value={{ ...state, getProfile, userLogin, userRegistration, checkLogin, userLogout }}>
+    return <ProfileContext.Provider value={{ ...state, getProfile, getMyTeachers, userLogin, userRegistration, checkLogin, userLogout }}>
         {children}
     </ProfileContext.Provider>
 

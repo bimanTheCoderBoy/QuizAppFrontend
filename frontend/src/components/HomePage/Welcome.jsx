@@ -4,7 +4,6 @@ import { useClassContext } from '../../context/ClassContext';
 
 function Welcome() {
     const { name } = useClassContext();
-    console.log(name);
     return (
         <div className='welcome'>
             <div className='welcome-msg'>Welcome</div>

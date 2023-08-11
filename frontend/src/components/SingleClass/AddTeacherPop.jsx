@@ -4,42 +4,46 @@ import { GrAdd } from "react-icons/gr";
 import toast, { Toaster } from 'react-hot-toast';
 import { useClassContext } from '../../context/ClassContext';
 import Loading from "../Loading";
+import { useProfileContext } from '../../context/ProfileContext';
 
 
 const addSubjectAPI = "/api/v1/createsubject";      //Add Subject To Class
 const getSubjectsAPI = "/api/v1/getallsubjects";    //Get Class Subjects
-const getTeachersAPI = "/api/v1/getallteachers";    //Get Teachers Under Me
+const getMyTeachersAPI = "/api/v1/getallteachers";    //Get Teachers Under Me
 const addTeacherAPI = "/api/v1/teacherjoinclass";   //Add Teacher To Class
 const getSingleClassAPI = "/api/v1/getclass"        //Get Class Data
 
 function AddTeacherPop({ props }) {
-    const { isClassLoading, singleClass, getSingleClass, createSubject, getSubjects, getTeachers, allSubjects = [], allTeachers = [], addTeacherToClass, isSuccess, classSuccessMsg, isClassError, classErrorMsg } = useClassContext();
+    const { isSubjectLoading, singleClass, getSingleClass, createSubject, getClassSubjects, getTeachersUnderMe, allSubjects = [], allTeachers = [], addTeacherToClass } = useClassContext();
+    const { myTeachers, getMyTeachers } = useProfileContext();
     // const { }
     const [subject, setSubject] = useState("");
     const [newSub, setNewSub] = useState("");
     const [teacherID, setTeacherID] = useState("");
+
     //Which pop up to display
     const [pop, setPop] = useState(0);
+
     useEffect(() => {
         loadEvery();
     }, []);
 
     //TO HANDLE SUCCESS AND ERRORS
-    useEffect(() => {
-        if (isClassError) {
-            toast.error(classErrorMsg);
-            return;
-        }
-        if (isSuccess) {
-            toast.success(classSuccessMsg);
-            return;
-        }
-    }, [isSuccess, isClassError]);
+    // useEffect(() => {
+    //     if (isClassError) {
+    //         toast.error(classErrorMsg);
+    //         return;
+    //     }
+    //     if (isSuccess) {
+    //         toast.success(classSuccessMsg);
+    //         return;
+    //     }
+    // }, [isSuccess, isClassError]);
 
     //SUBJECTS IN THE CLASS AND TEACHERS UNDER ME
     const loadEvery = async () => {
-        await getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
-        await getTeachers(getTeachersAPI);
+        await getClassSubjects(`${getSubjectsAPI}/${singleClass._id}`);
+        await getMyTeachers(getMyTeachersAPI);
     }
 
     //ADD NEW SUBJECT
@@ -60,26 +64,36 @@ function AddTeacherPop({ props }) {
         }
 
         //Add the subject and get the subjects
-        await createSubject(`${addSubjectAPI}/${singleClass._id}`, { userid: teacherID, subjectname: newSub })
-        await getSubjects(`${getSubjectsAPI}/${singleClass._id}`);
+        const error = await createSubject(`${addSubjectAPI}/${singleClass._id}`, { userid: teacherID, subjectname: newSub });
+        if (error) {
+            toast.error(error);
+            setNewSub("");
+            return;
+        }
+        toast.success("New Subject Added");
+        await getClassSubjects(`${getSubjectsAPI}/${singleClass._id}`);
         setNewSub("");
         setPop(0);
 
     }
 
-    //ADD NEW TEACHER
-    const AddTeacher = (e) => {
+    //ADD NEW TEACHER SUBJECT PAIR TO CLASS
+    const AddTeacherSub = async (e) => {
         e.preventDefault();
+
         //Check if all the fields are not empty
         if (teacherID === "" || subject === "") {
             toast.error(`Please Fill All The Fields`);
             return;
         }
-        console.log(teacherID, subject);
+
         //Check if the subject teacher pair is already present
-
-
-        addTeacherToClass(`${addTeacherAPI}/${singleClass._id}`, { userid: teacherID, subjectname: subject });
+        const error = await addTeacherToClass(`${addTeacherAPI}/${singleClass._id}`, { userid: teacherID, subjectname: subject });
+        if (error) {
+            toast.error(error);
+            return;
+        }
+        toast.success("Teacher Added Successfully");
         getSingleClass(`${getSingleClassAPI}/${singleClass._id}`);
         props();
     }
@@ -101,7 +115,7 @@ function AddTeacherPop({ props }) {
                                     <input type="submit" value="Add Subject" className='add-button' onClick={(e) => { addNewSubject(e) }} />
                                 </form>
                             </div>
-                        </> : isClassLoading ? <Loading /> :
+                        </> : isSubjectLoading ? <Loading /> :
                             <>
                                 {/* add teacher pop  */}
                                 <div className='add-box teacher-pop'>
@@ -127,7 +141,7 @@ function AddTeacherPop({ props }) {
                                             <select type="text" placeholder='Teachers' className='teacher-select' defaultValue="CHOOSE TEACHER" onChange={(e) => setTeacherID(e.target.value)}>
                                                 <option value="CHOOSE TEACHER" disabled hidden>Choose Teacher</option>
                                                 {
-                                                    allTeachers?.map((ele, i) => {
+                                                    myTeachers?.map((ele, i) => {
                                                         return (
                                                             <option className='teacher-options' value={`${ele._id}`} key={i}>{ele.name}</option>
                                                         )
@@ -135,15 +149,11 @@ function AddTeacherPop({ props }) {
                                                 }
                                             </select>
                                         </div>
-                                        <input type="submit" value="Join" className='add-button' onClick={(e) => { AddTeacher(e) }} />
+                                        <input type="submit" value="Join" className='add-button' onClick={(e) => { AddTeacherSub(e) }} />
                                     </form>
-
                                 </div>
                             </>
                 }
-
-
-
             </div>
             <Toaster />
         </>

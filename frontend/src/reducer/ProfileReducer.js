@@ -28,6 +28,14 @@ const ProfileReducer = (state, action) => {
     }
 
 
+    else if (action.type === "MY_TEACHERS") {
+        return {
+            ...state,
+            myTeachers: action.payload,
+        }
+    }
+
+
     //LOGIN
     else if (action.type === "LOGIN_SUCCESS") {
         return {

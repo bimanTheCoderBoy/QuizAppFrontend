@@ -30,7 +30,7 @@ const ClassProvider = ({ children }) => {
 
     //GET ALL CLASSES
     const getClasses = async (url) => {
-        dispatch({ type: "FALSE_SUCCESS" });
+        // dispatch({ type: "FALSE_SUCCESS" });
         dispatch({ type: "SET_LOADING" });
         try {
             const resp = await axios.get(url);
@@ -43,7 +43,7 @@ const ClassProvider = ({ children }) => {
 
     //ADD CLASS
     const addClass = async (url, body) => {
-        dispatch({ type: "FALSE_SUCCESS" });
+        // dispatch({ type: "FALSE_SUCCESS" });
         try {
             const resp = await axios.post(url,
                 JSON.stringify(body),
@@ -53,15 +53,17 @@ const ClassProvider = ({ children }) => {
                 }
             );
             dispatch({ type: "CLASS_ADDED" });
-            dispatch({ type: "TRUE_SUCCESS", payload: resp.data.message });
+            return false;
+            // dispatch({ type: "TRUE_SUCCESS", payload: resp.data.message });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error.response.data.message })
+            return error.response.data.message;
         }
     }
 
     //Join Institute
     const joinInsitute = async (url, body) => {
-        dispatch({ type: "FALSE_SUCCESS" });
+        // dispatch({ type: "FALSE_SUCCESS" });
         try {
             const resp = await axios.post(url,
                 JSON.stringify(body),
@@ -71,15 +73,16 @@ const ClassProvider = ({ children }) => {
                 }
             );
             dispatch({ type: "JOIN INSTITUTE" });
-            dispatch({ type: "TRUE_SUCCESS", payload: resp.data.message });
+            return false;
+            // dispatch({ type: "TRUE_SUCCESS", payload: resp.data.message });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error.response.data.message });
+            return error.response.data.message;
         }
     }
 
     // GET SINGLE CLASS 
     const getSingleClass = async (url) => {
-        dispatch({ type: "FALSE_SUCCESS" });
         dispatch({ type: "SET_LOADING" });
         try {
             const resp = await axios.get(url);
@@ -92,7 +95,7 @@ const ClassProvider = ({ children }) => {
 
     //CREATE SUBJECT
     const createSubject = async (url, body) => {
-        dispatch({ type: "FALSE_SUCCESS" });
+        // dispatch({ type: "FALSE_SUCCESS" });
         try {
             const resp = await axios.post(url, JSON.stringify(body),
                 {
@@ -101,15 +104,15 @@ const ClassProvider = ({ children }) => {
                 });
             console.log(resp);
             dispatch({ type: "SUBJECT_CREATED" });
-            dispatch({ type: "TRUE_SUCCESS", payload: resp.data.message });
+            return false;
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error.response.data.message })
+            return error.response.data.message;
         }
     }
 
     //GET ALL SUBJECTS
-    const getSubjects = async (url) => {
-        dispatch({ type: "FALSE_SUCCESS" });
+    const getClassSubjects = async (url) => {
         dispatch({ type: "SET_SUBJECT_LOADING" });
         try {
             const resp = await axios.get(url);
@@ -119,13 +122,27 @@ const ClassProvider = ({ children }) => {
         }
     }
 
-    //GET ALL TEACHERS
-    const getTeachers = async (url) => {
-        dispatch({ type: "FALSE_SUCCESS" });
+    //GET ALL CLASS TEACHERS
+    const getAllClassTeachers = async (url) => {
         dispatch({ type: "SET_SUBJECT_LOADING" });
         try {
             const resp = await axios.get(url);
-            dispatch({ type: "TEACHERS", payload: resp.data.teachers });
+            dispatch({
+                type: "ALL_CLASS_TEACHERS", payload: resp.data
+                    .subject_teacher
+            });
+        } catch (error) {
+            dispatch({ type: "API_ERROR", payload: error.response.data.message })
+        }
+    };
+
+
+    //GET ALL TEACHERS UNDER ME
+    const getTeachersUnderMe = async (url) => {
+        dispatch({ type: "SET_SUBJECT_LOADING" });
+        try {
+            const resp = await axios.get(url);
+            dispatch({ type: "TEACHERS_UNDER_ME", payload: resp.data.teachers });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error })
         }
@@ -133,7 +150,7 @@ const ClassProvider = ({ children }) => {
 
     //ADD OTHER TEACHERS TO CLASS
     const addTeacherToClass = async (url, body) => {
-        dispatch({ type: "FALSE_SUCCESS" });
+        // dispatch({ type: "FALSE_SUCCESS" });
         try {
             console.log(body);
             const resp = await axios.post(url,
@@ -145,19 +162,23 @@ const ClassProvider = ({ children }) => {
             );
             console.log(resp);
             dispatch({ type: "TEACHER_ADDED", payload: resp });
-            dispatch({ type: "TRUE_SUCCESS", payload: resp.data.message });
+            return false;
+            // dispatch({ type: "TRUE_SUCCESS", payload: resp.data.message });
         } catch (error) {
-            console.log(error)
-            dispatch({ type: "API_ERROR", payload: error })
-            // return 
+            dispatch({ type: "API_ERROR", payload: error.response.data.message });
+            return error.response.data.message;
         }
 
 
     }
 
+    // const success_false = async () => {
+    //     dispatch({ type: "FALSE_SUCCESS" });
+    // }
 
 
-    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute, createSubject, getSubjects, getTeachers, addTeacherToClass }}>
+
+    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute, createSubject, getClassSubjects, getTeachersUnderMe, addTeacherToClass, getAllClassTeachers }}>
         {children}
     </ClassContext.Provider>
 
