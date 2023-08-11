@@ -14,7 +14,9 @@ const addTeacherAPI = "/api/v1/teacherjoinclass";   //Add Teacher To Class
 const getClassTeachersAPI = "/api/v1/getallclassteachers"    //Get Class Teachers
 
 function AddTeacherPop({ props }) {
-    const { isSubjectLoading, singleClass, getSingleClass, createSubject, getClassSubjects, getTeachersUnderMe, allSubjects = [], allTeachers = [], addTeacherToClass, getAllClassTeachers } = useClassContext();
+
+    const { isSubjectLoading, singleClass, createSubject, getClassSubjects, allSubjects = [], allTeachers = [], addTeacherToClass, getAllClassTeachers } = useClassContext();
+
     const { myTeachers, getMyTeachers } = useProfileContext();
     // const { }
     const [subject, setSubject] = useState("");
@@ -35,7 +37,6 @@ function AddTeacherPop({ props }) {
     //         return;
     //     }
     //     if (isSuccess) {
-    //         toast.success(classSuccessMsg);
     //         return;
     //     }
     // }, [isSuccess, isClassError]);
@@ -86,16 +87,30 @@ function AddTeacherPop({ props }) {
             return;
         }
 
+        let exists = false;
+
+        allTeachers?.map((ele, i) => {
+            if (ele.teacherId === teacherID) {
+                if (ele.subjectName === subject) {
+                    exists = true;
+                }
+            }
+        })
+
         //Check if the subject teacher pair is already present
+        if (exists) {
+            toast.error("Teacher Is Already Assigned To The Subject");
+            return;
+        }
+
         const error = await addTeacherToClass(`${addTeacherAPI}/${singleClass._id}`, { userid: teacherID, subjectname: subject });
         if (error) {
             toast.error(error);
             return;
         }
-
-        toast.success("Teacher Added Successfully");
-        getAllClassTeachers(`${getClassTeachersAPI}/${singleClass._id}`);
-        props();
+        toast.success("Teacher Added");
+        await getAllClassTeachers(`${getClassTeachersAPI}/${singleClass._id}`);
+        // props();
     }
 
     return (
@@ -115,44 +130,49 @@ function AddTeacherPop({ props }) {
                                     <input type="submit" value="Add Subject" className='add-button' onClick={(e) => { addNewSubject(e) }} />
                                 </form>
                             </div>
-                        </> : isSubjectLoading ? <Loading /> :
-                            <>
-                                {/* add teacher pop  */}
-                                <div className='add-box teacher-pop'>
-                                    <div className='cross' onClick={(e) => props()}><RxCross1 /></div>
-                                    <h2>Add Teacher</h2>
-                                    <form action="" className='add-form'>
-                                        <div className='select-subject'>
-                                            <select type="text" placeholder='Subject' className='subject-select' defaultValue="CHOOSE SUBJECT" onChange={(e) => setSubject(e.target.value)}>
-                                                <option value="CHOOSE SUBJECT" disabled hidden>Select Subject</option>
-                                                {
-                                                    allSubjects.map((ele, i) => {
-                                                        return (
-                                                            <option className='subject-options' value={`${ele}`} key={i}>{ele}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                            <div className='subject-add-btn' onClick={(e) => { setPop(1) }}>
-                                                <GrAdd />
-                                            </div>
-                                        </div>
-                                        <div className='select-teacher'>
-                                            <select type="text" placeholder='Teachers' className='teacher-select' defaultValue="CHOOSE TEACHER" onChange={(e) => setTeacherID(e.target.value)}>
-                                                <option value="CHOOSE TEACHER" disabled hidden>Choose Teacher</option>
-                                                {
-                                                    myTeachers?.map((ele, i) => {
-                                                        return (
-                                                            <option className='teacher-options' value={`${ele._id}`} key={i}>{ele.name}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
-                                        <input type="submit" value="Join" className='add-button' onClick={(e) => { AddTeacherSub(e) }} />
-                                    </form>
-                                </div>
-                            </>
+                        </> :
+                        <>
+                            {/* add teacher pop  */}
+                            <div className='add-box teacher-pop'>
+                                <div className='cross' onClick={(e) => props()}><RxCross1 /></div>
+                                <h2>Add Teacher</h2>
+                                {
+                                    isSubjectLoading ? <Loading /> :
+                                        <>
+                                            <form action="" className='add-form'>
+                                                <div className='select-subject'>
+                                                    <select type="text" placeholder='Subject' className='subject-select' defaultValue="CHOOSE SUBJECT" onChange={(e) => setSubject(e.target.value)}>
+                                                        <option value="CHOOSE SUBJECT" disabled hidden>Select Subject</option>
+                                                        {
+                                                            allSubjects.map((ele, i) => {
+                                                                return (
+                                                                    <option className='subject-options' value={`${ele}`} key={i}>{ele}</option>
+                                                                )
+                                                            })
+                                                        }
+                                                    </select>
+                                                    <div className='subject-add-btn' onClick={(e) => { setPop(1) }}>
+                                                        <GrAdd />
+                                                    </div>
+                                                </div>
+                                                <div className='select-teacher'>
+                                                    <select type="text" placeholder='Teachers' className='teacher-select' defaultValue="CHOOSE TEACHER" onChange={(e) => setTeacherID(e.target.value)}>
+                                                        <option value="CHOOSE TEACHER" disabled hidden>Choose Teacher</option>
+                                                        {
+                                                            myTeachers?.map((ele, i) => {
+                                                                return (
+                                                                    <option className='teacher-options' value={`${ele._id}`} key={i}>{ele.name}</option>
+                                                                )
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <input type="submit" value="Join" className='add-button' onClick={(e) => { AddTeacherSub(e) }} />
+                                            </form>
+                                        </>
+                                }
+                            </div>
+                        </>
                 }
             </div>
             <Toaster />

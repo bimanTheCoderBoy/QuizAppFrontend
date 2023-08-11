@@ -21,13 +21,11 @@ function Classname() {
             members.classList.remove("mobile-hidden");
             dataDisplay.classList.add("mobile-hidden");
             setShwMem(1);
-            console.log("display members");
         }
         else {
             members.classList.add("mobile-hidden");
             dataDisplay.classList.remove("mobile-hidden");
             setShwMem(0);
-            console.log("hide members");
         }
 
     }

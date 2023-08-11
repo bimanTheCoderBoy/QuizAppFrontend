@@ -36,8 +36,7 @@ function Members() {
                                         {
                                             ele.profileImage ? <img src="" alt="" /> : <img src="https://cdn4.vectorstock.com/i/1000x1000/40/53/passport-photo-of-young-handsome-man-close-up-vector-21284053.jpg" alt="" />
                                         }
-                                        {/* <div>aluu</div> */}
-                                        <div>{ele.teacherid}</div>
+                                        <div>{ele.teacherName}</div>
                                     </div>
                                 )
                             })

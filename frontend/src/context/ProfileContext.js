@@ -31,13 +31,11 @@ const ProfileProvider = ({ children }) => {
     const checkLogin = async (url) => {
         dispatch({ type: "SET_LOADING" });
         try {
-            console.log(url);
             const resp = await axios.get(url);
-            console.log("chek2");
             const profileLogin = await resp.data;
             console.log(resp.data);
             if (profileLogin.success) {
-                dispatch({ type: "MY_PROFILE", payload: { name: "JTOIT" } });
+                dispatch({ type: "LOGGED_IN" });
             }
             else {
                 dispatch({ type: "API_ERROR", payload: profileLogin.message });
@@ -85,10 +83,11 @@ const ProfileProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
-            console.log(resp);
             dispatch({ type: "LOGIN_SUCCESS" });
+            return false;
         } catch (error) {
             dispatch({ type: "LOGIN_ERROR", payload: error.response.data.message })
+            return error.response.data.message;
         }
     }
 

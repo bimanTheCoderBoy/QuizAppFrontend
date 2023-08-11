@@ -5,28 +5,28 @@ const ProfileReducer = (state, action) => {
 
         return {
             ...state,
+            isError: 0,
             isLoading: true,
         }
     }
-    else if (action.type === "MY_PROFILE") {
 
+    else if (action.type === "MY_PROFILE") {
         return {
             ...state,
             isLoading: false,
-            isLogin: true,
             profile: action.payload
         }
     }
+
     else if (action.type === "API_ERROR") {
         return {
             ...state,
             isLoading: false,
-            // isError: 1,
+            isError: 1,
             isLogin: false,
             errorMsg: action.payload,
         }
     }
-
 
     else if (action.type === "MY_TEACHERS") {
         return {
@@ -35,15 +35,22 @@ const ProfileReducer = (state, action) => {
         }
     }
 
+    //IS LOGIN
+    else if (action.type === "LOGGED_IN") {
+        return {
+            ...state,
+            isLogin: true
+        }
+    }
 
     //LOGIN
     else if (action.type === "LOGIN_SUCCESS") {
         return {
             ...state,
             isError: 2,
-            // isLogin: true,
         }
     }
+
     else if (action.type === "LOGIN_ERROR") {
         console.log(action.payload);
         return {
@@ -58,7 +65,8 @@ const ProfileReducer = (state, action) => {
         return {
             ...state,
             isLogin: false,
-            isError: 0
+            isError: 0,
+            errorMsg: "",
         }
     }
 

@@ -14,7 +14,7 @@ const App = () => {
   const { isLogin, checkLogin } = useProfileContext();
   useEffect(() => {
     checkLogin(checkLoginApi);
-  }, []);
+  }, [isLogin]);
 
   return (
     <BrowserRouter>

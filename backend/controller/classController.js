@@ -79,7 +79,8 @@ const getClass = async (req, res, next) => {
             const teacher = await User.findById(e.teacherid)
             return {
                 teacherName: teacher.name,
-                subjectName: e.subjectname
+                subjectName: e.subjectname,
+                teacherId: teacher._id
             }
         }));
 
@@ -188,7 +189,7 @@ const getAllClassTeachers = async (req, res, next) => {
 
 
             return {
-                teacherid: e.teacherid,
+                teacherId: e.teacherid,
                 teacherName: teacher.name,
                 subjectName: e.subjectname
             }

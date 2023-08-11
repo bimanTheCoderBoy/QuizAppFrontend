@@ -17,41 +17,41 @@ function RegisterPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [Cpassword, setCPassword] = useState("");
-    const Register = (e) => {
+    const Register = async (e) => {
         e.preventDefault();
         if (name === "" || role === "" || email === "" || password === "" || Cpassword === "") {
             toast.error("Please Fill All The Credentials");
             return;
         }
-        if (password === Cpassword) {
-            userRegistration(RegisterAPI, {
-                email,
-                password,
-                role,
-                name
-            });
 
-        }
-        else {
+        //Checking password match
+        if (password != Cpassword) {
             toast.error("Confirm Password Does Not Match");
             setPassword("");
             setCPassword("");
         }
-    }
-    useEffect(() => {
-        if (isError === 1) {
-            toast.error(errorMsg);
+        const check = await userRegistration(RegisterAPI, {
+            email,
+            password,
+            role,
+            name
+        });
+
+        //Check is error
+        if (check) {
+            toast.error(check);
             setEmail("");
             setName("");
             setPassword("");
             setCPassword("");
+            return;
         }
-        else if (isError === 2) {
-            toast.success("Registration success");
-            navigate("/");
-            checkLogin(checkLoginApi);
-        }
-    }, [isError])
+        toast.success("Registration success");
+        navigate("/");
+        checkLogin(checkLoginApi);
+
+    }
+
     return (
         <div className='login-page'>
             <div className='login-area'>

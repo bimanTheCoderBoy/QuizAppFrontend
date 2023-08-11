@@ -11,33 +11,30 @@ const checkLoginApi = "api/v1/isauth"
 
 function LoginPage() {
     const navigate = useNavigate();
-    const { isError, errorMsg, userLogin, checkLogin } = useProfileContext();
+    const { errorMsg, userLogin, checkLogin } = useProfileContext();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const Login = (e) => {
+    const Login = async (e) => {
         e.preventDefault();
         if (email === "" || password === "") {
             toast.error("Please Fill All The Credentials");
             return;
         }
-        userLogin(LoginAPI, {
+        const check = await userLogin(LoginAPI, {
             email,
             password
         });
-        console.log(isError);
-    }
-    useEffect(() => {
-        if (isError === 1) {
-            toast.error(errorMsg);
+        if (check) {
+            toast.error("User Email/Password Invalid");
             setEmail("");
             setPassword("");
+            return;
         }
-        else if (isError === 2) {
-            toast.error("Login success");
-            navigate("/");
-            checkLogin(checkLoginApi);
-        }
-    }, [isError])
+        toast.error("Login success");
+        navigate("/");
+        checkLogin(checkLoginApi);
+    }
+
     return (
         <div className='login-page'>
             <div className='login-area'>
@@ -47,14 +44,14 @@ function LoginPage() {
                         <label htmlFor="useremail">UserEmail</label>
                         <div>
                             <AiOutlineUser />
-                            <input type="email" placeholder='Type your email' name='useremail' onChange={(e) => setEmail(e.target.value)} />
+                            <input type="email" placeholder='Type your email' name='useremail' value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                     </div>
                     <div className='login-password login-data'>
                         <label htmlFor="userpassword">Password</label>
                         <div>
                             <AiOutlineLock />
-                            <input type="password" name="password" id="password" placeholder='Type your password' onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" name="password" id="password" placeholder='Type your password' value={password} onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         <NavLink to="/forgetpass"><p>Forget password?</p></NavLink>
                     </div>

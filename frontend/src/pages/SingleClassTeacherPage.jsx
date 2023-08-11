@@ -9,7 +9,6 @@ import Quizes from '../components/SingleClass/Quizes';
 import Notes from '../components/SingleClass/Notes';
 import Members from '../components/SingleClass/Members';
 import Loading from '../components/Loading';
-import { toast, Toaster } from 'react-hot-toast';
 import { useProfileContext } from '../context/ProfileContext';
 
 const getSingleClassAPI = "/api/v1/getclass"
@@ -17,7 +16,7 @@ const getSingleClassAPI = "/api/v1/getclass"
 
 function SingleClassTeacherPage() {
     const { classid } = useParams();
-    const { getSingleClass, singleClass, isClassLoading, classErrorMsg, isSuccess, classSuccessMsg, isClassError, success_false } = useClassContext();
+    const { getSingleClass, isClassLoading, isClassError } = useClassContext();
 
     //Selecting type for toggle button
     const [type, setType] = useState(0);
@@ -44,7 +43,7 @@ function SingleClassTeacherPage() {
     return (
         <>
             <NavbarComponent />
-            <Toaster />
+            {/* <Toaster /> */}
             {
                 isClassError ?
                     <>Error Occured</> :
