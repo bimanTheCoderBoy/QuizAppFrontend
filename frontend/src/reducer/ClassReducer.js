@@ -20,6 +20,7 @@ const ClassReducer = (state, action) => {
             role: action.payload.role
         }
     }
+
     else if (action.type === "API_ERROR") {
         return {
             ...state,
@@ -49,6 +50,7 @@ const ClassReducer = (state, action) => {
             ...state,
             isClassLoading: false,
             singleClass: action.payload.classData,
+            allTeachers: action.payload.classData.subteacherpair,
             admin: action.payload.isAdmin,
         }
     }
@@ -79,12 +81,14 @@ const ClassReducer = (state, action) => {
         }
     }
 
-    //GET TEACHERS UNDER ME
-    else if (action.type === "TEACHERS_UNDER_ME") {
+
+
+    //GET CLASS TEACHERS
+    else if (action.type === "ALL_CLASS_TEACHERS") {
         return {
             ...state,
             isSubjectLoading: false,
-            myTeachers: action.payload
+            allTeachers: action.payload
         }
     }
 
@@ -98,7 +102,6 @@ const ClassReducer = (state, action) => {
 
     //SET SUCCESS FALSE
     else if (action.type === "FALSE_SUCCESS") {
-        console.log("falseeeeee ho jaaaaa");
         return {
             ...state,
             isSuccess: false,
@@ -108,7 +111,6 @@ const ClassReducer = (state, action) => {
 
     //SET SUCCESS TRUE
     else if (action.type === "TRUE_SUCCESS") {
-        console.log("sdssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
         return {
             ...state,
             isSuccess: true,

@@ -9,12 +9,12 @@ import { useProfileContext } from '../../context/ProfileContext';
 
 const addSubjectAPI = "/api/v1/createsubject";      //Add Subject To Class
 const getSubjectsAPI = "/api/v1/getallsubjects";    //Get Class Subjects
-const getMyTeachersAPI = "/api/v1/getallteachers";    //Get Teachers Under Me
+const getMyTeachersAPI = "/api/v1/getallteachers";  //Get Teachers Under Me
 const addTeacherAPI = "/api/v1/teacherjoinclass";   //Add Teacher To Class
-const getSingleClassAPI = "/api/v1/getclass"        //Get Class Data
+const getClassTeachersAPI = "/api/v1/getallclassteachers"    //Get Class Teachers
 
 function AddTeacherPop({ props }) {
-    const { isSubjectLoading, singleClass, getSingleClass, createSubject, getClassSubjects, getTeachersUnderMe, allSubjects = [], allTeachers = [], addTeacherToClass } = useClassContext();
+    const { isSubjectLoading, singleClass, getSingleClass, createSubject, getClassSubjects, getTeachersUnderMe, allSubjects = [], allTeachers = [], addTeacherToClass, getAllClassTeachers } = useClassContext();
     const { myTeachers, getMyTeachers } = useProfileContext();
     // const { }
     const [subject, setSubject] = useState("");
@@ -74,7 +74,6 @@ function AddTeacherPop({ props }) {
         await getClassSubjects(`${getSubjectsAPI}/${singleClass._id}`);
         setNewSub("");
         setPop(0);
-
     }
 
     //ADD NEW TEACHER SUBJECT PAIR TO CLASS
@@ -93,8 +92,9 @@ function AddTeacherPop({ props }) {
             toast.error(error);
             return;
         }
+
         toast.success("Teacher Added Successfully");
-        getSingleClass(`${getSingleClassAPI}/${singleClass._id}`);
+        getAllClassTeachers(`${getClassTeachersAPI}/${singleClass._id}`);
         props();
     }
 

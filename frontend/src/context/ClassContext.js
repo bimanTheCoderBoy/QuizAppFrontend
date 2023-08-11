@@ -111,7 +111,7 @@ const ClassProvider = ({ children }) => {
         }
     }
 
-    //GET ALL SUBJECTS
+    //GET ALL CLASS SUBJECTS
     const getClassSubjects = async (url) => {
         dispatch({ type: "SET_SUBJECT_LOADING" });
         try {
@@ -125,28 +125,17 @@ const ClassProvider = ({ children }) => {
     //GET ALL CLASS TEACHERS
     const getAllClassTeachers = async (url) => {
         dispatch({ type: "SET_SUBJECT_LOADING" });
+        console.log(url);
         try {
             const resp = await axios.get(url);
-            dispatch({
-                type: "ALL_CLASS_TEACHERS", payload: resp.data
-                    .subject_teacher
-            });
+            console.log(resp);
+            dispatch({ type: "ALL_CLASS_TEACHERS", payload: resp.data.teachers });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error.response.data.message })
         }
     };
 
 
-    //GET ALL TEACHERS UNDER ME
-    const getTeachersUnderMe = async (url) => {
-        dispatch({ type: "SET_SUBJECT_LOADING" });
-        try {
-            const resp = await axios.get(url);
-            dispatch({ type: "TEACHERS_UNDER_ME", payload: resp.data.teachers });
-        } catch (error) {
-            dispatch({ type: "API_ERROR", payload: error })
-        }
-    }
 
     //ADD OTHER TEACHERS TO CLASS
     const addTeacherToClass = async (url, body) => {
@@ -178,7 +167,7 @@ const ClassProvider = ({ children }) => {
 
 
 
-    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute, createSubject, getClassSubjects, getTeachersUnderMe, addTeacherToClass, getAllClassTeachers }}>
+    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute, createSubject, getClassSubjects, addTeacherToClass, getAllClassTeachers }}>
         {children}
     </ClassContext.Provider>
 

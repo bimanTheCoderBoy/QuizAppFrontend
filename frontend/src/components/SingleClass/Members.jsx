@@ -7,7 +7,7 @@ import AddTeacherPop from './AddTeacherPop';
 // const Admin = true;
 
 function Members() {
-    const { singleClass, admin } = useClassContext();
+    const { singleClass, admin, allTeachers = [] } = useClassContext();
     const [display, setDisplay] = useState(0);
 
     //Number of students to display
@@ -30,7 +30,7 @@ function Members() {
                     <div className='teachers-list'>
                         {/* techers list  */}
                         {
-                            singleClass.subteacherpair?.map((ele, i) => {
+                            allTeachers?.map((ele, i) => {
                                 return (
                                     <div className='teacher' key={i}>
                                         {
