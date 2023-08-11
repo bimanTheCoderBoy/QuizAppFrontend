@@ -5,6 +5,7 @@ import { RxCross1 } from "react-icons/rx";
 import { useClassContext } from '../../context/ClassContext';
 import { NavLink } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
+import { useProfileContext } from '../../context/ProfileContext';
 
 const getClassApi = "/api/v1/getallclasses";
 const addClassApi = "/api/v1/createclass"
@@ -15,6 +16,7 @@ function AllClassesTeacher() {
     const [cls, setCls] = useState(0);
     const [className, setClassName] = useState("");
     const [InstituteCode, setInstituteCode] = useState("");
+    const { profile = {} } = useProfileContext();
     const { isClassLoading, classErrorMsg, isClassError, ownClasses, otherClasses, getClasses, addClass, joinInsitute, getError, isSuccess, classSuccessMsg } = useClassContext();
 
     //DISPLAY ERROR
@@ -93,6 +95,7 @@ function AllClassesTeacher() {
     }
 
     useEffect(() => {
+        console.log(profile);
         getClasses(getClassApi);
     }, [])
 
@@ -110,13 +113,14 @@ function AllClassesTeacher() {
                             {
                                 cls ?
                                     otherClasses?.map((ele, i) => {
-                                        console.log(ele);
-                                        return (
-                                            <NavLink to={`/class/${ele._id}`} className='class' key={i}>
-                                                <div className='class-name'> {ele.name}</div>
-                                                {/* <div className='class-subject'>{ele.subject}</div> */}
-                                            </NavLink>
-                                        )
+                                        if (profile.id != ele.admin) {
+                                            return (
+                                                <NavLink to={`/class/${ele._id}`} className='class' key={i}>
+                                                    <div className='class-name'> {ele.name}</div>
+                                                    {/* <div className='class-subject'>{ele.subject}</div> */}
+                                                </NavLink>
+                                            )
+                                        }
                                     }) :
                                     ownClasses?.map((ele, i) => {
                                         return (

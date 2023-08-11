@@ -90,7 +90,7 @@ const getClass = async (req, res, next) => {
                 message: "getting class successfully",
                 classData,
                 subteacherarray: data,
-                isAdmin: req.user._id === classData.admin
+                isAdmin: req.user._id.equals(classData.admin)
             });
 
         } else {

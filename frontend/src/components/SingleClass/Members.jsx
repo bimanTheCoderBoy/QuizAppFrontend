@@ -10,7 +10,7 @@ function Members() {
     const { singleClass, admin } = useClassContext();
     const { profile, getProfile } = useProfileContext();
     const [display, setDisplay] = useState(0);
-    console.log(singleClass);
+    console.log(singleClass, admin);
 
 
     //Number of students to display
