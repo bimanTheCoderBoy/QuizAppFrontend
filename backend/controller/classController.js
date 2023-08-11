@@ -43,6 +43,8 @@ const createClass = async (req, res, next) => {
 
 }
 
+
+
 const getAllClass = async (req, res, next) => {
     const user = req.user;
     try {
@@ -176,6 +178,84 @@ const getAllTeachers = async (req, res, next) => {
     }
 }
 
-module.exports = { createClass, getAllClass, getClass, createSubject, getAllSubjects, getAllTeachers }
+const getAllClassTeachers=async(req,res,next)=>{
+    const {classid}=req.params
+    try {
+        const classData=await Class.findById(classid)
+       
+        const data = await Promise.all(classData.subteacherpair.map(async (e) => {
+            const teacher = await User.findById(e.teacherid)
+
+
+            return {
+                teacherid:e.teacherid,
+                teacherName: teacher.name,
+                subjectName: e.subjectname
+            }
+        }));
+        if(classData&&data){
+            
+            res.json({
+                success: true,
+                message: "teachers successfully fetched",
+                teachers:data
+            });
+        }
+        else{
+            next(new ErrorHandler("class or teachers does not exist", 404))
+        }
+    }
+    catch (error) {
+        next(new ErrorHandler(error.message || "database error", 404))
+    }
+
+}
+//delete section
+const deleteSubTeacherPair=async(req,res,next)=>{
+   const {classid}= req.params
+   const {teacherid}=req.body
+   try {
+    const updatePair=await Class.updateOne({_id:classid},{$pull:{subteacherpair:{teacherid:teacherid}}})
+    const updateTeacher= await User.updateOne({_id:teacherid},{$pull:{otherclasses:classid}})
+ 
+     if(updatePair&&updateTeacher){
+         res.json({
+             success: true,
+             message: "subject successfully deleted"
+         });
+     }
+     else{
+         next(new ErrorHandler("database error", 404))
+     }
+   } catch (error) {
+    next(new ErrorHandler(error.message, 404))
+   }
+  
+}
+
+const deleteClass=async(req,res,next)=>{
+    const {classid}= req.params
+    // const {}
+    const user=req.user;
+    user.password
+    try {
+        const classData=await Class.findByIdAndDelete(classid);
+        if(classData){
+            res.json({
+                success: true,
+                message: "class successfully deleted"
+            });
+        }
+        else{
+            next(new ErrorHandler("database error", 404))
+        }
+    } catch (error) {
+        next(new ErrorHandler(error.message, 404))
+    }
+
+
+
+}
+module.exports = { createClass, getAllClass, getClass, createSubject, getAllSubjects, getAllTeachers,deleteSubTeacherPair,deleteClass,getAllClassTeachers }
 
 
