@@ -177,6 +177,39 @@ const getAllTeachers = async (req, res, next) => {
         next(new ErrorHandler(error.message || "database error", 404))
     }
 }
+
+const getAllClassTeachers=async(req,res,next)=>{
+    const {classid}=req.params
+    try {
+        const classData=await Class.findById(classid)
+       
+        const data = await Promise.all(classData.subteacherpair.map(async (e) => {
+            const teacher = await User.findById(e.teacherid)
+
+
+            return {
+                teacherid:e.teacherid,
+                teacherName: teacher.name,
+                subjectName: e.subjectname
+            }
+        }));
+        if(classData&&data){
+            
+            res.json({
+                success: true,
+                message: "teachers successfully fetched",
+                teachers:data
+            });
+        }
+        else{
+            next(new ErrorHandler("class or teachers does not exist", 404))
+        }
+    }
+    catch (error) {
+        next(new ErrorHandler(error.message || "database error", 404))
+    }
+
+}
 //delete section
 const deleteSubTeacherPair=async(req,res,next)=>{
    const {classid}= req.params
@@ -223,6 +256,6 @@ const deleteClass=async(req,res,next)=>{
 
 
 }
-module.exports = { createClass, getAllClass, getClass, createSubject, getAllSubjects, getAllTeachers,deleteSubTeacherPair,deleteClass }
+module.exports = { createClass, getAllClass, getClass, createSubject, getAllSubjects, getAllTeachers,deleteSubTeacherPair,deleteClass,getAllClassTeachers }
 
 

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { register, login, isAuth, logout, isloggedIn } = require("../controller/AuthController")
-const { createClass, getAllClass, getClass ,createSubject,getAllSubjects,getAllTeachers,deleteSubTeacherPair,deleteClass} = require("../controller/classController")
+const { createClass, getAllClass, getClass ,createSubject,getAllSubjects,getAllTeachers,deleteSubTeacherPair,deleteClass,getAllClassTeachers} = require("../controller/classController")
 const { joinClass } = require("../controller/studentController")
 const { joinInstitute, teacherJoinClass, getTeacherProfile } = require("../controller/teacherController")
 
@@ -37,6 +37,7 @@ router.get("/getallsubjects/:classid", isloggedIn, getAllSubjects,)
 router.get("/getallteachers", isloggedIn, getAllTeachers,)
 router.delete("/deleteteacherpair/:classid", isloggedIn,deleteSubTeacherPair)
 router.delete("/deleteclass/:classid", isloggedIn,deleteClass)
+router.get("/getallclassteachers/:classid", isloggedIn,getAllClassTeachers)
 
 
 
