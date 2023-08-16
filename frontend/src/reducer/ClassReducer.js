@@ -46,11 +46,12 @@ const ClassReducer = (state, action) => {
 
     //GET SINGLE CLASS
     else if (action.type === "SINGLE_CLASS") {
+        console.log(action.payload);
         return {
             ...state,
             isClassLoading: false,
             singleClass: action.payload.classData,
-            allTeachers: action.payload.subteacherarray,
+            allTeachers: action.payload.teacherarray,
             admin: action.payload.isAdmin,
         }
     }

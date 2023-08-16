@@ -8,6 +8,7 @@ import AddTeacherPop from './AddTeacherPop';
 
 function Members() {
     const { singleClass, admin, allTeachers = [] } = useClassContext();
+    console.log(allTeachers);
     const [display, setDisplay] = useState(0);
 
     //Number of students to display
@@ -26,7 +27,7 @@ function Members() {
             <div className='members mobile-hidden'>
                 <h5>Members</h5>
                 <div className='all-class-teachers'>
-                    <div className='label'>Teachers{admin ? <div className='add-teacher-btn' style={{cursor:"pointer"}} onClick={(e) => { setDisplay(1) }}><AiOutlineUserAdd /></div> : <></>}</div>
+                    <div className='label'>Teachers{admin ? <div className='add-teacher-btn' style={{ cursor: "pointer" }} onClick={(e) => { setDisplay(1) }}><AiOutlineUserAdd /></div> : <></>}</div>
                     <div className='teachers-list'>
                         {/* techers list  */}
                         {

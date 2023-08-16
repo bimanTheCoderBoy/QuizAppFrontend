@@ -17,7 +17,7 @@ const initialState = {
     ownClasses: [],
     otherClasses: [],
     //Single Class Data
-    teacherarray:[],
+    teacherarray: [],
     singleClass: {},
     allSubjects: [],
     allTeachers: [],
@@ -96,7 +96,6 @@ const ClassProvider = ({ children }) => {
 
     //CREATE SUBJECT
     const createSubject = async (url, body) => {
-        // dispatch({ type: "FALSE_SUCCESS" });
         try {
             const resp = await axios.post(url, JSON.stringify(body),
                 {
@@ -140,7 +139,6 @@ const ClassProvider = ({ children }) => {
 
     //ADD OTHER TEACHERS TO CLASS
     const addTeacherToClass = async (url, body) => {
-        // dispatch({ type: "FALSE_SUCCESS" });
         try {
             console.log(body);
             const resp = await axios.post(url,
@@ -153,7 +151,6 @@ const ClassProvider = ({ children }) => {
             console.log(resp);
             dispatch({ type: "TEACHER_ADDED", payload: resp });
             return false;
-            // dispatch({ type: "TRUE_SUCCESS", payload: resp.data.message });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error.response.data.message });
             return error.response.data.message;
@@ -161,10 +158,6 @@ const ClassProvider = ({ children }) => {
 
 
     }
-
-    // const success_false = async () => {
-    //     dispatch({ type: "FALSE_SUCCESS" });
-    // }
 
 
 

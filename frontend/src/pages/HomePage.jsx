@@ -25,7 +25,7 @@ function HomePage() {
             <NavbarComponent />
             <Welcome />
             {
-                role === "teacher" ? <AllClassesTeacher /> : <AllClassesStudent />
+                role === "teacher" ? <AllClassesTeacher /> : role === "student" ? < AllClassesStudent /> : <></>
             }
         </>
     )

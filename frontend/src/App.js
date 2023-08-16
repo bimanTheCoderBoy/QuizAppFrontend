@@ -8,7 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import { useProfileContext } from "./context/ProfileContext";
 import SingleClassTeacherPage from "./pages/SingleClassTeacherPage";
 import Members from "./components/SingleClass/Members";
-import SettingsPage from "./components/SingleClass/SettingsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 const checkLoginApi = "/api/v1/isauth";
 
