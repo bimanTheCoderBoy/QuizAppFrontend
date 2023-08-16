@@ -6,15 +6,19 @@ import AddTeacherPop from './AddTeacherPop';
 
 // const Admin = true;
 
-function Members() {
-    const { singleClass, admin, allTeachers = [] } = useClassContext();
+function MemberSection() {
+    const { singleClass, admin,teacherarray } = useClassContext();
+    const { profile, getProfile } = useProfileContext();
     const [display, setDisplay] = useState(0);
+    console.log(singleClass, admin);
+
 
     //Number of students to display
     const [studentNo, setStudentNo] = useState(singleClass.students?.length >= 3 ? 3 : singleClass.students?.length);
 
     //Display in button student
     const [view, setView] = useState("View All");
+
 
     //make zero to hide add teacher pop
     const makeZero = () => {
@@ -30,12 +34,13 @@ function Members() {
                     <div className='teachers-list'>
                         {/* techers list  */}
                         {
-                            allTeachers?.map((ele, i) => {
+                            teacherarray?.map((ele, i) => {
                                 return (
                                     <div className='teacher' key={i}>
                                         {
                                             ele.profileImage ? <img src="" alt="" /> : <img src="https://cdn4.vectorstock.com/i/1000x1000/40/53/passport-photo-of-young-handsome-man-close-up-vector-21284053.jpg" alt="" />
                                         }
+                                        {/* <div>aluu</div> */}
                                         <div>{ele.teacherName}</div>
                                     </div>
                                 )
@@ -81,4 +86,4 @@ function Members() {
     )
 }
 
-export default Members
+export default MemberSection

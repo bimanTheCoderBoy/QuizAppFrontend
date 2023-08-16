@@ -17,6 +17,7 @@ const initialState = {
     ownClasses: [],
     otherClasses: [],
     //Single Class Data
+    teacherarray:[],
     singleClass: {},
     allSubjects: [],
     allTeachers: [],
