@@ -14,7 +14,7 @@ const checkLoginApi = "/api/v1/isauth";
 
 const App = () => {
   const { isLogin, checkLogin } = useProfileContext();
-  const[login,setLogin]=useState(isLogin)
+  // const[login,setLogin]=useState(isLogin)
   useEffect(() => {
     checkLogin(checkLoginApi);
   }, [isLogin]);
@@ -22,11 +22,11 @@ const App = () => {
   return (
     <BrowserRouter>
       {
-        login ? <Routes>
+        isLogin ? <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/class/:classid" element={<SingleClassTeacherPage />} />
-          <Route path="/classSettings" element={<SettingsPage/>} />
+          <Route path="/classSettings" element={<SettingsPage />} />
         </Routes>
           :
           <Routes>
