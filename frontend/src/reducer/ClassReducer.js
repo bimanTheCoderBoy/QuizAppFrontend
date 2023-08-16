@@ -50,6 +50,7 @@ const ClassReducer = (state, action) => {
             ...state,
             isClassLoading: false,
             singleClass: action.payload.classData,
+            teacherarray:action.payload.teacherarray,
             admin: action.payload.isAdmin,
         }
     }

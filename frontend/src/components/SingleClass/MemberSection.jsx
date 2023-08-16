@@ -6,7 +6,7 @@ import AddTeacherPop from './AddTeacherPop';
 
 // const Admin = true;
 
-function Members() {
+function MemberSection() {
     const { singleClass, admin,teacherarray } = useClassContext();
     const { profile, getProfile } = useProfileContext();
     const [display, setDisplay] = useState(0);
@@ -86,4 +86,4 @@ function Members() {
     )
 }
 
-export default Members
+export default MemberSection

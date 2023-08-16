@@ -79,7 +79,8 @@ const getClass = async (req, res, next) => {
             const teacher = await User.findById(e.teacherid)
             return {
                 teacherName: teacher.name,
-                subjectName: e.subjectname
+                subjectName: e.subjectname,
+                teacherId: teacher._id
             }
         }));
 
@@ -89,7 +90,7 @@ const getClass = async (req, res, next) => {
                 success: true,
                 message: "getting class successfully",
                 classData,
-                subteacherarray: data,
+                teacherarray: data,
                 isAdmin: req.user._id.equals(classData.admin)
             });
 
