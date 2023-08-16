@@ -3,13 +3,13 @@ const ClassReducer = (state, action) => {
 
     //GET ALL CLASSES
     if (action.type === "SET_LOADING") {
-        console.log("ss");
         return {
             ...state,
             isClassLoading: true,
             isClassError: false
         }
     }
+
     else if (action.type === "MY_CLASSES") {
         return {
             ...state,
@@ -20,8 +20,8 @@ const ClassReducer = (state, action) => {
             role: action.payload.role
         }
     }
+
     else if (action.type === "API_ERROR") {
-        // console.log("sd");
         return {
             ...state,
             isClassLoading: false,
@@ -50,7 +50,7 @@ const ClassReducer = (state, action) => {
             ...state,
             isClassLoading: false,
             singleClass: action.payload.classData,
-            teacherarray:action.payload.teacherarray,
+            allTeachers: action.payload.subteacherarray,
             admin: action.payload.isAdmin,
         }
     }
@@ -74,7 +74,6 @@ const ClassReducer = (state, action) => {
 
     //GET SUBJECTS
     else if (action.type === "SUBJECTS") {
-        console.log("sssss");
         return {
             ...state,
             isSubjectLoading: false,
@@ -82,9 +81,10 @@ const ClassReducer = (state, action) => {
         }
     }
 
-    //GET TEACHERS
-    else if (action.type === "TEACHERS") {
-        console.log("check");
+
+
+    //GET CLASS TEACHERS
+    else if (action.type === "ALL_CLASS_TEACHERS") {
         return {
             ...state,
             isSubjectLoading: false,

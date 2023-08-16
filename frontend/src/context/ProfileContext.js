@@ -13,7 +13,8 @@ const initialState = {
     isError: 0,
     errorMsg: "",
     isLogin: false,
-    profile: {}
+    profile: {},
+    myTeachers: [],
 }
 
 const DemoProfile = {
@@ -30,13 +31,11 @@ const ProfileProvider = ({ children }) => {
     const checkLogin = async (url) => {
         dispatch({ type: "SET_LOADING" });
         try {
-            console.log(url);
             const resp = await axios.get(url);
-            console.log("chek2");
             const profileLogin = await resp.data;
             console.log(resp.data);
             if (profileLogin.success) {
-                dispatch({ type: "MY_PROFILE", payload: { name: "JTOIT" } });
+                dispatch({ type: "LOGGED_IN" });
             }
             else {
                 dispatch({ type: "API_ERROR", payload: profileLogin.message });
@@ -62,6 +61,18 @@ const ProfileProvider = ({ children }) => {
     }
 
 
+    //GET MY TEACHERS
+    const getMyTeachers = async (url) => {
+        try {
+            const resp = await axios.get(url);
+            dispatch({ type: "MY_TEACHERS", payload: resp.data.teachers });
+        } catch (error) {
+            dispatch({ type: "API_ERROR", payload: error });
+        }
+    }
+
+
+
     // LOGIN API 
     const userLogin = async (url, body) => {
         try {
@@ -72,10 +83,11 @@ const ProfileProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
-            console.log(resp);
             dispatch({ type: "LOGIN_SUCCESS" });
+            return false;
         } catch (error) {
             dispatch({ type: "LOGIN_ERROR", payload: error.response.data.message })
+            return error.response.data.message;
         }
     }
 
@@ -113,10 +125,9 @@ const ProfileProvider = ({ children }) => {
         } catch (error) {
             dispatch({ type: "LOGOUT_ERROR", payload: error.response.data.message })
         }
-
     }
 
-    return <ProfileContext.Provider value={{ ...state, getProfile, userLogin, userRegistration, checkLogin, userLogout }}>
+    return <ProfileContext.Provider value={{ ...state, getProfile, getMyTeachers, userLogin, userRegistration, checkLogin, userLogout }}>
         {children}
     </ProfileContext.Provider>
 

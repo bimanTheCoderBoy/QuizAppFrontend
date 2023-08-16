@@ -9,14 +9,16 @@ import { useClassContext } from '../context/ClassContext';
 import { useProfileContext } from '../context/ProfileContext';
 
 const GetProfileAPI = "/api/v1/getteacherprofile";
-const getHomePageDataApi = "/api/v1/getallclasses"
+const getHomePageDataApi = "/api/v1/getallclasses";
+const GetMyTeachersAPI = "api/v1/getallteachers";
 
 function HomePage() {
-    const { isLoading, profile = {}, getProfile } = useProfileContext();
+    const { isLoading, profile = {}, getProfile, getMyTeachers } = useProfileContext();
     const { role, getClasses } = useClassContext();
     useEffect(() => {
         getClasses(getHomePageDataApi);
         getProfile(GetProfileAPI);
+        getMyTeachers(GetMyTeachersAPI);
     }, []);
     return (
         <>

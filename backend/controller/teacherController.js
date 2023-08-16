@@ -9,7 +9,7 @@ const getTeacherProfile = (req, res, next) => {
     res.json({
         success: true,
         message: "getting user data successfully",
-        id:user._id,
+        id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -32,12 +32,11 @@ const joinInstitute = async (req, res, next) => {
         // const user_id = (user._id)
         // console.log(int_id.equals(user_id));    
         if (InstituteObj) {
-           if( user.institutes.includes(InstituteObj._id)){
-            next(new ErrorHandler("you have joined this institute before", 404))
-           }
             if (user._id.equals(InstituteObj._id)) {
-                console.log("dfghjk");
-                next(new ErrorHandler("you can not join your own institute", 404))
+                next(new ErrorHandler("You Cannot Join Your Own Institute", 404))
+            }
+            if (user.institutes.includes(InstituteObj._id)) {
+                next(new ErrorHandler("Already Joined", 404))
             }
             //adding teacher To institute
             const addteacherToinstitute = await User.updateOne(

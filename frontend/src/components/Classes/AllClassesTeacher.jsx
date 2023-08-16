@@ -17,27 +17,24 @@ function AllClassesTeacher() {
     const [className, setClassName] = useState("");
     const [InstituteCode, setInstituteCode] = useState("");
     const { profile = {} } = useProfileContext();
-    const { isClassLoading, classErrorMsg, isClassError, ownClasses, otherClasses, getClasses, addClass, joinInsitute, getError, isSuccess, classSuccessMsg } = useClassContext();
+    const { isClassLoading, classErrorMsg, isClassError, ownClasses, otherClasses, getClasses, addClass, joinInsitute, getError, isSuccess, classSuccessMsg, success_false } = useClassContext();
 
-    //DISPLAY ERROR
-    function showErrorToast(msg) {
-        return toast.error(`${msg}`);
-    }
 
 
     //DIPLAY WHENEVER ERROR
-    useEffect(() => {
-        console.log("cehck use effect");
-        console.log(isSuccess);
-        if (isClassError) {
-            toast.error(classErrorMsg);
-            return;
-        }
-        if (isSuccess) {
-            toast.success(classSuccessMsg);
-            return;
-        }
-    }, [isClassError, isSuccess]);
+    // useEffect(() => {
+    //     console.log("cehck use effect");
+    //     console.log(isSuccess);
+    //     if (isClassError) {
+    //         toast.error(classErrorMsg);
+    //         return;
+    //     }
+    //     if (isSuccess) {
+    //         toast.success(classSuccessMsg);
+    //         success_false();
+    //         return;
+    //     }
+    // }, [isClassError, isSuccess]);
     //We have to use effect bcz once the error is run the value gets updates but cannot pass throught the chilrens bcz the control is in the hands of the await ultill it returns we have to wait for the function to execute completely and then it updates the value and then it passes to the rest of the part of the function
 
     //What class to display own/other
@@ -64,9 +61,6 @@ function AllClassesTeacher() {
         pop.classList.add("hidden");
     }
 
-
-    //useEffect management
-
     //Add New Class
     const addNewClass = async (e) => {
         e.preventDefault();
@@ -74,7 +68,12 @@ function AllClassesTeacher() {
             toast.error("Please Enter The Classname");
             return;
         }
-        await addClass(addClassApi, { name: className });
+        const error = await addClass(addClassApi, { name: className });
+        if (error) {
+            toast.error(error);
+            return;
+        }
+        toast.success("Class Added Successfully");
         await getClasses(getClassApi);
         setClassName("");
         hidePop();
@@ -89,7 +88,12 @@ function AllClassesTeacher() {
         }
         e.preventDefault();
         console.log(InstituteCode)
-        await joinInsitute(joinInstituteApi, { InstituteCode });
+        const error = await joinInsitute(joinInstituteApi, { InstituteCode });
+        if (error) {
+            toast.error(error);
+            return;
+        }
+        toast.success("Institute Joined");
         setInstituteCode("");
         hidePop();
     }

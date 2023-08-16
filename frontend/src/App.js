@@ -17,7 +17,6 @@ const App = () => {
   const[login,setLogin]=useState(isLogin)
   useEffect(() => {
     checkLogin(checkLoginApi);
-    setLogin(isLogin);
   }, [isLogin]);
 
   return (
