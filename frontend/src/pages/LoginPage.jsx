@@ -31,8 +31,8 @@ function LoginPage() {
             return;
         }
         toast.error("Login success");
-        navigate("/");
         checkLogin(checkLoginApi);
+        navigate("/");
     }
 
     return (

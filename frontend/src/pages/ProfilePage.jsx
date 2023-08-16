@@ -6,12 +6,18 @@ import { useClassContext } from '../context/ClassContext';
 import Loading from '../components/Loading';
 
 const LogoutApi = "api/v1/logout";
+const checkLoginApi = "api/v1/isauth";
 
 function ProfilePage() {
-    const { profile = {}, isLoading, userLogout } = useProfileContext();
+    const { profile = {}, isLoading, userLogout, checkLogin } = useProfileContext();
     const { ownClasses, otherClasses } = useClassContext();
     const navigate = useNavigate();
 
+    const logout = () => {
+        userLogout(LogoutApi);
+        navigate("/");
+        checkLogin(checkLoginApi);
+    }
     return (
         <>
             <NavbarComponent />
@@ -41,7 +47,7 @@ function ProfilePage() {
                                 })
                             }
                         </div>
-                        <button onClick={() => { userLogout(LogoutApi); navigate("/") }}>LOGOUT</button>
+                        <button onClick={() => { logout() }}>LOGOUT</button>
                     </>
             }
 
