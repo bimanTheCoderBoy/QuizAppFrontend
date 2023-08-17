@@ -36,13 +36,15 @@ const ProfileProvider = ({ children }) => {
             console.log(resp.data);
             if (profileLogin.success) {
                 dispatch({ type: "LOGGED_IN" });
+                return true;
             }
             else {
                 dispatch({ type: "API_ERROR", payload: profileLogin.message });
+                return false;
             }
         } catch (error) {
-            console.log(error);
             dispatch({ type: "API_ERROR", payload: error });
+            return false;
         }
     }
 
@@ -104,11 +106,11 @@ const ProfileProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
-            console.log(resp);
             dispatch({ type: "LOGIN_SUCCESS" });
+            return false;
         } catch (error) {
-
             dispatch({ type: "LOGIN_ERROR", payload: error.response.data.message })
+            return error.response.data.message;
         }
     }
 

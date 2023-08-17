@@ -1,8 +1,12 @@
 import React from 'react'
+import { Toaster } from 'react-hot-toast'
 
 function AllClassesStudent() {
     return (
-        <div>AllClassesStudent</div>
+        <>
+            <Toaster />
+            <div>AllClassesStudent</div>
+        </>
     )
 }
 

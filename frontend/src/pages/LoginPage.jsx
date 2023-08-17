@@ -30,7 +30,7 @@ function LoginPage() {
             setPassword("");
             return;
         }
-        toast.error("Login success");
+        toast.success("Login success");
         checkLogin(checkLoginApi);
         navigate("/");
     }

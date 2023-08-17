@@ -17,25 +17,7 @@ function AllClassesTeacher() {
     const [className, setClassName] = useState("");
     const [InstituteCode, setInstituteCode] = useState("");
     const { profile = {} } = useProfileContext();
-    const { isClassLoading, classErrorMsg, isClassError, ownClasses, otherClasses, getClasses, addClass, joinInsitute, getError, isSuccess, classSuccessMsg, success_false } = useClassContext();
-
-
-
-    //DIPLAY WHENEVER ERROR
-    // useEffect(() => {
-    //     console.log("cehck use effect");
-    //     console.log(isSuccess);
-    //     if (isClassError) {
-    //         toast.error(classErrorMsg);
-    //         return;
-    //     }
-    //     if (isSuccess) {
-    //         toast.success(classSuccessMsg);
-    //         success_false();
-    //         return;
-    //     }
-    // }, [isClassError, isSuccess]);
-    //We have to use effect bcz once the error is run the value gets updates but cannot pass throught the chilrens bcz the control is in the hands of the await ultill it returns we have to wait for the function to execute completely and then it updates the value and then it passes to the rest of the part of the function
+    const { ownClasses, otherClasses, getClasses, addClass, joinInsitute } = useClassContext();
 
     //What class to display own/other
     const selectClassType = (e) => {
@@ -51,7 +33,6 @@ function AllClassesTeacher() {
         const pop = document.querySelector(".add-class");
         pop.classList.remove("hidden");
     }
-
 
     //JOIN ClASS/INSTITUTE HIDE
     const hidePop = () => {
@@ -79,7 +60,6 @@ function AllClassesTeacher() {
         hidePop();
     }
 
-
     //Join institute
     const joinNewInstitute = async (e) => {
         if (InstituteCode === "") {
@@ -98,10 +78,10 @@ function AllClassesTeacher() {
         hidePop();
     }
 
-    useEffect(() => {
-        console.log(profile);
-        getClasses(getClassApi);
-    }, [])
+    // useEffect(() => {
+    //     console.log(profile);
+    //     getClasses(getClassApi);
+    // }, [])
 
     return (
         <div className='container-fluid'>

@@ -8,7 +8,6 @@ import AddTeacherPop from './AddTeacherPop';
 
 function Members() {
     const { singleClass, admin, allTeachers = [] } = useClassContext();
-    console.log(allTeachers);
     const [display, setDisplay] = useState(0);
 
     //Number of students to display

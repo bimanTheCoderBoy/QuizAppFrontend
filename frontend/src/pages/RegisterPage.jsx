@@ -25,7 +25,7 @@ function RegisterPage() {
         }
 
         //Checking password match
-        if (password != Cpassword) {
+        if (password !== Cpassword) {
             toast.error("Confirm Password Does Not Match");
             setPassword("");
             setCPassword("");
@@ -47,8 +47,8 @@ function RegisterPage() {
             return;
         }
         toast.success("Registration success");
-        navigate("/");
         checkLogin(checkLoginApi);
+        navigate("/");
 
     }
 
@@ -99,46 +99,11 @@ function RegisterPage() {
                     </div>
                     <div className='submit register-submit'>
                         <input type="submit" value="REGISTER" onClick={(e) => Register(e)} />
-                        <Toaster />
                     </div>
                 </form>
             </div>
+            <Toaster />
         </div>
-
-        /* <form action="">
-                <div className='login-username login-data'>
-                    <label htmlFor="username">Username</label>
-                    <div>
-                        <AiOutlineUser />
-                        <input type="text" placeholder='Type your name' name='username' />
-                    </div>
-                </div>
-                <div className='login-useremail login-data'>
-                    <label htmlFor="useremail">UserEmail</label>
-                    <div>
-                        <AiOutlineUser />
-                        <input type="email" placeholder='Type your email' name='useremail' />
-                    </div>
-                </div>
-                <div className='login-password login-data'>
-                    <label htmlFor="userpassword">Password</label>
-                    <div>
-                        <AiOutlineLock />
-                        <input type="password" name="password" id="password" placeholder='Type your password' />
-                    </div>
-                </div>
-                <div className='login-confirm-password login-data'>
-                    <label htmlFor="userConfirmPassword">Confirm Password</label>
-                    <div>
-                        <AiOutlineLock />
-                        <input type="password" name="Cpassword" id="Cpassword" placeholder='Type your confirm password' />
-                    </div>
-                </div>
-                <div className='submit register'>
-                    <input type="submit" value="REGISTER" />
-                </div>
-            </form> */
-        /* </div> */
     )
 }
 

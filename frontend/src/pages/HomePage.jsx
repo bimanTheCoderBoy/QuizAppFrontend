@@ -7,6 +7,8 @@ import AllClassesTeacher from '../components/Classes/AllClassesTeacher';
 import AllClassesStudent from '../components/Classes/AllClassesStudent';
 import { useClassContext } from '../context/ClassContext';
 import { useProfileContext } from '../context/ProfileContext';
+import Loading from '../components/Loading';
+import { Toaster } from 'react-hot-toast';
 
 const GetProfileAPI = "/api/v1/getteacherprofile";
 const getHomePageDataApi = "/api/v1/getallclasses";
@@ -14,7 +16,7 @@ const GetMyTeachersAPI = "api/v1/getallteachers";
 
 function HomePage() {
     const { isLoading, profile = {}, getProfile, getMyTeachers } = useProfileContext();
-    const { role, getClasses } = useClassContext();
+    const { isClassLoading, role, getClasses } = useClassContext();
     useEffect(() => {
         getClasses(getHomePageDataApi);
         getProfile(GetProfileAPI);
@@ -23,9 +25,11 @@ function HomePage() {
     return (
         <>
             <NavbarComponent />
+            <Toaster />
             <Welcome />
             {
-                role === "teacher" ? <AllClassesTeacher /> : role === "student" ? < AllClassesStudent /> : <></>
+                isClassLoading ? <Loading /> :
+                    role === "teacher" ? <AllClassesTeacher /> : role === "student" ? < AllClassesStudent /> : <></>
             }
         </>
     )
