@@ -16,7 +16,7 @@ const getSingleClassAPI = "/api/v1/getclass"
 
 function SingleClassTeacherPage() {
     const { classid } = useParams();
-    const { getSingleClass, isClassLoading, isClassError } = useClassContext();
+    const { getSingleClass, isClassLoading, isClassError, singleClass } = useClassContext();
 
     //Selecting type for toggle button
     const [type, setType] = useState(0);
@@ -49,7 +49,7 @@ function SingleClassTeacherPage() {
                         {
                             isClassLoading ? <Loading /> :
                                 <>
-                                    <Classname/>
+                                    <Classname />
                                     <div className='container'>
                                         <div className='row'>
                                             <div className='col-md-8 col-12 main-area class-data'>

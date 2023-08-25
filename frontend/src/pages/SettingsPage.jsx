@@ -6,7 +6,8 @@ import "../style/Settings.css"
 import { useParams } from 'react-router-dom';
 import { useClassContext } from '../context/ClassContext';
 import { AiTwotoneDelete } from "react-icons/ai"
-
+import { FiEdit } from "react-icons/fi"
+import { MdOutlineDoneOutline } from "react-icons/md"
 
 const getClassApi = "/api/v1/getclass"
 const SettingsPage = () => {
@@ -54,7 +55,7 @@ const SettingsPage = () => {
           </div>
           <div className='col-md-10 col-12 m-0 p-0 '>
             {toggleState == 0 ? <div className='member-component'> <MemberComponent /></div>
-              : <div></div>
+              : <ProfileComponent />
             }
           </div>
         </div>
@@ -136,5 +137,42 @@ const MemberComponent = () => {
   )
 }
 
+
+//profile component
+const ProfileComponent = () => {
+  const [className, setClassName] = useState({ switch: false, data: "dfghjkl" })
+  console.log(className)
+  return (
+    <>
+      <div className="container-fluid">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 col-12 ">
+              <div className='profile-component row'>
+                {/* <div className="row"> */}
+                <div className="col-3 profile-component-head">Class Name</div>
+                <div className="col-7 ">
+                  <input type="text" className='profile-component-data' value={className.data} onChange={(e) => setClassName({ ...className, data: e.target.value })} />
+                </div>
+                <div className="col-2 profile-component-edit" style={{ cursor: "pointer" }}>
+                  {!className.switch ?
+
+                    <FiEdit onClick={(e) => setClassName({ ...className, switch: true })} />
+                    : <MdOutlineDoneOutline onClick={(e) => setClassName({ ...className, switch: false })} />
+                  }
+                </div>
+                {/* </div> */}
+              </div>
+
+            </div>
+            <div className='col-md-6 col-12'>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
 
 export default SettingsPage;

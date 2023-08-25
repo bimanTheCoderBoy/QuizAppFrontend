@@ -49,18 +49,31 @@ const getAllClass = async (req, res, next) => {
     const user = req.user;
     try {
 
+        if (user.role === "teacher") {
+            const userData = await User.findOne({ _id: user._id }).populate({ path: "ownclasses", select: ["name", "admin"] }).populate({ path: "otherclasses", select: ["name", "admin"] });
+            res.json({
+                success: true,
+                message: "getting all classes successfully",
+                ownClasses: userData.ownclasses,
+                otherClasses: userData.otherclasses,
+                userName: user.name,
+                role: user.role,
+            });
+        }
 
-        const userData = await User.findOne({ _id: user._id }).populate({ path: "ownclasses", select: ["name", "admin"] }).populate({ path: "otherclasses", select: ["name", "admin"] });
+        else if (user.role === "student") {
+            const userData = await User.findOne({ _id: user._id }).populate({ path: "myclasses", select: ["name"] });
+
+            res.json({
+                success: true,
+                message: "getting all classes successfully",
+                ownClasses: userData.myclasses,
+                userName: user.name,
+                role: user.role,
+            })
+        }
 
 
-        res.json({
-            success: true,
-            message: "getting all classes successfully",
-            ownClasses: userData.ownclasses,
-            otherClasses: userData.otherclasses,
-            userName: user.name,
-            role: user.role,
-        });
     } catch (error) {
         next(new ErrorHandler(error.message || "database error", 404))
     }
