@@ -49,7 +49,7 @@ function SingleClassTeacherPage() {
                         {
                             isClassLoading ? <Loading /> :
                                 <>
-                                    <Classname />
+                                    <Classname/>
                                     <div className='container'>
                                         <div className='row'>
                                             <div className='col-md-8 col-12 main-area class-data'>

@@ -118,7 +118,16 @@ const ClassReducer = (state, action) => {
             classSuccessMsg: action.payload,
         };
     }
-
+    //SUBTEACHER_PAIR_DELETED
+    else if(action.type ==="SUBTEACHER_PAIR_DELETED"){
+        const check = state.allTeachers;
+        delete check[action.index];
+        return{
+            ...state,
+            allTeachers: check,
+            isClassLoading: false,
+        }
+    }
 
     else {
         return {

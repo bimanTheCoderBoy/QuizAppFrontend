@@ -52,8 +52,6 @@ const getAllClass = async (req, res, next) => {
 
         const userData = await User.findOne({ _id: user._id }).populate({ path: "ownclasses", select: ["name", "admin"] }).populate({ path: "otherclasses", select: ["name", "admin"] });
 
-        // otherClasses = await User.find({ _id: user._id }).populate({ path: "otherclasses", select: ["name"] });
-
 
         res.json({
             success: true,
@@ -163,7 +161,6 @@ const getAllTeachers = async (req, res, next) => {
         const userData = await User.findById(instituteid).populate({ path: "otherteachers", select: ["name"] })
         // console.log(teachers)
         if (userData) {
-
             var teachers = userData.otherteachers
             teachers = [...teachers, { _id: instituteid, name: req.user.name }]
             res.json({
@@ -215,6 +212,9 @@ const getAllClassTeachers = async (req, res, next) => {
 const deleteSubTeacherPair = async (req, res, next) => {
     const { classid } = req.params
     const { teacherid } = req.body
+    console.log("ggggggggggggggggggggggggg")
+    console.log(req.body)
+
     try {
         const updatePair = await Class.updateOne({ _id: classid }, { $pull: { subteacherpair: { teacherid: teacherid } } })
         const updateTeacher = await User.updateOne({ _id: teacherid }, { $pull: { otherclasses: classid } })

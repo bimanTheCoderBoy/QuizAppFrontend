@@ -11,8 +11,6 @@ function Classname() {
     const { singleClass } = useClassContext();
     const { classid } = useParams();
     const [shwMem, setShwMem] = useState(0);
-
-
     //Member show in mobile
     const showMembers = (e) => {
         e.preventDefault();
