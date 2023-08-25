@@ -23,6 +23,7 @@ const ClassSchema = new mongoose.Schema({
     },
     admin: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
     subjects: {
         type:[{type:String}]
@@ -41,6 +42,9 @@ const ClassSchema = new mongoose.Schema({
         }],
        
     },
+    endemail:{
+        type:String,
+    }
 
 });
 

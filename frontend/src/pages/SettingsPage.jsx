@@ -8,6 +8,9 @@ import { useClassContext} from '../context/ClassContext';
 import {AiTwotoneDelete} from "react-icons/ai"
 import {FiEdit} from "react-icons/fi"
 import {MdOutlineDoneOutline}from "react-icons/md"
+import {AiFillLock} from "react-icons/ai"
+import {BsFillPersonFill} from "react-icons/bs"
+
 
 const getClassApi="/api/v1/getclass"
 const SettingsPage = () => {
@@ -139,31 +142,72 @@ const deleteTeacherpair=async(D_index,teacherid)=>{
 
 //profile component
 const ProfileComponent=()=>{
-  const [className,setClassName]=useState({switch:false,data:"dfghjkl"})
-  console.log(className)
+
+  const {singleClass}=useClassContext();
+  console.log(singleClass)
+  const [className,setClassName]=useState({switch:false,data:singleClass.name})
+  const [classCode,setClassCode]=useState({switch:false,data:singleClass.classcode})
+  const [classAdmin,setClassAdmin]=useState({switch:false,data:singleClass.admin})
+  const [classEndEmail,setClassEndEmail]=useState({switch:false,data:singleClass.endemail})
+  
+
   return(
     <>
-    <div className="container-fluid">
+    <div className="container-fluid ps-4">
     <div className="container">
     <div className="row">
     <div className="col-md-6 col-12 ">
-      <div className='profile-component row'>
-        {/* <div className="row"> */}
-          <div className="col-3 profile-component-head">Class Name</div>
+    {/* name */}
+      <div className='profile-component row mb-3' style={{boxShadow: !className.switch?"0 0 10px rgba(128, 128, 128, 0.295)":"0 0 10px #8864f0"}}>
+          <div className="col-3 profile-component-head" >Class Name</div>
           <div className="col-7 ">
-            <input type="text" className='profile-component-data' value={className.data} onChange={(e)=>setClassName({...className,data:e.target.value})} />
+            <input type="text" className='profile-component-data' value={className.data} onChange={(e)=>{if(className.switch){setClassName({...className,data:e.target.value})}}} />
           </div>
           <div className="col-2 profile-component-edit" style={{cursor:"pointer"} }>
           {!className.switch?
           
-          <FiEdit onClick={(e)=>setClassName({...className,switch:true})}/>
-          :<MdOutlineDoneOutline  onClick={(e)=>setClassName({...className,switch:false})}/>
+          <FiEdit onClick={(e)=>setClassName({...className,switch:true})} style={{color:"rgb(255, 183, 0)",fontSize:"1.3rem",}}/>
+          :<MdOutlineDoneOutline  onClick={(e)=>setClassName({...className,switch:false})} style={{color:"green",fontSize:"1.3rem"}}/>
           }
           </div>
-        {/* </div> */}
+
       </div>
+      {/* s-key */}
+      <div className='profile-component row mb-3' style={{boxShadow:"0 0 10px rgba(128, 128, 128, 0.295)"}}>
+          <div className="col-3 profile-component-head" >Class Code</div>
+          <div className="col-7 ">
+            <input type="text" className='profile-component-data' value={classCode.data} />
+          </div>
+          <div className="col-2 profile-component-edit"  >
+          <AiFillLock style={{color:"green",fontSize:"1.3rem",}}/>
+          </div>
+      </div>
+      {/* admin */}
+      <div className='profile-component row mb-3' style={{boxShadow:"0 0 10px rgba(128, 128, 128, 0.295)"}}>
+          <div className="col-3 profile-component-head" >Admin</div>
+          <div className="col-7 ">
+            <input type="text" className='profile-component-data' value={classAdmin.data.name} />
+          </div>
+          <div className="col-2 profile-component-edit" >
+          <BsFillPersonFill style={{color:"blue",fontSize:"1.3rem",}}/>
+          </div>
+      </div>
+      {/* end mail */}
+      <div className='profile-component row mb-3' style={{boxShadow: !classEndEmail.switch?"0 0 10px rgba(128, 128, 128, 0.295)":"0 0 10px #8864f0"}}>
+          <div className="col-3 profile-component-head" >End Email</div>
+          <div className="col-7 ">
+            <input type="text" className='profile-component-data' value={classEndEmail.data} onChange={(e)=>{if(classEndEmail.switch){setClassEndEmail({...classEndEmail,data:e.target.value})}}} />
+          </div>
+          <div className="col-2 profile-component-edit" style={{cursor:"pointer"} }>
+          {!classEndEmail.switch?
+          
+          <FiEdit onClick={(e)=>setClassEndEmail({...classEndEmail,switch:true})} style={{color:"rgb(255, 183, 0)",fontSize:"1.3rem",}}/>
+          :<MdOutlineDoneOutline  onClick={(e)=>setClassEndEmail({...classEndEmail,switch:false})} style={{color:"green",fontSize:"1.3rem"}}/>
+          }
+          </div>
+          </div>
     
-    </div>
+    </div> 
     <div className='col-md-6 col-12'>
 
     </div>

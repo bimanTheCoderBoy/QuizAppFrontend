@@ -73,7 +73,7 @@ const getAllClass = async (req, res, next) => {
 const getClass = async (req, res, next) => {
     const id = req.params.id;
     try {
-        var classData = await Class.findOne({ _id: id });
+        var classData = await Class.findOne({ _id: id }).populate({path:"admin",field:["name"]});
 
         const data = await Promise.all(classData.subteacherpair.map(async (e) => {
             const teacher = await User.findById(e.teacherid)
