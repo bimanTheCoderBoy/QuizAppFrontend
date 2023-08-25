@@ -11,7 +11,10 @@ const joinClass=async(req,res,next)=>{
     const classObj=await Class.findOne({classcode:classCode});
     if(classObj){
 
-    
+    const alreadyjoined=await Class.findOne({classcode:classCode});
+    if(alreadyjoined && alreadyjoined.students.includes(user._id)){
+        next(new ErrorHandler("you have already joined this class", 404))
+    }
     //adding user to the class
      const addstu= await Class.updateOne(
             {classcode:classCode},
