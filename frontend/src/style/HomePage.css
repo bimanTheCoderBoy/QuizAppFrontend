@@ -30,10 +30,6 @@
     padding: 2rem;
 }
 
-.class-area {
-    /* background-color: #8864f0; */
-}
-
 .class-btns {
     display: flex;
 }
@@ -45,8 +41,6 @@
     cursor: pointer;
     outline: none;
     color: white;
-    /* background-color: var(--check);
-     */
     color: #002443;
     background-color: #aed9ff;
     border: none;
@@ -78,7 +72,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 0.9rem;
+    margin-top: 0.6rem;
     margin-right: 1rem;
 }
 
@@ -101,16 +95,12 @@
     display: none;
 }
 
-
-
-
 .class {
     background-color: #aed9ff56;
     border: 1px solid var(--dark-blue);
     padding: 1rem;
     display: flex;
     gap: 1rem;
-    /* height: 10rem; */
     align-items: center;
     border-radius: 1rem;
     text-transform: uppercase;
@@ -192,6 +182,16 @@
 
 
 
+/* STUDENT PAGE MODIFICATION */
+.label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
 @media (max-width: 600px) {
     .all-classes-area {
         padding: 0rem 1rem;
@@ -201,9 +201,6 @@
         top: 25%
     }
 
-    .welcome-name {
-        /* font-size: 2rem; */
-    }
 }
 
 

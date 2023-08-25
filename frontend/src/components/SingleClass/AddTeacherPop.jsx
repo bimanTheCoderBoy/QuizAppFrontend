@@ -175,7 +175,6 @@ function AddTeacherPop({ props }) {
                         </>
                 }
             </div>
-            <Toaster />
         </>
     )
 }

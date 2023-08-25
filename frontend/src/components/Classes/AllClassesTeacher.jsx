@@ -1,12 +1,14 @@
-import { all } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { GrAdd } from "react-icons/gr";
 import { RxCross1 } from "react-icons/rx";
 import { useClassContext } from '../../context/ClassContext';
 import { NavLink } from 'react-router-dom';
-import { Toaster, toast } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useProfileContext } from '../../context/ProfileContext';
+import Loading from '../Loading';
 
+
+const GetMyTeachersAPI = "api/v1/getallteachers"
 const getClassApi = "/api/v1/getallclasses";
 const addClassApi = "/api/v1/createclass"
 const joinInstituteApi = "/api/v1/joininstitute";
@@ -16,8 +18,14 @@ function AllClassesTeacher() {
     const [cls, setCls] = useState(0);
     const [className, setClassName] = useState("");
     const [InstituteCode, setInstituteCode] = useState("");
-    const { profile = {} } = useProfileContext();
-    const { ownClasses, otherClasses, getClasses, addClass, joinInsitute } = useClassContext();
+    const { profile = {}, getMyTeachers } = useProfileContext();
+    const { isClassLoading, ownClasses, otherClasses, getClasses, addClass, joinInsitute } = useClassContext();
+
+    //Load All My Teachers
+    useEffect(() => {
+        getMyTeachers(GetMyTeachersAPI);
+    }, [])
+
 
     //What class to display own/other
     const selectClassType = (e) => {
@@ -55,19 +63,24 @@ function AllClassesTeacher() {
             return;
         }
         toast.success("Class Added Successfully");
+        hidePop();
         await getClasses(getClassApi);
         setClassName("");
-        hidePop();
     }
 
     //Join institute
     const joinNewInstitute = async (e) => {
+        e.preventDefault();
         if (InstituteCode === "") {
             toast.error('Please enter the code');
             return;
         }
-        e.preventDefault();
-        console.log(InstituteCode)
+
+        if (InstituteCode === profile.skey) {
+            toast.error("You Cannot Join Your Own Institute");
+            setInstituteCode("");
+            return;
+        }
         const error = await joinInsitute(joinInstituteApi, { InstituteCode });
         if (error) {
             toast.error(error);
@@ -78,26 +91,22 @@ function AllClassesTeacher() {
         hidePop();
     }
 
-    // useEffect(() => {
-    //     console.log(profile);
-    //     getClasses(getClassApi);
-    // }, [])
-
     return (
-        <div className='container-fluid'>
-            <div className='row all-classes-area'>
-                <div className='col-md-12 col-12'>
-                    <div className='class-area'>
-                        <div className='class-btns'>
-                            <button className='butn btn-left btn-active' onClick={(e) => { setCls(0); selectClassType(e); hidePop() }}>Own</button>
-                            <button className='butn btn-right' onClick={(e) => { setCls(1); selectClassType(e); hidePop() }}>Other</button>
-                            <div className='class-add-btn ms-auto' onClick={() => displayPop()}><GrAdd /></div>
-                        </div>
-                        <div className='all-classes'>
-                            {
+        <>
+            <div className='all-classes-area'>
+                <div className='class-btns'>
+                    <button className='butn btn-left btn-active' onClick={(e) => { setCls(0); selectClassType(e); hidePop() }}>Own</button>
+                    <button className='butn btn-right' onClick={(e) => { setCls(1); selectClassType(e); hidePop() }}>Other</button>
+                    <div className='class-add-btn ms-auto' onClick={() => displayPop()}><GrAdd /></div>
+                </div>
+                <div className='all-classes'>
+                    {
+                        isClassLoading ?
+                            <Loading /> :
+                            <>{
                                 cls ?
                                     otherClasses?.map((ele, i) => {
-                                        if (profile.id != ele.admin) {
+                                        if (profile.id !== ele.admin) {
                                             return (
                                                 <NavLink to={`/class/${ele._id}`} className='class' key={i}>
                                                     <div className='class-name'> {ele.name}</div>
@@ -115,8 +124,8 @@ function AllClassesTeacher() {
                                         )
                                     })
                             }
-                        </div>
-                    </div>
+                            </>
+                    }
                 </div>
             </div>
 
@@ -142,8 +151,7 @@ function AllClassesTeacher() {
                     }
                 </div>
             </div>
-            <Toaster />
-        </div>
+        </>
     )
 }
 

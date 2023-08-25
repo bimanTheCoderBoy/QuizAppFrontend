@@ -42,6 +42,24 @@ const ClassProvider = ({ children }) => {
         }
     }
 
+    //STUDENT JOIN CLASS
+    const joinClass = async (url, body) => {
+        try {
+            const resp = await axios.post(url,
+                JSON.stringify(body),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            dispatch({ type: "JOINED_CLASS" });
+            return false;
+        } catch (error) {
+            dispatch({ type: "API_ERROR", payload: error.response.data.message })
+            return error.response.data.message;
+        }
+    }
+
     //ADD CLASS
     const addClass = async (url, body) => {
         // dispatch({ type: "FALSE_SUCCESS" });
@@ -159,27 +177,27 @@ const ClassProvider = ({ children }) => {
 
     }
 
-//DELETE SUBTEACHER PAIR
-const deleteSubTeacherPair = async (url,{teacherid}, index) => {
-    
-    try {
-        dispatch({ type: "SET_LOADING" });
-        const resp = await axios.post(url, JSON.stringify({teacherid}),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            }
-        );
-        console.log(resp);
-        dispatch({ type: "SUBTEACHER_PAIR_DELETED", payload: resp , index: index});
-        return false;
-    } catch (error) {
-        dispatch({ type: "API_ERROR", payload: error.response.data.message });
-        return error.response.data.message;
-    }
+    //DELETE SUBTEACHER PAIR
+    const deleteSubTeacherPair = async (url, { teacherid }, index) => {
+
+        try {
+            dispatch({ type: "SET_LOADING" });
+            const resp = await axios.post(url, JSON.stringify({ teacherid }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                }
+            );
+            console.log(resp);
+            dispatch({ type: "SUBTEACHER_PAIR_DELETED", payload: resp, index: index });
+            return false;
+        } catch (error) {
+            dispatch({ type: "API_ERROR", payload: error.response.data.message });
+            return error.response.data.message;
+        }
     }
 
-    return <ClassContext.Provider value={{ ...state, getClasses, addClass, getSingleClass, joinInsitute, createSubject, getClassSubjects, addTeacherToClass, getAllClassTeachers,deleteSubTeacherPair }}>
+    return <ClassContext.Provider value={{ ...state, getClasses, joinClass, addClass, getSingleClass, joinInsitute, createSubject, getClassSubjects, addTeacherToClass, getAllClassTeachers, deleteSubTeacherPair }}>
         {children}
     </ClassContext.Provider>
 

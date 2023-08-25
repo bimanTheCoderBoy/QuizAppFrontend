@@ -7,8 +7,9 @@ import LandingPage from "./pages/LandingPage";
 import ProfilePage from "./pages/ProfilePage";
 import { useProfileContext } from "./context/ProfileContext";
 import SingleClassTeacherPage from "./pages/SingleClassTeacherPage";
-import Members from "./components/SingleClass/Members";
-import SettingsPage from "./pages/SettingsPage";
+import { Toaster } from "react-hot-toast";
+import NavbarComponent from "./components/NavbarComponent";
+import ClassSettingsPage from "./pages/ClassSettingsPage";
 
 const checkLoginApi = "/api/v1/isauth";
 
@@ -21,13 +22,17 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <Toaster />
       {
-        isLogin ? <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/class/:classid" element={<SingleClassTeacherPage />} />
-          <Route path="/classSettings/:classid" element={<SettingsPage />} />
-        </Routes>
+        isLogin ? <>
+          <NavbarComponent />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/class/:classid" element={<SingleClassTeacherPage />} />
+            <Route path="/class/:classid/classSettings" element={<ClassSettingsPage />} />
+          </Routes>
+        </>
           :
           <Routes>
             <Route path="/" element={<LandingPage />} />

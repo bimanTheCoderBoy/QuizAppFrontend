@@ -17,12 +17,6 @@ const initialState = {
     myTeachers: [],
 }
 
-const DemoProfile = {
-    name: "JB",
-    email: "jb@gmail.com",
-    otherTeachers: [{ name: "nk" }, { name: "bkd" }, { name: "sm" }],
-    institutes: [{ name: "spd" }, { name: "dkm" }]
-}
 
 const ProfileProvider = ({ children }) => {
     const [state, dispatch] = useReducer(ProfileReducer, initialState);
@@ -124,8 +118,10 @@ const ProfileProvider = ({ children }) => {
                 }
             );
             dispatch({ type: "LOGOUT_SUCCESS" });
+            return true;
         } catch (error) {
-            dispatch({ type: "LOGOUT_ERROR", payload: error.response.data.message })
+            dispatch({ type: "LOGOUT_ERROR", payload: error.response.data.message });
+            return false;
         }
     }
 

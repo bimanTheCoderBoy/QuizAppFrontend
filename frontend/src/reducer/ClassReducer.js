@@ -37,6 +37,13 @@ const ClassReducer = (state, action) => {
         }
     }
 
+    //JOIN_CLASS_STUDENT
+    else if (action.type === "JOINED_CLASS") {
+        return {
+            ...state,
+        }
+    }
+
     //JOIN INSTITUTE
     else if (action.type === "JOIN INSTITUTE") {
         return {
@@ -119,10 +126,10 @@ const ClassReducer = (state, action) => {
         };
     }
     //SUBTEACHER_PAIR_DELETED
-    else if(action.type ==="SUBTEACHER_PAIR_DELETED"){
+    else if (action.type === "SUBTEACHER_PAIR_DELETED") {
         const check = state.allTeachers;
         delete check[action.index];
-        return{
+        return {
             ...state,
             allTeachers: check,
             isClassLoading: false,

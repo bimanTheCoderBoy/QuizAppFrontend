@@ -9,7 +9,7 @@ import AddTeacherPop from './AddTeacherPop';
 function Members() {
     const { singleClass, admin, allTeachers = [] } = useClassContext();
     const [display, setDisplay] = useState(0);
-
+    console.log(singleClass);
     //Number of students to display
     const [studentNo, setStudentNo] = useState(singleClass.students?.length >= 3 ? 3 : singleClass.students?.length);
 

@@ -49,20 +49,31 @@ const getAllClass = async (req, res, next) => {
     const user = req.user;
     try {
 
+        if (user.role === "teacher") {
+            const userData = await User.findOne({ _id: user._id }).populate({ path: "ownclasses", select: ["name", "admin"] }).populate({ path: "otherclasses", select: ["name", "admin"] });
+            res.json({
+                success: true,
+                message: "getting all classes successfully",
+                ownClasses: userData.ownclasses,
+                otherClasses: userData.otherclasses,
+                userName: user.name,
+                role: user.role,
+            });
+        }
 
-        const userData = await User.findOne({ _id: user._id }).populate({ path: "ownclasses", select: ["name", "admin"] }).populate({ path: "otherclasses", select: ["name", "admin"] });
+        else if (user.role === "student") {
+            const userData = await User.findOne({ _id: user._id }).populate({ path: "myclasses", select: ["name"] });
 
-        // otherClasses = await User.find({ _id: user._id }).populate({ path: "otherclasses", select: ["name"] });
+            res.json({
+                success: true,
+                message: "getting all classes successfully",
+                ownClasses: userData.myclasses,
+                userName: user.name,
+                role: user.role,
+            })
+        }
 
 
-        res.json({
-            success: true,
-            message: "getting all classes successfully",
-            ownClasses: userData.ownclasses,
-            otherClasses: userData.otherclasses,
-            userName: user.name,
-            role: user.role,
-        });
     } catch (error) {
         next(new ErrorHandler(error.message || "database error", 404))
     }
@@ -163,7 +174,6 @@ const getAllTeachers = async (req, res, next) => {
         const userData = await User.findById(instituteid).populate({ path: "otherteachers", select: ["name"] })
         // console.log(teachers)
         if (userData) {
-
             var teachers = userData.otherteachers
             teachers = [...teachers, { _id: instituteid, name: req.user.name }]
             res.json({
@@ -216,8 +226,8 @@ const deleteSubTeacherPair = async (req, res, next) => {
     const { classid } = req.params
     const { teacherid } = req.body
     console.log("ggggggggggggggggggggggggg")
-    console.log(req.body )
- 
+    console.log(req.body)
+
     try {
         const updatePair = await Class.updateOne({ _id: classid }, { $pull: { subteacherpair: { teacherid: teacherid } } })
         const updateTeacher = await User.updateOne({ _id: teacherid }, { $pull: { otherclasses: classid } })
