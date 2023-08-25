@@ -10,6 +10,7 @@ import SingleClassTeacherPage from "./pages/SingleClassTeacherPage";
 import { Toaster } from "react-hot-toast";
 import NavbarComponent from "./components/NavbarComponent";
 import ClassSettingsPage from "./pages/ClassSettingsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 const checkLoginApi = "/api/v1/isauth";
 
@@ -30,7 +31,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/class/:classid" element={<SingleClassTeacherPage />} />
-            <Route path="/class/:classid/classSettings" element={<ClassSettingsPage />} />
+            <Route path="/class/:classid/classSettings" element={<SettingsPage />} />
           </Routes>
         </>
           :

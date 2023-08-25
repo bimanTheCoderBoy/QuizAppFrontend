@@ -19,6 +19,7 @@ function HomePage() {
     useEffect(() => {
         getClasses(getHomePageDataApi);
         getProfile(GetProfileAPI);
+        console.log()
     }, []);
     return (
         <>

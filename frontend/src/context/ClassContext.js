@@ -105,7 +105,6 @@ const ClassProvider = ({ children }) => {
         dispatch({ type: "SET_LOADING" });
         try {
             const resp = await axios.get(url);
-            console.log(resp);
             dispatch({ type: "SINGLE_CLASS", payload: resp.data });
         } catch (error) {
             dispatch({ type: "API_ERROR", payload: error.response?.data.message })

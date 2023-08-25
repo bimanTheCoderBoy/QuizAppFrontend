@@ -41,7 +41,6 @@ const SettingsPage = () => {
   }
   return (
     <>
-      <NavbarComponent />
       <div className='container-fluid'>
         <div className="settings-container-top">
           <h2>Class Settings </h2>
@@ -159,7 +158,7 @@ const ProfileComponent = () => {
           <div className="row">
             <div className="col-md-6 col-12 ">
               {/* name */}
-              <div className='profile-component row mb-3' style={{ boxShadow: !className.switch ? "0 0 10px rgba(128, 128, 128, 0.295)" : "0 0 10px #8864f0" }}>
+              <div className='profile-component row mb-4' style={{ boxShadow: !className.switch ? "0 0 10px rgba(128, 128, 128, 0.295)" : "0 0 10px #8864f0" }}>
                 <div className="col-3 profile-component-head" >Class Name</div>
                 <div className="col-7 ">
                   <input type="text" className='profile-component-data' value={className.data} onChange={(e) => { if (className.switch) { setClassName({ ...className, data: e.target.value }) } }} />
@@ -174,7 +173,7 @@ const ProfileComponent = () => {
 
               </div>
               {/* s-key */}
-              <div className='profile-component row mb-3' style={{ boxShadow: "0 0 10px rgba(128, 128, 128, 0.295)" }}>
+              <div className='profile-component row mb-4' style={{ boxShadow: "0 0 10px rgba(128, 128, 128, 0.295)" }}>
                 <div className="col-3 profile-component-head" >Class Code</div>
                 <div className="col-7 ">
                   <input type="text" className='profile-component-data' value={classCode.data} />
@@ -184,7 +183,7 @@ const ProfileComponent = () => {
                 </div>
               </div>
               {/* admin */}
-              <div className='profile-component row mb-3' style={{ boxShadow: "0 0 10px rgba(128, 128, 128, 0.295)" }}>
+              <div className='profile-component row mb-4' style={{ boxShadow: "0 0 10px rgba(128, 128, 128, 0.295)" }}>
                 <div className="col-3 profile-component-head" >Admin</div>
                 <div className="col-7 ">
                   <input type="text" className='profile-component-data' value={classAdmin.data.name} />
@@ -194,7 +193,7 @@ const ProfileComponent = () => {
                 </div>
               </div>
               {/* end mail */}
-              <div className='profile-component row mb-3' style={{ boxShadow: !classEndEmail.switch ? "0 0 10px rgba(128, 128, 128, 0.295)" : "0 0 10px #8864f0" }}>
+              <div className='profile-component row mb-4' style={{ boxShadow: !classEndEmail.switch ? "0 0 10px rgba(128, 128, 128, 0.295)" : "0 0 10px #8864f0" }}>
                 <div className="col-3 profile-component-head" >End Email</div>
                 <div className="col-7 ">
                   <input type="text" className='profile-component-data' value={classEndEmail.data} onChange={(e) => { if (classEndEmail.switch) { setClassEndEmail({ ...classEndEmail, data: e.target.value }) } }} />
