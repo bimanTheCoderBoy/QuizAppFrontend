@@ -1,11 +1,17 @@
 import React from 'react'
-import { Toaster } from 'react-hot-toast'
+import
 
-function AllClassesStudent() {
+cosnt AllClassesStudent= () => {
     return (
         <>
-            <Toaster />
-            <div>AllClassesStudent</div>
+            <div className='all-classes-area'>
+                <div className='col-md-12 col-12'>
+                    <div className='class-area'>
+                        <div className='class-btns'>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

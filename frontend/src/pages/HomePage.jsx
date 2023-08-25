@@ -24,12 +24,9 @@ function HomePage() {
     }, []);
     return (
         <>
-            <NavbarComponent />
-            <Toaster />
             <Welcome />
             {
-                isClassLoading ? <Loading /> :
-                    role === "teacher" ? <AllClassesTeacher /> : role === "student" ? < AllClassesStudent /> : <></>
+                role === "teacher" ? <AllClassesTeacher /> : role === "student" ? < AllClassesStudent /> : <></>
             }
         </>
     )

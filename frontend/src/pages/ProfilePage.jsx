@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import NavbarComponent from '../components/NavbarComponent';
 import { useClassContext } from '../context/ClassContext';
 import Loading from '../components/Loading';
+import { toast } from 'react-hot-toast';
 
 const LogoutApi = "api/v1/logout";
 const checkLoginApi = "api/v1/isauth";
@@ -13,14 +14,15 @@ function ProfilePage() {
     const { ownClasses, otherClasses } = useClassContext();
     const navigate = useNavigate();
 
-    const logout = () => {
+    const logout = async () => {
         userLogout(LogoutApi);
         navigate("/");
         checkLogin(checkLoginApi);
+        toast.success("Logout Success");
     }
+
     return (
         <>
-            <NavbarComponent />
             {
                 isLoading ?
                     <Loading />

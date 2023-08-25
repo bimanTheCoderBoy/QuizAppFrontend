@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { AiFillGoogleCircle, AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import { useProfileContext } from "../context/ProfileContext";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import "../style/LoginRegister.css";
 
 const RegisterAPI = "api/v1/register";
@@ -29,6 +29,7 @@ function RegisterPage() {
             toast.error("Confirm Password Does Not Match");
             setPassword("");
             setCPassword("");
+            return;
         }
         const check = await userRegistration(RegisterAPI, {
             email,
@@ -102,7 +103,6 @@ function RegisterPage() {
                     </div>
                 </form>
             </div>
-            <Toaster />
         </div>
     )
 }

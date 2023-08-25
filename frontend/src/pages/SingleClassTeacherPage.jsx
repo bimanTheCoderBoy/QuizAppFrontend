@@ -42,8 +42,6 @@ function SingleClassTeacherPage() {
 
     return (
         <>
-            <NavbarComponent />
-            {/* <Toaster /> */}
             {
                 isClassError ?
                     <>Error Occured</> :

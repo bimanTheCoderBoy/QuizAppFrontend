@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { AiFillGoogleCircle, AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import { useProfileContext } from "../context/ProfileContext";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import "../style/LoginRegister.css";
 
 const LoginAPI = "api/v1/login";
@@ -25,7 +25,7 @@ function LoginPage() {
             password
         });
         if (check) {
-            toast.error("User Email/Password Invalid");
+            toast.error(check);
             setEmail("");
             setPassword("");
             return;
@@ -57,7 +57,6 @@ function LoginPage() {
                     </div>
                     <div className='submit'>
                         <input type="submit" value="LOGIN" onClick={(e) => Login(e)} />
-                        <Toaster />
                     </div>
                     <div className='other-options'>
                         <p>Or Sign Up Using</p>
