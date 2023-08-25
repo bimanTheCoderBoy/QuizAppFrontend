@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import NavbarComponent from '../components/NavbarComponent';
 import { useClassContext } from '../context/ClassContext';
 import Loading from '../components/Loading';
-
 const LogoutApi = "api/v1/logout";
 const checkLoginApi = "api/v1/isauth";
 

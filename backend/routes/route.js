@@ -35,7 +35,7 @@ router.get("/getclass/:id", isloggedIn, getClass)
 router.post("/createsubject/:classid", isloggedIn, createSubject,)
 router.get("/getallsubjects/:classid", isloggedIn, getAllSubjects,)
 router.get("/getallteachers", isloggedIn, getAllTeachers,)
-router.delete("/deleteteacherpair/:classid", isloggedIn,deleteSubTeacherPair)
+router.post("/deleteteacherpair/:classid", isloggedIn,deleteSubTeacherPair)
 router.delete("/deleteclass/:classid", isloggedIn,deleteClass)
 router.get("/getallclassteachers/:classid", isloggedIn,getAllClassTeachers)
 

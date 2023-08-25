@@ -215,6 +215,9 @@ const getAllClassTeachers = async (req, res, next) => {
 const deleteSubTeacherPair = async (req, res, next) => {
     const { classid } = req.params
     const { teacherid } = req.body
+    console.log("ggggggggggggggggggggggggg")
+    console.log(req.body )
+ 
     try {
         const updatePair = await Class.updateOne({ _id: classid }, { $pull: { subteacherpair: { teacherid: teacherid } } })
         const updateTeacher = await User.updateOne({ _id: teacherid }, { $pull: { otherclasses: classid } })

@@ -10,8 +10,6 @@ import { NavLink } from 'react-router-dom';
 function Classname() {
     const { singleClass } = useClassContext();
     const [shwMem, setShwMem] = useState(0);
-
-
     //Member show in mobile
     const showMembers = (e) => {
         e.preventDefault();
@@ -36,7 +34,7 @@ function Classname() {
                     <div className='col-md-12 col-12 classname-area'>
                         <div className='classname'>{singleClass.name}</div>
                         <div className='class-member-btn ms-auto me-3' onClick={(e) => { showMembers(e) }}>{shwMem ? <RxCross1 /> : <GrGroup />}</div>
-                        <NavLink to="/classSettings" className="class-settings-open-btn">
+                        <NavLink to={`/classSettings/${singleClass._id}`} className="class-settings-open-btn">
                             <AiFillSetting />
                         </NavLink>
                     </div>
