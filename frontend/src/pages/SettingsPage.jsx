@@ -10,6 +10,8 @@ import {FiEdit} from "react-icons/fi"
 import {MdOutlineDoneOutline}from "react-icons/md"
 import {AiFillLock} from "react-icons/ai"
 import {BsFillPersonFill} from "react-icons/bs"
+import {HiUserGroup} from "react-icons/hi"
+import {GiTeacher} from "react-icons/gi"
 
 
 const getClassApi="/api/v1/getclass"
@@ -206,6 +208,21 @@ const ProfileComponent=()=>{
           }
           </div>
           </div>
+      {/* count */}
+      <div className='profile-component row mb-3'>
+        <div className='col-6'>
+          {
+            singleClass.students.length
+          }
+          <HiUserGroup />
+        </div>
+        <div className='col-6'>
+          {
+            20
+          }
+          <GiTeacher/>
+        </div>
+      </div>
     
     </div> 
     <div className='col-md-6 col-12'>
