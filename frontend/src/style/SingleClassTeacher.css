@@ -92,8 +92,10 @@
     border-bottom: 1px solid var(--check2);
 }
 
-.all-class-teachers .label {
-    text-align: center;
+
+.member-label {
+    display: flex;
+    justify-content: center;
     color: #002443;
     position: relative;
 }

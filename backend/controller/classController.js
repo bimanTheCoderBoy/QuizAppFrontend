@@ -84,7 +84,7 @@ const getAllClass = async (req, res, next) => {
 const getClass = async (req, res, next) => {
     const id = req.params.id;
     try {
-        var classData = await Class.findOne({ _id: id }).populate({path:"admin",field:["name"]});
+        var classData = await Class.findOne({ _id: id }).populate({ path: "admin", select: ["name"] }).populate({ path: "students", select: ["name"] });
 
         const data = await Promise.all(classData.subteacherpair.map(async (e) => {
             const teacher = await User.findById(e.teacherid)
@@ -102,7 +102,7 @@ const getClass = async (req, res, next) => {
                 message: "getting class successfully",
                 classData,
                 teacherarray: data,
-                isAdmin: req.user._id.equals(classData.admin)
+                isAdmin: req.user._id.equals(classData.admin._id)
             });
 
         } else {

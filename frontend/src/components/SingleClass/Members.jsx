@@ -26,7 +26,7 @@ function Members() {
             <div className='members mobile-hidden'>
                 <h5>Members</h5>
                 <div className='all-class-teachers'>
-                    <div className='label'>Teachers{admin ? <div className='add-teacher-btn' style={{ cursor: "pointer" }} onClick={(e) => { setDisplay(1) }}><AiOutlineUserAdd /></div> : <></>}</div>
+                    <div className='member-label'>Teachers{admin ? <div className='add-teacher-btn' style={{ cursor: "pointer" }} onClick={(e) => { setDisplay(1) }}><AiOutlineUserAdd /></div> : <></>}</div>
                     <div className='teachers-list'>
                         {/* techers list  */}
                         {
@@ -44,7 +44,7 @@ function Members() {
                     </div>
                 </div>
                 <div className='all-class-students'>
-                    <div className='label'>Students</div>
+                    <div className='member-label'>Students</div>
                     <div className='students-list'>
                         {
                             singleClass.students?.map((ele, i) => {
